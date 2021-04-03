@@ -1,0 +1,47 @@
+// npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node
+// eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save--dev
+// TODO: Some npm modules maybe missing, AJOUTE LES
+{
+    "extends": ["airbnb", "prettier"],
+    "plugins": ["prettier", "react"],
+    "rules": {
+        "prettier/prettier": [
+            "off",
+            {
+                "endOfLine": "auto",
+                "spaced-comment": "never"
+            }
+        ],
+        "endOfLine": "off",
+        "no-console": "warn",
+        "consistent-return": "off",
+        "func-names": "off",
+        "object-shorthand": "off",
+        "no-process-exit": "off",
+        "no-return-await": "off",
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "prefer-destructuring": ["warn", { "object": true, "array": false }],
+        "prefer-arrow-callback": "off",
+        "no-unused-vars": [
+            "error",
+            { "argsIgnorePattern": "req|res|next|val" }
+        ],
+        "spaced-comment": "off",
+        "no-param-reassign": "off",
+        "arrow-body-style": "off",
+        "import/prefer-default-export": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    },
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "es6": true
+    }
+}
