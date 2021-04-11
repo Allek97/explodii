@@ -1,0 +1,23 @@
+.heading-primary {
+    // background-image: linear-gradient(to right, #e0b011, #9e7c0c);
+    background-image: linear-gradient(to right, #445eb6, #09084b);
+    background-clip: text;
+    color: transparent;
+
+    // color: #e0b011;
+    font-family: "Merriweather", serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1rem;
+
+    transition: all 0.2s;
+
+    cursor: default;
+
+    &:hover {
+        // transform: skewY(-2deg) skewX(15deg) scale(1.1);
+        transform: scale(1.03);
+        text-shadow: 0.5rem 1rem 2rem rgba(black, 0.4);
+    }
+}

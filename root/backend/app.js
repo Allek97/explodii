@@ -7,6 +7,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -16,7 +17,7 @@ const reviewRouter = require("./routes/reviewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
 const viewRouter = require("./routes/viewRoutes");
 
-const app = express();
+const app = express().use("*", cors());
 
 app.set("view engine", "html");
 // app.set("views", path.join(__dirname, "views"));
@@ -35,7 +36,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Limit requests from same API
 const limiter = rateLimit({
-    max: 100,
+    max: 10000, // NOTE: I should change this number for security issues
     windowMs: 60 * 60 * 1000,
     message: "Too many requests from this IP, please try again in an hour!",
 });
@@ -73,6 +74,27 @@ app.use((req, res, next) => {
     // console.log("Bonjour")
     next();
 });
+
+// CORS browser bypass
+// app.use(
+//     cors({
+//         allowedHeaders: ["Content-Type"], // headers that React is sending to the API
+//         exposedHeaders: ["Content-Type"], // headers that you are sending back to React
+//         origin: "*",
+//         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//         preflightContinue: false,
+//     })
+// );
+
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//     );
+//     next();
+// });
 
 // 3) ROUTES
 app.use("/", viewRouter);

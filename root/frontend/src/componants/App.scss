@@ -1,3 +1,36 @@
+:root {
+    // See abstract file "_variables.scss" for true colors
+
+    --color-primary-light: 68, 94, 182;
+    --color-primary-dark: 9, 8, 75;
+
+    --color-secondary-light: 255, 185, 0;
+    --color-secondary-dark: 255, 119, 48;
+
+    --color-tertiary-light: 41, 152, 255;
+    --color-tertiary-dark: 86, 67, 250;
+
+    --color-quaternary: 85, 197, 122;
+    --color-quaternary-light: 126, 213, 111;
+    --color-quaternary-dark: 40, 180, 133;
+
+    --color-grey-light-1: 247, 247, 247;
+    --color-grey-light-2: 238, 238, 238;
+
+    --color-grey-dark: 119, 119, 119;
+    --color-grey-dark-2: 153, 153, 153;
+    --color-grey-dark-3: 51, 51, 51;
+
+    --color-white: #fff;
+    --color-black: #000;
+
+    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.6);
+
+    height: 100vh !important;
+    overflow-x: auto !important;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -20,11 +53,17 @@ html {
 }
 
 body {
-    font-family: "Open Sans", sans-serif !important;
-    font-weight: 600 !important;
-    line-height: 1.6 !important;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    line-height: 1.6;
 
-    height: 95vh !important;
+    box-sizing: border-box;
 
-    -webkit-font-smoothing: antialiased;
+    // -webkit-font-smoothing: antialiased;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
 }

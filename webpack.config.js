@@ -54,6 +54,21 @@ module.exports = {
                 loader: "url-loader?limit=10000&name=img/[name].[ext]",
             },
             // {
+            //     test: /\.ttf$/,
+            //     use: [
+            //         {
+            //             loader: "ttf-loader",
+            //             options: {
+            //                 name: "./font/[hash].[ext]",
+            //             },
+            //         },
+            //     ],
+            // },
+            {
+                test: /\.(woff|woff2|eot|ttf|svg)$/,
+                loader: "url-loader?limit=100000",
+            },
+            // {
             //     enforce: "pre",
             //     include: path.appSrc,
             //     test: /\.(js|jsx|mjs)$/,
@@ -61,7 +76,7 @@ module.exports = {
             //         {
             //             loader: require.resolve("eslint-loader"),
             //             options: {
-            //                 formatter: eslintFormatter,
+            //                 // formatter: eslintFormatter,
             //                 eslintPath: require.resolve("eslint"),
             //                 emitWarning: true,
             //             },

@@ -1,0 +1,387 @@
+@import "../../abstracts/_variables";
+
+@font-face {
+    font-family: Merriweather;
+    src: url("../../assets/fonts/Merriweather-Regular.ttf");
+
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+    font-family: Lato;
+    src: url("../../assets/fonts/Lato-Regular.ttf");
+}
+
+// HEADER
+
+.header {
+    position: relative;
+
+    height: 77.5rem;
+    // width: calc(100vw-3px);
+
+    background-image: url("../../assets/img/home/home-cover.jpg");
+    background-size: 99.999%; // FIXME: Image changing resolution at 100%.
+    background-position: top;
+    background-repeat: no-repeat;
+
+    &__logo-box {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        position: absolute;
+        top: 1rem;
+        left: 5rem;
+        transform: translateX(-50%);
+    }
+
+    &__logo {
+        height: 10rem;
+        width: 10rem;
+    }
+
+    &__headings {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__heading-primary {
+        color: #e0b011;
+
+        font-family: "Merriweather", serif;
+        font-size: 12.8rem;
+        font-weight: 400;
+    }
+
+    &__heading-secondary {
+        font-family: Roboto, sans-serif;
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #ffffff;
+    }
+
+    // &__arrow {
+    //     margin-top: 2rem;
+    //     &::before {
+    //         content: "";
+    //         display: inline-block;
+    //         height: 6.4rem;
+    //         width: 6.4rem;
+    //         // background-image: url("../../assets/svgs/arrow-down-sign-to-navigate.svg");
+
+    //         background-color: #e0b011;
+    //         mask-image: url("../../assets/svgs/arrow-down-sign-to-navigate.svg");
+    //         mask-size: cover;
+    //     }
+    // }
+
+    &__btn {
+        margin-top: 5rem;
+        border-radius: 10rem !important;
+        padding: 2.1rem 4rem !important;
+
+        &::after {
+            border-radius: 10rem !important;
+        }
+    }
+}
+
+// SECTION-ABOUT
+
+// .main {
+//     height: 100vh;
+// }
+
+.section-about {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "heading heading"
+        "text photo";
+
+    // height: 50vh;
+    width: calc(100vw-3px); // NOTE: VERY IMPORTANT TO FIX THE HORIZONTAL LAYOUT
+    // height: 80vh;
+
+    // background-image: linear-gradient(to right bottom, white, white);
+    background-image: url(../../assets/img/home/frozen-mountains-cover-2.jpg);
+    background-size: cover;
+    background-position: 0% 35%;
+
+    // background-image: linear-gradient(to right bottom, #9231393b, #923139),
+    // background-image: url("../../assets/img/home/frozen-mountains-cover.jpg");
+    // background-size: cover;
+    // background-position: 0% 90%;
+
+    .heading-about {
+        display: inline-block;
+
+        grid-area: heading;
+        justify-self: center;
+
+        margin-top: 10rem;
+    }
+
+    .aboutbox {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        grid-area: text;
+        justify-self: center;
+
+        width: 50%;
+        margin-top: 5rem;
+
+        &__heading-1,
+        &__heading-2 {
+            background-image: linear-gradient(
+                to bottom right,
+                #445eb6,
+                #09084b
+            );
+            background-clip: text;
+            color: transparent;
+
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        &__heading-2 {
+            margin-top: 8rem;
+        }
+
+        &__text-1,
+        &__text-2 {
+            margin-top: 1.7rem;
+
+            font-size: 1.6rem;
+            color: rgb(104, 96, 96);
+            // color: rgb(102, 93, 93);
+            // color: rgb(56, 56, 56);
+        }
+
+        &__btn {
+            display: flex;
+            align-items: center;
+            margin-top: 5rem;
+            margin-bottom: 2rem;
+            // height: 5rem !important;
+            width: 15rem;
+
+            text-align: center;
+        }
+    }
+
+    .composition {
+        position: relative;
+
+        // display: flex;
+        // flex-direction: column;
+        // text-align: start;
+        grid-area: photo;
+        width: 100%;
+
+        &__photo {
+            position: absolute;
+            z-index: 10;
+
+            transition: all 0.2s;
+            width: 45%;
+
+            box-shadow: 0 1.5rem 4rem rgba($color-black, 0.4);
+            border-radius: 2px;
+            outline-offset: 2rem;
+
+            &:hover {
+                outline: 1.5rem solid #252397;
+                transform: scale(1.05) translateY(-0.5rem);
+                box-shadow: 0 2.5rem 4rem rgba($color-black, 0.5);
+                z-index: 20;
+            }
+
+            &--1 {
+                left: 10%;
+                top: 4rem;
+            }
+
+            &--2 {
+                left: 40%;
+                top: 10rem;
+            }
+
+            &--3 {
+                left: 25%;
+                top: 25rem;
+                z-index: 11;
+            }
+        }
+    }
+}
+
+// SECTION-FEATURES
+
+.section-features {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+
+    // height: 85vh;
+    padding: 22.7rem 0;
+
+    background-image: url("../../assets/img/tours/tour-1-1.jpg");
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 29rem;
+    height: 40rem;
+    margin-top: -3rem;
+
+    background-color: rgba($color-white, 0.8);
+    font-size: 1.5rem;
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+    transition: transform 0.3s;
+
+    &__icon {
+        display: inline-block;
+        height: 7.5rem;
+        width: 7.5rem;
+
+        &--1 {
+            width: 9.7rem !important;
+
+            background-image: linear-gradient(
+                to bottom right,
+                #6981d1,
+                #12107a
+            );
+            mask-image: url("../../assets/svgs/map.svg");
+            mask-size: cover;
+        }
+        &--2 {
+            background-image: linear-gradient(
+                to bottom right,
+                #6981d1,
+                #12107a
+            );
+            mask-image: url("../../assets/svgs/global.svg");
+            mask-size: cover;
+        }
+        &--3 {
+            background-image: linear-gradient(
+                to bottom right,
+                #6981d1,
+                #12107a
+            );
+            mask-image: url("../../assets/svgs/compass.svg");
+            mask-size: cover;
+        }
+        &--4 {
+            background-image: linear-gradient(
+                to bottom right,
+                #6981d1,
+                #12107a
+            );
+            mask-image: url("../../assets/svgs/twitter.svg");
+            mask-size: cover;
+        }
+    }
+
+    &__heading {
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    &__text {
+        margin-top: -2.5rem;
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        transform: translateY(-1.5rem) scale(1.03);
+    }
+}
+
+// SECTION EXCURSIONS
+
+.section-excursions {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    // height: 130vh;
+    margin-top: -28vh;
+    padding: 10rem 0;
+
+    // background-image: url(../../assets/img/tours/tour-9-cover.jpg);
+    // background-size: cover;
+
+    // background-color: var(--color-white);
+    background-color: rgb(255, 255, 255);
+
+    .heading-tours {
+        margin-top: 25rem;
+    }
+
+    .cardbox {
+        display: grid;
+    }
+
+    .excursion-btn {
+        margin-top: 10rem;
+        border-radius: 10rem !important;
+        padding: 2.1rem 4rem !important;
+
+        &::after {
+            border-radius: 10rem !important;
+        }
+    }
+}
+
+.section-reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom: 5rem;
+
+    background-image: url("../../assets/img/home/mads-schmidt-rasmussen-6YmzwamGzCg-unsplash.jpg");
+    background-size: cover;
+    background-position: 0 60.5%;
+    background-repeat: no-repeat;
+
+    // height: 75vh;s
+}
+
+// SECTION REVIEWS

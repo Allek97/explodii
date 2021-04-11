@@ -1,0 +1,18 @@
+@mixin buttonColor($firstColor, $secondColor) {
+    background: linear-gradient(to bottom right, $firstColor, $secondColor);
+    color: $color-white;
+
+    &::after {
+        background: linear-gradient(to bottom right, $firstColor, $secondColor);
+        background: -webkit-linear-gradient(
+            to bottom right,
+            $firstColor,
+            $secondColor
+        );
+        background: -o-linear-gradient(
+            to bottom right,
+            $firstColor,
+            $secondColor
+        );
+    }
+}

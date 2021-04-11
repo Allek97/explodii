@@ -31,7 +31,10 @@
         "no-param-reassign": "off",
         "arrow-body-style": "off",
         "import/prefer-default-export": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "global-require": "warn",
+        "react/no-unescaped-entities": "off",
+        "prefer-template": "off"
     },
     "parserOptions": {
         "ecmaVersion": 2021,
