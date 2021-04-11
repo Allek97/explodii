@@ -1,6 +1,7 @@
 @keyframes slideFromLeft {
     0% {
-        transform: translateX(-100%);
+        opacity: 0;
+        transform: translateX(-50%);
     }
 
     100% {
@@ -10,7 +11,8 @@
 
 @keyframes slideFromRight {
     0% {
-        transform: translateX(100%);
+        opacity: 0;
+        transform: translateX(50%);
     }
 
     100% {
@@ -25,7 +27,7 @@
 
     100% {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
 
@@ -35,6 +37,27 @@
     }
 
     100% {
-        transform: translateX(200%);
+        opacity: 0;
+        transform: translateX(50%);
+    }
+}
+
+// Review animation changing
+
+@keyframes reviewSlideRight {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    51% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

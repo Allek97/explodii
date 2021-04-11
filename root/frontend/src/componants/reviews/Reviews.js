@@ -11,14 +11,16 @@ export default function Reviews() {
     const [reviews, setReviews] = useState([]);
     // This hook state will track which review should be displayed
     const [revIdx, setRevIdx] = useState(0);
-    // This state hook keep track if the componant should be mounted or unmounted
+    // This state hook will trigger revIdx change
     const [isMount, setMount] = useState(true);
-    // This state hook keep track if the componant should be mounted or unmounted
-    const [isComing, setComing] = useState(false);
     // Keep track on which direction the review will be coming/dissapearing
     const [direction, setDirection] = useState("right");
+    // Keep track of the type of animation
+    const [animationState, setAnimation] = useState(true);
     // Use this mutable hook to skip the first render voir: https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
     const initialRender = useRef(true);
+    // animation on render
+    const firstAnimation = useRef(true);
     // colors
     const rootColor = getComputedStyle(document.body);
     const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
@@ -32,9 +34,10 @@ export default function Reviews() {
     const slideFromRight = {
         animation: "slideFromRight 1s ease-in 1",
     };
+
     // Unmount
-    const slideToLeft = { animation: "slideToLeft 1s ease-in 1" };
-    const slideToRight = { animation: "slideToRight 1s ease-in 1" };
+    const slideToLeft = { animation: "slideToLeft 1s ease-out 1" };
+    const slideToRight = { animation: "slideToRight 1s ease-out 1" };
 
     // functions
     const setReviewStarsBg = (reviewVal) => {
@@ -75,11 +78,21 @@ export default function Reviews() {
         }
     };
     // mount/unmount style
-    const setMountStyle = (mountState, flow) => {
-        if (!mountState) {
-            return flow === "left" ? slideToLeft : slideToRight;
+    const setMountStyle = (stateAnimation, flow) => {
+        //NOTE: Deal with react strict mode
+        // if (firstAnimation.current) {
+        //     firstAnimation.current = false;
+        //     return slideFromLeft;
+        // }
+        if (stateAnimation) {
+            return flow === "right" ? slideFromLeft : slideFromRight;
         }
+        return flow === "right" ? slideToRight : slideToLeft;
     };
+
+    useEffect(() => {
+        firstAnimation.current = true;
+    }, []);
 
     // Request the reviews from my RestAPI while server is running
     useEffect(async () => {
@@ -104,6 +117,7 @@ export default function Reviews() {
                 config
             );
             setReviews(reviewsRes.data.data);
+            console.log("pute");
         } catch (err) {
             console.log(err);
         }
@@ -111,43 +125,45 @@ export default function Reviews() {
 
     // Delay The unmount of my componant(review)
     useEffect(() => {
-        let timeoutId;
+        let timeOut1;
+        let timeOut2;
         if (initialRender.current) {
             initialRender.current = false;
         } else {
-            console.log(`isMount : ${isMount}`);
-            if (!isMount) {
-                timeoutId = setTimeout(() => {
-                    switchReviewIdx(direction);
-                }, 1000);
-            }
+            // console.log("second render");
+            timeOut1 = setTimeout(() => {
+                switchReviewIdx(direction);
+            }, 1000);
 
-            // switchReviewIdx(direction);
+            timeOut2 = setTimeout(() => {
+                setAnimation(true);
+            }, 900);
         }
         return () => {
-            clearTimeout(timeoutId);
+            clearTimeout(timeOut1);
+            clearTimeout(timeOut2);
         };
     }, [isMount]);
 
     // wait before unmounting
-    useEffect(() => {
-        let timeoutId;
-        if (initialRender.current) {
-            initialRender.current = false;
-        } else {
-            timeoutId = setTimeout(() => {
-                setMount(true);
-            }, 1000);
+    // useEffect(() => {
+    //     let timeOut;
+    //     if (initialRender.current) {
+    //         initialRender.current = false;
+    //     } else {
+    //         console.log("here ?");
 
-            // switchReviewIdx(direction);
-        }
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    });
+    //     }
+
+    //     return () => {
+    //         clearTimeout(timeOut);
+    //     };
+    // }, [isMount]);
 
     console.log(revIdx);
     // console.log(isMount);
+    console.log(direction);
+    console.log(animationState);
 
     return (
         // eslint-disable-next-line react/jsx-no-comment-textnodes
@@ -158,7 +174,7 @@ export default function Reviews() {
                 aria-label="Change review"
                 tabIndex={0}
                 onClick={() => {
-                    // switchReviewIdx("left");
+                    setAnimation(false);
                     setDirection("left");
                     setMount(!isMount);
                 }}
@@ -169,11 +185,7 @@ export default function Reviews() {
             {revIdx === 0 && (
                 <div
                     className="review"
-                    style={
-                        isMount
-                            ? slideFromLeft
-                            : setMountStyle(isMount, direction)
-                    }
+                    style={setMountStyle(animationState, direction)}
                 >
                     {/* <img
                     // eslint-disable-next-line global-require
@@ -218,7 +230,7 @@ export default function Reviews() {
             {revIdx === 1 && (
                 <div
                     className="review"
-                    style={setMountStyle(isMount, direction)}
+                    style={setMountStyle(animationState, direction)}
                 >
                     {/* <img
                     // eslint-disable-next-line global-require
@@ -267,12 +279,11 @@ export default function Reviews() {
                 aria-label="Change review"
                 tabIndex={0}
                 onClick={() => {
+                    setAnimation(false);
                     setDirection("right");
                     setMount(!isMount);
                 }}
-                onKeyDown={() => {
-                    switchReviewIdx("right");
-                }}
+                onKeyDown={() => {}}
             />
         </div>
     );
