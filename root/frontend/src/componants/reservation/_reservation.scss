@@ -1,0 +1,159 @@
+@font-face {
+    font-family: Lato;
+    src: url("../../assets/fonts/Lato-Regular.ttf");
+}
+
+.reservation {
+    align-self: flex-start;
+    width: 75%;
+    box-shadow: var(--shadow-dark);
+
+    background-image: linear-gradient(
+            105deg,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0.9) 50%,
+            transparent 50%
+        ),
+        url(../../assets/img/home/reservation-cover.jpg);
+    background-size: cover;
+    background-position: 0% 50%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    // -webkit-clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+    // clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+
+    padding: 7.2rem;
+    width: max-content;
+    // background-color: orangered;
+
+    // height: 150rem;
+
+    &__input {
+        display: block;
+        transition: all 0.3s;
+
+        width: 50rem;
+        padding: 1.8rem 2rem;
+        margin-bottom: 5rem;
+
+        background-color: rgba(white, 0.75);
+
+        border-radius: 2px;
+        border: none;
+        border-bottom: 3px solid transparent;
+
+        font-size: 1.8rem;
+        font-family: "Lato", sans-serif;
+        color: rgb(var(--color-grey-dark));
+        font-weight: 400;
+
+        &:focus {
+            outline: none;
+            box-shadow: var(--shadow-dark);
+            border-bottom: 3px solid rgb(var(--color-primary-light));
+        }
+
+        &:focus:invalid {
+            border-bottom: 3px solid rgba(204, 0, 0, 1);
+        }
+
+        &::-webkit-input-placeholder {
+            color: rgb(var(--color-grey-dark));
+        }
+    }
+
+    &__label {
+        position: relative;
+    }
+
+    &__label-text {
+        position: absolute;
+        top: 7rem;
+        left: 2rem;
+
+        width: max-content;
+
+        // opacity: 0;
+        transition: all 0.3s;
+
+        font-size: 1.35rem;
+        font-family: "Lato", sans-serif;
+        color: rgb(var(--color-grey-dark));
+        font-weight: 700;
+    }
+
+    // Trick to apply css to the immediate adjacent neighbour under the placeholder-shown === true condition
+    &__input:placeholder-shown + &__label-text {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-5rem);
+    }
+
+    &__heading {
+        font-size: 2.7rem !important;
+        letter-spacing: 5px !important;
+
+        margin-bottom: 5rem;
+    }
+
+    &__btn {
+        padding: 1.5rem 4.8rem !important;
+        width: max-content;
+        align-self: flex-start;
+
+        border-radius: 10rem !important;
+
+        font-size: 2rem !important;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        text-align: center;
+
+        &::after {
+            border-radius: 10rem !important;
+        }
+    }
+
+    &__address-list {
+        // font-size: 1.5rem;
+        // font-family: "Lato", sans-serif;
+        // color: rgb(var(--color-grey-dark));
+        // font-weight: 700;
+
+        position: relative;
+
+        display: flex;
+
+        font-size: 1.7rem;
+        font-family: "Lato", sans-serif;
+        color: rgb(var(--color-grey-dark));
+        font-weight: 300;
+
+        list-style: none;
+
+        &::before {
+            content: "";
+
+            display: block;
+            height: 1.6rem;
+            width: 1.6rem;
+
+            background-image: linear-gradient(
+                to bottom right,
+                #6981d1,
+                #12107a
+            );
+            mask-image: url("../../assets/svgs/location1.svg");
+            mask-size: cover;
+
+            margin-top: 5px;
+            margin-right: 3px;
+        }
+        // height: 5rem;
+    }
+}

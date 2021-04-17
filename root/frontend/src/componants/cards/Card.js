@@ -49,8 +49,8 @@ export default function PopCards() {
             return {
                 backgroundImage: `linear-gradient(
                 to right,
-                rgba(85,96,159,1) ${decimal}% ,
-                rgba(0,0,0,0.25) ${100 - decimal}%
+                rgba(85,96,159,1) ${decimal}%,
+                rgba(0,0,0,0.25) ${decimal}%
             )`,
             };
         }
@@ -105,6 +105,7 @@ export default function PopCards() {
                                         <p className="starbox__review">
                                             Ratings:{" "}
                                         </p>
+                                        {/* {FIXME: Not working proprely} */}
                                         {[1, 2, 3, 4, 5].map((el) => {
                                             return (
                                                 <span

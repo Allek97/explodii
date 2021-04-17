@@ -269,6 +269,8 @@
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
     transition: transform 0.3s;
 
+    cursor: pointer;
+
     &__icon {
         display: inline-block;
         height: 7.5rem;
@@ -381,7 +383,21 @@
     background-position: 0 60.5%;
     background-repeat: no-repeat;
 
-    // height: 75vh;s
+    // height: 75vh;
 }
 
-// SECTION REVIEWS
+// SECTION RESERVATION
+
+.section-reservation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15rem 0;
+
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(var(--color-primary-light), 0.95),
+        rgba(var(--color-primary-dark), 0.95)
+    );
+}

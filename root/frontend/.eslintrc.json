@@ -25,7 +25,10 @@
         "prefer-arrow-callback": "off",
         "no-unused-vars": [
             "error",
-            { "argsIgnorePattern": "req|res|next|val" }
+            {
+                "argsIgnorePattern": "req|res|next|val",
+                "varsIgnorePattern": ""
+            }
         ],
         "spaced-comment": "off",
         "no-param-reassign": "off",

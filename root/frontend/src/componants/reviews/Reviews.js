@@ -1,26 +1,31 @@
+/* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-
-import useDelayUnmount from "../utils/UseDelayunmount";
 
 import "./_reviews.scss";
 import "../../base/_animations.scss";
 
 export default function Reviews() {
+    // VARIABLES
+
     const [reviews, setReviews] = useState([]);
+
     // This hook state will track which review should be displayed
     const [revIdx, setRevIdx] = useState(0);
+
     // This state hook will trigger revIdx change
     const [isMount, setMount] = useState(true);
+
     // Keep track on which direction the review will be coming/dissapearing
     const [direction, setDirection] = useState("right");
+
     // Keep track of the type of animation
     const [animationState, setAnimation] = useState(true);
+
     // Use this mutable hook to skip the first render voir: https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
     const initialRender = useRef(true);
-    // animation on render
-    const firstAnimation = useRef(true);
+
     // colors
     const rootColor = getComputedStyle(document.body);
     const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
@@ -29,17 +34,24 @@ export default function Reviews() {
     // Animations
     // Mount
     const slideFromLeft = {
-        animation: "slideFromLeft 1s ease-in 1",
+        animation: "slideFromLeft 0.7s ease-in 1",
     };
     const slideFromRight = {
-        animation: "slideFromRight 1s ease-in 1",
+        animation: "slideFromRight 0.7s ease-in 1",
     };
 
     // Unmount
-    const slideToLeft = { animation: "slideToLeft 1s ease-out 1" };
-    const slideToRight = { animation: "slideToRight 1s ease-out 1" };
+    const slideToLeft = {
+        animation: "slideToLeft 0.7s linear 1",
+    };
+    const slideToRight = {
+        animation: "slideToRight 0.7s linear 1",
+    };
 
-    // functions
+    // STYLE FUNCTIONS
+
+    // https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_gradient-linear,
+    // m'a fait comprendre en profondeur les linear-gradiants
     const setReviewStarsBg = (reviewVal) => {
         if (reviewVal) {
             let decimal = reviewVal - Math.floor(reviewVal);
@@ -47,8 +59,8 @@ export default function Reviews() {
             return {
                 backgroundImage: `linear-gradient(
                 to right,
-                rgba(85,96,159,1) ${decimal}% ,
-                rgba(0,0,0,0.25) ${100 - decimal}%
+                rgba(85,96,159,1) ${decimal}%,
+                rgba(0,0,0,0.25) ${decimal}%
             )`,
             };
         }
@@ -61,45 +73,67 @@ export default function Reviews() {
         };
     };
 
+    const setBackgroundUrlStyle = (tourBg) => {
+        // eslint-disable-next-line global-require
+        const userImg = require(`../../assets/img/users/${tourBg}`);
+        return {
+            backgroundImage: `linear-gradient(
+                to right,
+                rgba(13, 13, 63, 0.25),
+                rgba(11, 11, 59, 0.25)
+            ),url(${userImg.default})`,
+        };
+    };
+
+    // LOGIC FUNCTIONS
     const switchReviewIdx = (flow) => {
-        console.log("Changing Idx");
+        // console.log("Changing Idx");
         if (flow === "right") {
-            if (revIdx === reviews.length - 1) {
+            if (revIdx === reviews.length - 2) {
                 setRevIdx(0);
                 return;
             }
-            setRevIdx(revIdx + 1);
+            setRevIdx(revIdx + 2);
             return;
         }
         if (revIdx === 0) {
-            setRevIdx(reviews.length - 1);
+            setRevIdx(reviews.length - 2);
         } else {
-            setRevIdx(revIdx - 1);
+            setRevIdx(revIdx - 2);
         }
     };
     // mount/unmount style
     const setMountStyle = (stateAnimation, flow) => {
         //NOTE: Deal with react strict mode
-        // if (firstAnimation.current) {
-        //     firstAnimation.current = false;
-        //     return slideFromLeft;
-        // }
         if (stateAnimation) {
             return flow === "right" ? slideFromLeft : slideFromRight;
         }
         return flow === "right" ? slideToRight : slideToLeft;
     };
 
-    useEffect(() => {
-        firstAnimation.current = true;
-    }, []);
+    // Fonction to return unique reviews from unique users
+    const getUnique = (obj, filtProp) => {
+        const uniqueObj = new Map();
+
+        obj.forEach((el) => {
+            if (uniqueObj.has(el[filtProp])) {
+                if (Math.random < 0.5) {
+                    uniqueObj.set(el.user[filtProp], el);
+                }
+            } else {
+                uniqueObj.set(el.user[filtProp], el);
+            }
+        });
+        // console.log(uniqueObj);
+        return [...uniqueObj.values()];
+    };
 
     // Request the reviews from my RestAPI while server is running
     useEffect(async () => {
         try {
             const body = {
                 email: "admin@natours.io",
-                password: "test1234",
+                password: process.env.REACT_APP_ADMIN_PASSWORD,
             };
             // On doit login first pour recevoir le token
             const loginRes = await axios.post(
@@ -116,8 +150,11 @@ export default function Reviews() {
                 "http://localhost:5001/api/v1/reviews/",
                 config
             );
-            setReviews(reviewsRes.data.data);
-            console.log("pute");
+            let reviewsData = reviewsRes.data.data;
+            // Get reviews from unique users
+            reviewsData = getUnique(reviewsData, "name");
+
+            setReviews(reviewsData);
         } catch (err) {
             console.log(err);
         }
@@ -133,11 +170,11 @@ export default function Reviews() {
             // console.log("second render");
             timeOut1 = setTimeout(() => {
                 switchReviewIdx(direction);
-            }, 1000);
+            }, 650);
 
             timeOut2 = setTimeout(() => {
                 setAnimation(true);
-            }, 900);
+            }, 600);
         }
         return () => {
             clearTimeout(timeOut1);
@@ -145,146 +182,147 @@ export default function Reviews() {
         };
     }, [isMount]);
 
-    // wait before unmounting
-    // useEffect(() => {
-    //     let timeOut;
-    //     if (initialRender.current) {
-    //         initialRender.current = false;
-    //     } else {
-    //         console.log("here ?");
+    // Set interval for reviews to rotate every now and then
+    useEffect(() => {
+        const interval = setInterval(() => {
+            switchReviewIdx("right");
+        }, 5000);
 
-    //     }
+        return () => {
+            clearInterval(interval);
+        };
+    });
 
-    //     return () => {
-    //         clearTimeout(timeOut);
-    //     };
-    // }, [isMount]);
-
-    console.log(revIdx);
-    // console.log(isMount);
-    console.log(direction);
-    console.log(animationState);
+    // console.log(reviews);
+    // console.log(revIdx);
 
     return (
         // eslint-disable-next-line react/jsx-no-comment-textnodes
-        <div className="reviewsBox">
-            <span
-                className="arrow-left"
-                role="button"
-                aria-label="Change review"
-                tabIndex={0}
-                onClick={() => {
-                    setAnimation(false);
-                    setDirection("left");
-                    setMount(!isMount);
-                }}
-                onKeyDown={() => {
-                    // switchReviewIdx("left");
-                }}
-            />
-            {revIdx === 0 && (
-                <div
-                    className="review"
-                    style={setMountStyle(animationState, direction)}
-                >
-                    {/* <img
-                    // eslint-disable-next-line global-require
-                    src={require("../../assets/img/users/user-2.jpg").default}
-                    alt="user"
-                    className="review__picture"
-                /> */}
-                    <div className="review__picture">{}</div>
-                    <div className="review__text">
-                        "Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Doloribus adipisci, impedit voluptatibus commodi
-                        voluptatem error ratione quia. Saepe harum quis sunt
-                        reiciendis corporis odit fugiat odio praesentium
-                        debitis! Enim, sit.odit fugiat odio praesentium debitis!
-                        Enim, sit."
-                    </div>
-                    <div className="review__name">Yi Wung</div>
-                    <div className="review__rating">
-                        <ul className="starbox">
-                            {[1, 2, 3, 4, 5].map((el) => {
-                                return (
-                                    <span
-                                        key={uuidv4()}
-                                        id={uuidv4()}
-                                        className="starbox__star"
-                                        style={
-                                            reviews.rating > el
-                                                ? setReviewStarsBg()
-                                                : setReviewStarsBg(
-                                                      reviews.ratingsAverage
-                                                  )
-                                        }
+        <>
+            <div className="reviews-container">
+                <span
+                    className="arrow-left"
+                    role="button"
+                    aria-label="Change review"
+                    tabIndex={0}
+                    onClick={() => {
+                        setAnimation(false);
+                        setDirection("left");
+                        setMount(!isMount);
+                    }}
+                    onKeyDown={() => {
+                        // switchReviewIdx("left");
+                    }}
+                />
+                <div className="reviewBox">
+                    {reviews.map((review, idx) => {
+                        return (
+                            (idx === revIdx || idx === revIdx + 1) && (
+                                <div
+                                    key={uuidv4()}
+                                    id={uuidv4()}
+                                    className="review"
+                                    style={setMountStyle(
+                                        animationState,
+                                        direction
+                                    )}
+                                >
+                                    {/* <img
+                                    // eslint-disable-next-line global-require
+                                    src={require("../../assets/img/users/user-2.jpg").default}
+                                    alt="user"
+                                    className="review__picture"
+                            /> */}
+                                    <div
+                                        className="review__picture"
+                                        style={setBackgroundUrlStyle(
+                                            review.user.photo
+                                        )}
                                     >
                                         {}
-                                    </span>
-                                );
-                            })}
-                        </ul>
-                    </div>
+                                    </div>
+                                    <div className="review__text">
+                                        {review.review}
+                                    </div>
+                                    <div className="review__name">
+                                        {review.user.name}
+                                    </div>
+                                    <div className="review__rating">
+                                        <ul className="starbox">
+                                            {/* {FIXME: Not working proprely} */}
+                                            {[1, 2, 3, 4, 5].map((el) => {
+                                                // console.log(
+                                                //     `${review.user.name}: ${review.rating}`
+                                                // );
+                                                return (
+                                                    <span
+                                                        key={uuidv4()}
+                                                        id={uuidv4()}
+                                                        className="starbox__star"
+                                                        style={
+                                                            review.rating >= el
+                                                                ? setReviewStarsBg()
+                                                                : setReviewStarsBg(
+                                                                      review.rating
+                                                                  )
+                                                        }
+                                                    >
+                                                        {}
+                                                    </span>
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
+                            )
+                        );
+                    })}
                 </div>
-            )}
-            {revIdx === 1 && (
-                <div
-                    className="review"
-                    style={setMountStyle(animationState, direction)}
-                >
-                    {/* <img
-                    // eslint-disable-next-line global-require
-                    src={require("../../assets/img/users/user-2.jpg").default}
-                    alt="user"
-                    className="review__picture"
-                /> */}
-                    <div className="review__picture">{}</div>
-                    <div className="review__text">
-                        "Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Doloribus adipisci, impedit voluptatibus commodi
-                        voluptatem error ratione quia. Saepe harum quis sunt
-                        reiciendis corporis odit fugiat odio praesentium
-                        debitis! Enim, sit.odit fugiat odio praesentium debitis!
-                        Enim, sit."
-                    </div>
-                    <div className="review__name">SECOND TESTING</div>
-                    <div className="review__rating">
-                        <ul className="starbox">
-                            {[1, 2, 3, 4, 5].map((el) => {
-                                return (
-                                    <span
-                                        key={uuidv4()}
-                                        id={uuidv4()}
-                                        className="starbox__star"
-                                        style={
-                                            reviews.rating > el
-                                                ? setReviewStarsBg()
-                                                : setReviewStarsBg(
-                                                      reviews.ratingsAverage
-                                                  )
-                                        }
-                                    >
-                                        {}
-                                    </span>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                </div>
-            )}
 
-            <span
-                className="arrow-right"
-                role="button"
-                aria-label="Change review"
-                tabIndex={0}
-                onClick={() => {
-                    setAnimation(false);
-                    setDirection("right");
-                    setMount(!isMount);
-                }}
-                onKeyDown={() => {}}
-            />
-        </div>
+                <span
+                    className="arrow-right"
+                    role="button"
+                    aria-label="Change review"
+                    tabIndex={0}
+                    onClick={() => {
+                        setAnimation(false);
+                        setDirection("right");
+                        setMount(!isMount);
+                    }}
+                    onKeyDown={() => {}}
+                />
+            </div>
+            <div className="review-tracker">
+                {/* TODO: Add setTimout to rotate reviews */}
+                {reviews.map((el, idx) => {
+                    if (!(idx % 2)) {
+                        // console.log(`revIdx: ${revIdx} \n index:${idx}`);
+                        return (
+                            <div
+                                key={uuidv4()}
+                                id={uuidv4()}
+                                role="button"
+                                aria-label="Change review"
+                                tabIndex={0}
+                                onClick={() => {
+                                    setRevIdx(idx);
+                                }}
+                                onKeyDown={() => {
+                                    // TODO: Functions for changing reviews with keyboards
+                                }}
+                                className={
+                                    idx === revIdx
+                                        ? "carousel carousel--selected"
+                                        : "carousel"
+                                }
+                            >
+                                {}
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
+            </div>
+        </>
     );
 }

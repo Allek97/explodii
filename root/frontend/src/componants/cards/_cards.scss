@@ -29,6 +29,8 @@
 
         font-family: "Lato", sans-serif;
 
+        // cursor: pointer;
+
         &:hover .cardbox__side--front {
             transform: rotateY(-180deg);
         }

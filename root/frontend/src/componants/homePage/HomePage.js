@@ -4,6 +4,7 @@ import React from "react";
 // Componants
 import PopCards from "../cards/Card";
 import Reviews from "../reviews/Reviews";
+import Reservation from "../reservation/Reservation";
 
 // IMAGES
 import BirdLogo from "../../assets/img/home/bird-logo.png";
@@ -15,7 +16,7 @@ import Nat3 from "../../assets/img/tours/tour-9-3.jpg";
 // import Sprite from "../../assets/svgs/symbol-defs.svg";
 // SCSS
 import "./_homepage.scss";
-import "../../reusable/_button.scss";
+import "../reusable/_button.scss";
 import "../../base/_typography.scss";
 
 export default function HomePage() {
@@ -178,8 +179,8 @@ export default function HomePage() {
                     </h2>
                     <Reviews />
                 </section>
-                <section className="section-booking">
-                    {/*Make a reservation now*/}
+                <section className="section-reservation">
+                    <Reservation />
                 </section>
             </main>
         </>

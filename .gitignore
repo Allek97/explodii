@@ -18,9 +18,9 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
-E:\apps\explotours\root\backend\config.env
-E:\apps\explotours\root\frontend\public
-E:\apps\explotours\root\frontend\.env
+root/backend/config.env
+root/frontend/public
+root/frontend/.env
 
 npm-debug.log*
 yarn-debug.log*
