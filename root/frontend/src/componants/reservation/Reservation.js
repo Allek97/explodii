@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-restricted-globals */
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
@@ -12,17 +13,9 @@ import usePlacesAutocomplete, {
     getLatLng,
 } from "use-places-autocomplete";
 
-import {
-    Combobox,
-    ComboboxInput,
-    ComboboxPopover,
-    ComboboxList,
-    ComboboxOption,
-    ComboboxOptionText,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
-
 import useOnclickOutside from "react-cool-onclickoutside";
+
+import GoogleLogo from "../../assets/img/home/powered_by_google_on_white.png";
 
 const libraries = ["places"];
 
@@ -71,15 +64,8 @@ export default function reservation() {
                     <p className="form__label-text">Email</p>
                 </label>
                 <label htmlFor="address" className="form__label">
-                    {/* <input
-                        type="text"
-                        className="form__input"
-                        placeholder="Address"
-                        id="physical-address"
-                        required
-                    /> */}
+                    {}
                     <Search />
-                    <p className="form__label-text">Address</p>
                 </label>
                 <a
                     href="/"
@@ -91,6 +77,7 @@ export default function reservation() {
         </div>
     );
 }
+// NOTE: Ca vient de : https://www.npmjs.com/package/use-places-autocomplete
 
 function Search() {
     const {
@@ -118,7 +105,7 @@ function Search() {
         setValue(e.target.value);
     };
 
-    const handleSelect = (description) => async () => {
+    const handleSelect = ({ description }) => async () => {
         try {
             // When user selects a place, we can replace the keyword without request data from API
             // by setting the second parameter to "false"
@@ -136,34 +123,70 @@ function Search() {
     };
 
     return (
-        <div>
-            <Combobox>
-                <ComboboxInput
-                    className="form__input"
-                    value={value}
-                    onChange={handleInput}
-                    disabled={!ready}
-                    placeholder="Address"
-                    required
-                />
-                <ComboboxPopover key={uuidv4()} id={uuidv4()}>
-                    {/* NOTE: We can de-construct element directly from map function */}
-                    {status === "OK" &&
-                        data.map(({ description }) => {
-                            return (
-                                <>
-                                    <ComboboxOption
-                                        key={uuidv4()}
-                                        id={uuidv4()}
-                                        onClick={handleSelect(description)}
-                                        value={description}
-                                        className="form__address-list"
-                                    />
-                                </>
-                            );
-                        })}
-                </ComboboxPopover>
-            </Combobox>
+        <div ref={ref}>
+            <input
+                className="form__input"
+                id="address"
+                value={value}
+                onChange={handleInput}
+                disabled={!ready}
+                placeholder="Address"
+                required
+            />
+            <p className="form__label-text">Address</p>
+
+            {/* NOTE: We can de-construct element directly from map function */}
+            {status === "OK" && (
+                <ul className="form__suggestions">
+                    {data.map((suggestion) => {
+                        const {
+                            structured_formatting: {
+                                main_text,
+                                secondary_text,
+                            },
+                        } = suggestion;
+                        return (
+                            //  eslint-disable-next-line jsx-a11y/anchor-is-valid
+                            <a
+                                key={uuidv4()}
+                                id={uuidv4()}
+                                role="button"
+                                tabIndex={0}
+                                onClick={handleSelect(suggestion)}
+                                onKeyDown={() => {}}
+                                // value={description}
+                                className="form__address"
+                            >
+                                <span
+                                    style={{
+                                        width: "max-content",
+                                        textAlign: "match-parent",
+                                    }}
+                                >
+                                    <span
+                                        style={{
+                                            fontWeight: "600",
+                                            marginRight: ".5rem",
+                                        }}
+                                    >
+                                        {main_text}
+                                    </span>{" "}
+                                    <span
+                                        style={{
+                                            fontSize: "1.3rem",
+                                        }}
+                                    >
+                                        {secondary_text}
+                                    </span>
+                                </span>{" "}
+                            </a>
+                        );
+                    })}
+                    <div className="form__google-logo">
+                        <img src={GoogleLogo} alt="Power by google logo" />
+                    </div>
+                </ul>
+            )}
         </div>
     );
 }

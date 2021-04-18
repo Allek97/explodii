@@ -25,14 +25,8 @@
     justify-content: space-around;
     align-items: center;
 
-    // -webkit-clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-    // clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-
     padding: 7.2rem;
     width: max-content;
-    // background-color: orangered;
-
-    // height: 150rem;
 
     &__input {
         display: block;
@@ -79,7 +73,6 @@
 
         width: max-content;
 
-        // opacity: 0;
         transition: all 0.3s;
 
         font-size: 1.35rem;
@@ -119,29 +112,53 @@
         }
     }
 
-    &__address-list {
-        // font-size: 1.5rem;
-        // font-family: "Lato", sans-serif;
-        // color: rgb(var(--color-grey-dark));
-        // font-weight: 700;
+    &__suggestions {
+        position: absolute;
+        z-index: 2;
+        top: 5.9rem;
+        left: 0;
 
+        border-top: none;
+        border: 3px solid rgba(var(--color-primary-light), 1);
+
+        width: 100%;
+        box-shadow: var(--shadow-light);
+
+        background-color: rgb(241, 240, 240);
+    }
+
+    &__address {
         position: relative;
 
-        display: flex;
+        height: 5rem;
 
-        font-size: 1.7rem;
-        font-family: "Lato", sans-serif;
-        color: rgb(var(--color-grey-dark));
-        font-weight: 300;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
         list-style: none;
 
+        font-size: 1.8rem;
+        font-family: "Lato", sans-serif;
+        line-height: 1.6rem;
+
+        color: rgb(var(--color-grey-dark));
+        font-weight: 400;
+
+        cursor: pointer;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgba(var(--color-primary-light));
+        }
+
         &::before {
-            content: "";
+            // FIXME: WHY DO I NEED TO ADD CONTENT FOR SVG TO BE DISPLAYED CORRECTELLLY, PK ?
+            content: "content";
+            color: transparent;
 
             display: block;
-            height: 1.6rem;
-            width: 1.6rem;
+            height: 1.7rem;
+            width: 1.7rem;
 
             background-image: linear-gradient(
                 to bottom right,
@@ -151,9 +168,25 @@
             mask-image: url("../../assets/svgs/location1.svg");
             mask-size: cover;
 
-            margin-top: 5px;
+            margin-top: -2px;
             margin-right: 3px;
+            margin-left: 8px;
         }
-        // height: 5rem;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0px 16px #0005;
+        }
+
+        &:hover {
+            background-color: rgba(var(--color-primary-light), 0.45);
+        }
+    }
+
+    &__google-logo {
+        display: flex;
+        justify-content: flex-end;
+
+        padding: 1.7rem;
     }
 }
