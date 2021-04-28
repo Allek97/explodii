@@ -1,0 +1,108 @@
+<!-- NOTE: https://github.com/mjmlio/email-templates -->
+<!-- background-url="cid:tour-3-2-600x400" -->
+
+<mjml>
+    <mj-body background-color="#ffffff" font-size="13px">
+        <mj-section
+            background-url="cid:tour-3-2-600x400"
+            background-size="cover"
+            padding="100px"
+        >
+            <mj-column width="25.33333333333333%" vertical-align="middle">
+                <mj-image
+                    src="cid:mountain"
+                    alt="Mountain"
+                    padding-bottom="0px"
+                    padding-top="0px"
+                    padding-right="5px"
+                ></mj-image>
+            </mj-column>
+            <mj-column vertical-align="middle">
+                <mj-text
+                    vertical-align="middle"
+                    color="black"
+                    font-size="25px"
+                    font-weight="bold"
+                    font-family="open Sans Helvetica, Arial, sans-serif"
+                    padding-bottom="10px"
+                    padding-left="0px"
+                    padding-right="0px"
+                    >Explodii</mj-text
+                >
+            </mj-column>
+        </mj-section>
+        <mj-section
+            background-color="#010028"
+            vertical-align="top"
+            padding-bottom="0px"
+            padding-top="0"
+        >
+            <mj-column vertical-align="top" width="100%">
+                <mj-text
+                    align="left"
+                    color="#ffffff"
+                    font-size="45px"
+                    font-weight="bold"
+                    font-family="open Sans Helvetica, Arial, sans-serif"
+                    padding-left="25px"
+                    padding-right="25px"
+                    padding-bottom="30px"
+                    padding-top="50"
+                    >Welcome aboard</mj-text
+                >
+            </mj-column>
+        </mj-section>
+        <mj-section
+            background-color="#010028"
+            padding-bottom="20px"
+            padding-top="20"
+        >
+            <mj-column vertical-align="middle" width="100%">
+                <mj-text
+                    align="left"
+                    color="#ffffff"
+                    font-size="22px"
+                    font-family="open Sans Helvetica, Arial, sans-serif"
+                    padding-left="25px"
+                    padding-right="25px"
+                    ><span style="color:#3be5dd">Dear {{FirstName}}</span
+                    ><br /><br />
+                    Welcome to {{CompanyName}}.</mj-text
+                >
+                <mj-text
+                    align="left"
+                    color="#ffffff"
+                    font-size="15px"
+                    font-family="open Sans Helvetica, Arial, sans-serif"
+                    padding-left="25px"
+                    padding-right="25px"
+                    >We&apos;re really excited you&apos;ve decided to give us a
+                    try. In case you have any questions, feel free to reach out
+                    to us at {{ContactEmail}}. You can login to your account
+                    with your username {{UserName}}</mj-text
+                >
+                <mj-button
+                    href="{{Link}}"
+                    align="left"
+                    font-size="22px"
+                    font-weight="bold"
+                    background-color="#3be5dd"
+                    border-radius="10px"
+                    color="black"
+                    font-family="open Sans Helvetica, Arial, sans-serif"
+                    >Login</mj-button
+                >
+                <mj-text
+                    align="left"
+                    color="#ffffff"
+                    font-size="15px"
+                    font-family="open Sans Helvetica, Arial, sans-serif"
+                    padding-left="25px"
+                    padding-right="25px"
+                    >Thanks, <br />
+                    The {{CompanyName}} Team</mj-text
+                >
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

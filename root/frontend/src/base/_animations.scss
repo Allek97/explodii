@@ -61,3 +61,36 @@
         transform: translateX(0);
     }
 }
+
+// Text Rotating Componants Animations
+
+@keyframes slideFromBottom {
+    0% {
+        // opacity: 0;
+        transform: translateY(120%);
+    }
+    100% {
+        // opacity: 1;
+        transform: translateY(20%);
+    }
+}
+@keyframes slideToTop {
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes rotationAnimation {
+    0% {
+        transform: translateY(100%);
+    }
+    25% {
+        transform: translateY(0);
+    }
+    90% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}

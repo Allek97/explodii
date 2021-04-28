@@ -1,0 +1,39 @@
+@font-face {
+    font-family: Manrope;
+    src: url("../../assets/fonts/Manrope-ExtraBold.ttf");
+}
+
+.rotate {
+    display: flex;
+    align-items: center;
+
+    width: 41rem;
+
+    // NOTE: VERY TO MAKE SCROLLING ANIMATION WHERE OBJECT DISSAPEAR
+    overflow: hidden;
+
+    &__side {
+        height: 4.5rem;
+        flex: 0 0 5px;
+        margin-right: 2.4rem;
+
+        border-radius: 1.2rem;
+
+        background-color: #3be5dd;
+    }
+
+    &__container {
+        overflow: hidden;
+    }
+
+    &__text {
+        font-family: "Manrope" sans-serif;
+        font-size: 1.74rem;
+        // background-image: linear-gradient(to bottom, #3be5dd, #75eee8);
+        // background-clip: text;
+        // color: transparent;
+
+        color: #3be5dd;
+        font-weight: 900;
+    }
+}

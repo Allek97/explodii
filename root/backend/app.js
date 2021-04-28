@@ -8,6 +8,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const exphbs = require("express-handlebars");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -19,12 +20,21 @@ const viewRouter = require("./routes/viewRoutes");
 
 const app = express().use("*", cors());
 
-app.set("view engine", "html");
-// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "html");
+app.engine(
+    "hbs",
+    exphbs({
+        extname: ".hbs",
+        defaultLayout: "main",
+    })
+);
+
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
 
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
-app.use(express.static(path.join(__dirname, "../frontend/public/")));
+app.use("/static", express.static(path.join(__dirname, "../frontend/public/")));
 
 // Set security HTTP headers
 app.use(helmet());

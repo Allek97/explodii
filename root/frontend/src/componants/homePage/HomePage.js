@@ -1,19 +1,25 @@
 import React from "react";
+
+import { useState, useEffect, useRef } from "react";
+
 // import { v4 as uuidv4 } from "uuid";
 
 // Componants
 import PopCards from "../cards/Card";
 import Reviews from "../reviews/Reviews";
 import Reservation from "../reservation/Reservation";
+import Globe from "../globe/Globe";
+import RotatingText from "../rotatingText/RotatingText";
+// import Earth from "../earth/Earth";
 
 // IMAGES
-import BirdLogo from "../../assets/img/home/bird-logo.png";
-import Nat1 from "../../assets/img/tours/tour-1-1.jpg";
+// import BirdLogo from "../../assets/img/home/bird-logo.png";
+import Nat1 from "../../assets/img/tours/tour-5-1.jpg";
 import Nat2 from "../../assets/img/tours/tour-3-2.jpg";
 import Nat3 from "../../assets/img/tours/tour-9-3.jpg";
-// import Banner from "../../assets/img/home/banner.png";
-// SVGS
-// import Sprite from "../../assets/svgs/symbol-defs.svg";
+
+// VIDEOS
+import BgVideo from "../../assets/videos/cosmos.mp4";
 // SCSS
 import "./_homepage.scss";
 import "../reusable/_button.scss";
@@ -23,28 +29,33 @@ export default function HomePage() {
     return (
         <>
             <header className="header">
-                <div className="header__logo-box">
-                    {/* <img src={BirdLogo} alt="logo" className="header__logo" /> */}
-                    {/* <img
-                    src={Banner}
-                    alt="banner for logo"
-                    className="header__banner"
-                /> */}
-                    {/* <div className="header__logo-text">Adventure</div> */}
+                <div className="dash">
+                    <div className="dash__logo-box">
+                        <div className="dash__logo">{}</div>
+                        <div className="dash__logo-text">explodii</div>
+                    </div>
+                    <a href="/login" className="dash__btn">
+                        Log In
+                    </a>
+                    <a href="/signup" className="dash__btn">
+                        Sign Up
+                    </a>
                 </div>
+                {/* eslint-disable-next-line react/no-unknown-property */}
+                {/* <svg>{Earth()}</svg> */}
                 <div className="header__headings">
-                    <h1 className="header__heading-primary">Explotour</h1>
-                    <h2 className="header__heading-secondary">
-                        Your nature travel
-                    </h2>
-                    {/* <div className="header__arrow">{}</div> */}
-                    <a
-                        href="/"
-                        className="header__btn btn btn--explo btn--gold btn--animated"
-                    >
+                    <h1 className="header__heading-primary">
+                        Discover New Places,Meet New People and Travel.
+                    </h1>
+
+                    <RotatingText className="header__heading-secondary" />
+
+                    <a href="/" className="header__btn">
                         See our excursions
                     </a>
                 </div>
+
+                <Globe className="header__globe" />
             </header>
 
             <main>
@@ -186,7 +197,7 @@ export default function HomePage() {
             <footer className="footer">
                 <div className="footer__logobox">
                     <div className="footer__logo">{}</div>
-                    <h1 className="footer__logo-heading">Explotour</h1>
+                    <h1 className="footer__logo-heading">Explodii</h1>
                 </div>
                 <div className="footer__content">
                     <div className="footer__navigation">
