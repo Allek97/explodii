@@ -25,7 +25,6 @@ export default function Reviews() {
 
     // Use this mutable hook to skip the first render voir: https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
     const initialRender = useRef(true);
-
     // colors
     const rootColor = getComputedStyle(document.body);
     const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
@@ -131,24 +130,30 @@ export default function Reviews() {
     // Request the reviews from my RestAPI while server is running
     useEffect(async () => {
         try {
-            const body = {
-                email: "admin@natours.io",
-                password: process.env.REACT_APP_ADMIN_PASSWORD,
-            };
-            // On doit login first pour recevoir le token
-            const loginRes = await axios.post(
-                "http://localhost:5001/api/v1/users/login",
-                body
-            );
-            const { token } = loginRes.data;
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            };
+            // BUG: https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app
+            // NOTE: I need to make requests to backend that willl store my sensitive variables so I can get the data I need, react .env file is not secure
+
+            // TODO: FIND A WAY TO GET RESTRICTED DATA FREOM BACKEND WITHOUT JWT / LOGIN
+
+            // const body = {
+            //     email: "admin@natours.io",
+            //     password: process.env.REACT_APP_ADMIN_PASSWORD,
+            //     adminCode: process.env.REACT_APP_ADMIN_SPECIAL_CODE, // NOTE: Not secure everyone can view it in dev tools
+            // };
+            // // On doit login first pour recevoir le token
+            // const loginRes = await axios.post(
+            //     "http://localhost:5001/api/v1/users/login",
+            //     body,
+            //     { withCredentials: true, credentials: "include" } // For allowing cookie stooring
+            // );
+            // const { token } = loginRes.data;
+            // const config = {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //     },
+            // };
             const reviewsRes = await axios.get(
-                "http://localhost:5001/api/v1/reviews/",
-                config
+                "http://localhost:5001/api/v1/reviews/"
             );
             let reviewsData = reviewsRes.data.data;
             // Get reviews from unique users

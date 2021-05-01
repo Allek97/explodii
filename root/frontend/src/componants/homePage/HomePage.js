@@ -1,6 +1,7 @@
 import React from "react";
-
 import { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
 
 // import { v4 as uuidv4 } from "uuid";
 
@@ -25,22 +26,60 @@ import "./_homepage.scss";
 import "../reusable/_button.scss";
 import "../../base/_typography.scss";
 
-export default function HomePage() {
+export default function HomePage(props) {
+    // Props
+    const { authStatus, userName, userPhoto } = props;
+
+    const handleLogOut = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.get("http://localhost:5001/api/v1/users/logout", {
+                withCredentials: true,
+            });
+            window.location.assign("/");
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
+    };
+
+    console.log(userName);
+
     return (
         <>
             <header className="header">
-                <div className="dash">
-                    <div className="dash__logo-box">
-                        <div className="dash__logo">{}</div>
-                        <div className="dash__logo-text">explodii</div>
+                <div className="navBar navBar--homepage">
+                    <div className="navBar__logo-box">
+                        <div className="navBar__logo navBar__logo--homepage">
+                            {}
+                        </div>
+                        <div className="navBar__logo-text navBar__logo-text--homepage">
+                            explodii
+                        </div>
                     </div>
-                    <a href="/login" className="dash__btn">
-                        Log In
-                    </a>
-                    <a href="/signup" className="dash__btn">
-                        Sign Up
-                    </a>
+                    {!authStatus ? (
+                        <a href="/login" className="navBar__btn">
+                            Log In
+                        </a>
+                    ) : (
+                        <a
+                            href="/"
+                            className="navBar__btn"
+                            onClick={handleLogOut}
+                        >
+                            Log Out
+                        </a>
+                    )}
+                    {!authStatus ? (
+                        <a href="/signup" className="navBar__btn">
+                            Sign Up
+                        </a>
+                    ) : (
+                        <a href="/signup" className="navBar__btn">
+                            {`${userName}`}
+                        </a>
+                    )}
                 </div>
+
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 {/* <svg>{Earth()}</svg> */}
                 <div className="header__headings">
@@ -255,3 +294,11 @@ export default function HomePage() {
         </>
     );
 }
+
+HomePage.propTypes = {
+    authStatus: PropTypes.bool.isRequired,
+    userName: PropTypes.string.isRequired,
+    userPhoto: PropTypes.string.isRequired,
+};
+
+// NOTE: If not required use HomePage.defaultProps

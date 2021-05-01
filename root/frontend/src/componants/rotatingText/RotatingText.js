@@ -42,8 +42,6 @@ export default function RotatingText() {
         };
     }, [index]);
 
-    console.log(index);
-
     return (
         <div className="rotate">
             <span className="rotate__side">{}</span>

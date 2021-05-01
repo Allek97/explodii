@@ -1,8 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 import "./_signUp.scss";
+import "../reusable/_navBar.scss";
+
+// Stylying and animations
+const signupMsgAnimation = {
+    animation: "signupStatusEffect .6s linear 1",
+};
+
+// TODO: MAKE BACKGROUND UNCLICKABLE POINTERS EVENT
 
 export default function SignUp() {
     // All the form inputs that will be send to our DB
@@ -14,8 +23,9 @@ export default function SignUp() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [passworConfirmError, setPasswordConfirmError] = useState("");
-
-    // const [validationErrors, setValidationErrors] = useState([]);
+    // Signup Status, to confirm that use has signed up
+    const [signupStatus, setSignupStatus] = useState(false);
+    // Keep track of the log status and display a succesful signup message
 
     const handleSubmit = async (e) => {
         try {
@@ -32,7 +42,14 @@ export default function SignUp() {
                 passwordConfirm,
             };
 
-            await axios.post("http://localhost:5001/api/v1/users/signup", body);
+            const res = await axios.post(
+                "http://localhost:5001/api/v1/users/signup",
+                body
+            );
+
+            // if (res.data.status === "success") {
+            //     setLogStatus(true);
+            // }
         } catch (err) {
             // NOTE: See userModel for validation errors
             console.log(err.response.data.message);
@@ -60,151 +77,180 @@ export default function SignUp() {
                     el.match("([^:]+$)")[1]
                 );
             });
-            setEmailError(errorList.get("email"));
-            setPasswordError(errorList.get("password"));
-            setPasswordConfirmError(errorList.get("passwordConfirm"));
+            setEmailError(errorList.get(" email"));
+            setPasswordError(errorList.get(" password"));
+            setPasswordConfirmError(errorList.get(" passwordConfirm"));
 
-            console.log(emailError);
+            console.log(errorList);
         }
     };
 
-    useEffect(() => {
-        return () => {};
-    }, []);
-
     return (
-        <div className="signup">
-            {/* <span className="signup__abstract">{}</span> */}
-            <div className="signupNav">
-                <div className="signupNav__logo-box">
-                    <div className="signupNav__logo">{}</div>
-                    <div className="signupNav__logo-text">explodii</div>
-                </div>
-                <a href="/" className="signupNav__btn">
-                    Homepage
-                </a>
-                <a href="/signup" className="signupNav__btn">
-                    Our excursions
-                </a>
-            </div>
-            <div className="signup-info">
-                <div className="signup-info__heading">
-                    Join us and experience wonderful adventures all over the
-                    world by signing up below
-                </div>
-            </div>
-
-            <div className="signupBox">
-                <form onSubmit={handleSubmit} className="signupForm">
-                    <h2 className="signupForm__heading">Sign Up</h2>
-                    <div className="signupForm__illustration">{}</div>
-                    <div className="signupForm__name-email">
-                        <p className="signupForm__label-text signupForm__label-text--1">
-                            Full name
-                        </p>
-                        <label
-                            htmlFor="full-name"
-                            className="signupForm__label signupForm__label--1"
+        <>
+            {signupStatus && (
+                <div className="success-signup" style={signupMsgAnimation}>
+                    <div className="success-signup__bg" />
+                    <div style={{ paddingBottom: "4rem" }}>
+                        <h1
+                            style={{
+                                fontSize: "3.5rem",
+                                fontWeight: "bolder",
+                                textAlign: "center",
+                                paddingTop: "5rem",
+                            }}
                         >
+                            Welcome to Explodii
+                        </h1>
+                        <p
+                            style={{
+                                fontSize: "1.7rem",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                padding: "3rem",
+                                paddingTop: "1.5rem",
+                            }}
+                        >
+                            Congratulation for taking your first steps towards
+                            experiencing adventures all over the world!
+                        </p>
+                        <a href="/" className="success-signup__btn">
+                            Continue
+                        </a>
+                    </div>
+                </div>
+            )}
+            <div
+                className="signup"
+                style={
+                    signupStatus
+                        ? { filter: "blur(8px)", pointerEvents: "none" }
+                        : null
+                }
+            >
+                {/* <span className="signup__abstract">{}</span> */}
+                <div className="navBar navBar--signup">
+                    <div className="navBar__logo-box">
+                        <div className="navBar__logo">{}</div>
+                        <div className="navBar__logo-text">explodii</div>
+                    </div>
+                    <a href="/" className="navBar__btn">
+                        Homepage
+                    </a>
+                    <a href="/signup" className="navBar__btn">
+                        Our excursions
+                    </a>
+                </div>
+                <div className="signup-info">
+                    <div className="signup-info__heading">
+                        Join us and experience wonderful adventures all over the
+                        world by signing up below
+                    </div>
+                </div>
+
+                <div className="signupBox">
+                    <form onSubmit={handleSubmit} className="signupForm">
+                        <h2 className="signupForm__heading">Sign Up</h2>
+                        <div className="signupForm__illustration">{}</div>
+                        <div className="signupForm__name-email">
+                            <p className="signupForm__label-text signupForm__label-text--1">
+                                Full name
+                            </p>
+                            <label
+                                htmlFor="full-name"
+                                className="signupForm__label signupForm__label--1"
+                            >
+                                <input
+                                    type="text"
+                                    className="signupForm__input signupForm__input--1"
+                                    placeholder="Ilias Allek"
+                                    id="full-name"
+                                    required
+                                    onChange={(e) => {
+                                        // We track name changes
+                                        setName(e.target.value);
+                                    }}
+                                />
+                            </label>
+
+                            <p className="signupForm__label-text  signupForm__label-text--2">
+                                Email address
+                            </p>
+                            <label
+                                htmlFor="email-address"
+                                className="signupForm__label signupForm__label--2"
+                            >
+                                <input
+                                    type="email"
+                                    className="signupForm__input signupForm__input--2"
+                                    placeholder="jhon@example.com"
+                                    id="email-address"
+                                    required
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }}
+                                />
+                                {emailError !== "" && emailError && (
+                                    <span className="signupForm__error">
+                                        {emailError}
+                                    </span>
+                                )}
+                            </label>
+                        </div>
+                        <p className="signupForm__label-text">Password</p>
+                        <label htmlFor="password" className="signupForm__label">
                             <input
-                                type="text"
-                                className="signupForm__input signupForm__input--1"
-                                placeholder="Ilias Allek"
-                                id="full-name"
+                                type="password"
+                                className="signupForm__input"
+                                placeholder="8+ Characters, 1 Capital letter, 1 Number"
+                                id="password"
                                 required
+                                minLength="8"
                                 onChange={(e) => {
-                                    // We track name changes
-                                    setName(e.target.value);
+                                    setPassword(e.target.value);
                                 }}
                             />
-                        </label>
-
-                        <p className="signupForm__label-text  signupForm__label-text--2">
-                            Email address
-                        </p>
-                        <label
-                            htmlFor="email-address"
-                            className="signupForm__label signupForm__label--2"
-                        >
-                            <input
-                                type="email"
-                                className="signupForm__input signupForm__input--2"
-                                placeholder="jhon@example.com"
-                                id="email-address"
-                                required
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                }}
-                            />
-                            {emailError !== "" && (
+                            {passwordError !== "" && passwordError && (
                                 <span className="signupForm__error">
-                                    {emailError}
+                                    {passwordError}
                                 </span>
                             )}
                         </label>
-                    </div>
-                    <p className="signupForm__label-text">Password</p>
-                    <label htmlFor="password" className="signupForm__label">
-                        <input
-                            type="password"
-                            className="signupForm__input"
-                            placeholder="8+ Characters, 1 Capital letter, 1 Number"
-                            id="password"
-                            required
-                            minLength="8"
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                            }}
-                        />
-                        {passwordError !== "" && (
-                            <span className="signupForm__error">
-                                {passwordError}
-                            </span>
-                        )}
-                    </label>
 
-                    <p className="signupForm__label-text">Confirm password</p>
-                    <label
-                        htmlFor="confirm-password"
-                        className="signupForm__label"
-                    >
-                        <input
-                            type="password"
-                            className="signupForm__input"
-                            placeholder="••••••••••••"
-                            id="confirm-password"
-                            required
-                            onChange={(e) => {
-                                setPasswordConfirm(e.target.value);
-                            }}
-                        />
-                        {passworConfirmError !== "" && (
-                            <span className="signupForm__error">
-                                {passworConfirmError}
-                            </span>
-                        )}
-                    </label>
-                    <button type="submit" className="signupForm__btn">
-                        Create an Account
-                    </button>
-                    <div className="signupForm__login">
-                        <p>Already have an account?</p>
-                        <a href="/login" className="signupForm__loginBtn">
-                            Sign In
-                        </a>
-                    </div>
-                    {/* <div className="signupForm__errors">
-                        {validationErrors.map((el) => {
-                            return (
-                                <span key={uuidv4()} id={uuidv4()}>
-                                    {`*${el}`}
-                                </span>
-                            );
-                        })}
-                    </div> */}
-                </form>
-                <div className="signupBox__illustration">{}</div>
+                        <p className="signupForm__label-text">
+                            Confirm password
+                        </p>
+                        <label
+                            htmlFor="confirm-password"
+                            className="signupForm__label"
+                        >
+                            <input
+                                type="password"
+                                className="signupForm__input"
+                                placeholder="••••••••••••"
+                                id="confirm-password"
+                                required
+                                onChange={(e) => {
+                                    setPasswordConfirm(e.target.value);
+                                }}
+                            />
+                            {passworConfirmError !== "" &&
+                                passworConfirmError && (
+                                    <span className="signupForm__error">
+                                        {passworConfirmError}
+                                    </span>
+                                )}
+                        </label>
+                        <button type="submit" className="signupForm__btn">
+                            Create an Account
+                        </button>
+                        <div className="signupForm__login">
+                            <p>Already have an account?</p>
+                            <a href="/login">Sign In</a>
+                        </div>
+                    </form>
+                    <div className="signupBox__illustration">{}</div>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

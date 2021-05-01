@@ -4,16 +4,21 @@ const authController = require("./../controllers/authController");
 
 const router = express.Router({ mergeParams: true });
 
-router.use(authController.protect);
+// TODO: FIND A SECURE WAY TO RESTRICT GET REQUEST FROM CLIENT SIDE
+/* NOTE: I THINK BEST WAY IS JUST TO MAKE API THAT SHARE THE NECESSARY DATA 
+ THAT WILL DISPLAYED IN FRONTEND AND PROTECTING THE REST IN BACKEND WITH JWT TOKENS */
 
 router
     .route("/")
     .get(reviewController.getAllReviews)
     .post(
+        authController.protect,
         authController.restrictTo("user"),
         reviewController.setTourUserIds,
         reviewController.createReview
     );
+
+router.use(authController.protect);
 
 router
     .route("/:id")

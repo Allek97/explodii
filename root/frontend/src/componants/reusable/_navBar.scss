@@ -1,0 +1,97 @@
+// NOTE: REUSABLE NAV BAR, a changer selon les utilisations
+
+.navBar {
+    display: flex;
+    align-items: center;
+
+    // padding-left: 28.5rem;
+    // padding-right: 28.5rem;
+
+    // background-color: #fff;
+
+    &__logo-box {
+        display: flex;
+        align-items: center;
+
+        margin-right: auto;
+    }
+
+    &__logo {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        height: 6rem;
+        width: 6rem;
+        margin-right: 2rem;
+
+        background-image: linear-gradient(
+            to bottom right,
+            rgba(var(--color-primary-light)),
+            rgba(var(--color-primary-dark))
+        );
+        // background-image: rgba(var(--color-gold), 1);
+
+        mask-image: url("../../assets/img/home/mountain.png");
+        mask-size: cover;
+    }
+
+    &__logo-text {
+        font-size: 2.5rem;
+        font-family: "Manrope", sans-serif;
+        background-image: linear-gradient(
+            to bottom right,
+            rgba(var(--color-primary-light)),
+            rgba(var(--color-primary-dark))
+        );
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+// Button styling
+
+.navBar {
+    &__btn {
+        &,
+        &:link,
+        &:visited {
+            position: relative;
+
+            display: inline-block;
+
+            transition: all 0.2s;
+
+            padding: 0.8rem 3rem;
+            box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
+            border-radius: 4px;
+
+            background-color: #1a5ef3;
+
+            // text-transform: uppercase;
+            font-size: 1.4rem;
+            text-decoration: none;
+            text-align: center;
+            font-family: inherit;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        &:active,
+        &:focus {
+            outline: none;
+            transform: translateY(-1px);
+            box-shadow: 0 0.5rem 1rem rgba(var(--color-black), 0.2);
+        }
+
+        &:hover {
+            filter: brightness(1.1);
+        }
+
+        &:not(:last-child) {
+            margin-right: 2rem;
+        }
+    }
+}

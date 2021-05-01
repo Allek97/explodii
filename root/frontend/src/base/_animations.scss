@@ -94,3 +94,65 @@
         transform: translateY(-100%);
     }
 }
+
+// Input animations
+// TODO: Make it better
+@keyframes inputEffect {
+    // 0% {
+    //     box-shadow: 0rem 0rem 1rem #1a5ef3;
+    // }
+    50% {
+        box-shadow: 0rem 0rem 2rem #1a5ef3;
+    }
+    100% {
+        box-shadow: 0rem 0rem 7rem #1a5ef3;
+    }
+}
+
+// Login status
+
+@keyframes loginStatusEffect {
+    0% {
+        // transform: translate(-50%, -50%);
+        transform: translate(-50%, -500%);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        // transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes invertEffect {
+    50% {
+        filter: blur(2rem);
+    }
+    100% {
+        filter: blur(2rem);
+    }
+}
+
+@keyframes loginLogoEffect {
+    0% {
+        transform: translateY(-500%);
+        // opacity: 0;
+        // filter: invert(70%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+// signup Status
+
+@keyframes signupStatusEffect {
+    0% {
+        // transform: translate(-50%, -50%);
+        transform: translate(-50%, -100%);
+        // opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        // transform: translate(-50%, -50%);
+    }
+}

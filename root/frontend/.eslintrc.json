@@ -2,7 +2,7 @@
 // eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save--dev
 // TODO: Some npm modules maybe missing, AJOUTE LES
 {
-    "extends": ["airbnb", "prettier"],
+    "extends": ["airbnb", "prettier", "plugin:react/recommended"],
     "plugins": ["prettier", "react"],
     "rules": {
         "prettier/prettier": [
@@ -27,7 +27,7 @@
             "error",
             {
                 "argsIgnorePattern": "req|res|next|val",
-                "varsIgnorePattern": ""
+                "varsIgnorePattern": "^[A-Z]"
             }
         ],
         "spaced-comment": "off",

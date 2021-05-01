@@ -18,7 +18,7 @@ const createSendToken = (user, statusCode, res) => {
         expires: new Date(
             Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
         ),
-        httpOnly: true,
+        httpOnly: false,
     };
     if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
@@ -47,7 +47,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     // TODO: Change it in production
 
     // const url = `${req.protocol}://${req.get("host")}/me`;
-    const url = `${req.protocol}://${req.get("host")}/login`;
+    const url = `${req.protocol}://${req.get("host")}`;
 
     await new Email(newUser, url).sendRegistration();
 
@@ -65,7 +65,9 @@ exports.login = catchAsync(async (req, res, next) => {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user || !(await user.correctPassword(password, user.password))) {
-        return next(new AppError("Incorrect email or password", 401));
+        return next(
+            new AppError("Incorrect email or password,please try again", 401)
+        );
     }
 
     // 3) If everything ok, send token to client
@@ -80,9 +82,12 @@ exports.logout = (req, res) => {
     res.status(200).json({ status: "success" });
 };
 
+// This controller will tell if a user is logged in or not
+
 exports.protect = catchAsync(async (req, res, next) => {
     // 1) Getting token and check of it's there
     let token;
+
     if (
         req.headers.authorization &&
         req.headers.authorization.startsWith("Bearer")
@@ -100,6 +105,10 @@ exports.protect = catchAsync(async (req, res, next) => {
             )
         );
     }
+
+    // Special authorization for get requests, added a special admin password to avoid logging in
+    // NOTE: For now only done to request get methods without having to login
+    // Get methods are not
 
     // 2) Verification token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -131,36 +140,95 @@ exports.protect = catchAsync(async (req, res, next) => {
     next();
 });
 
-// Only for rendered pages, no errors!
-exports.isLoggedIn = async (req, res, next) => {
-    if (req.cookies.jwt) {
-        try {
-            // 1) verify token
-            const decoded = await promisify(jwt.verify)(
-                req.cookies.jwt,
-                process.env.JWT_SECRET
-            );
+// Tell us if someone is logged in
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+    // 1) Getting token and check of it's there
+    let token;
 
-            // 2) Check if user still exists
-            const currentUser = await User.findById(decoded.id);
-            if (!currentUser) {
-                return next();
-            }
-
-            // 3) Check if user changed password after the token was issued
-            if (currentUser.changedPasswordAfter(decoded.iat)) {
-                return next();
-            }
-
-            // THERE IS A LOGGED IN USER
-            res.locals.user = currentUser;
-            return next();
-        } catch (err) {
-            return next();
-        }
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")
+    ) {
+        token = req.headers.authorization.split(" ")[1];
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
     }
-    next();
-};
+
+    console.log(`My cookie : ${req.cookies.jwt}`);
+
+    if (!token) {
+        return next(
+            new AppError(
+                "You are not logged in! Please log in to get access.",
+                401
+            )
+        );
+    }
+
+    // Special authorization for get requests, added a special admin password to avoid logging in
+    // NOTE: For now only done to request get methods without having to login
+    // Get methods are not
+
+    // 2) Verification token
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    // 3) Check if user still exists
+    const currentUser = await User.findById(decoded.id);
+    if (!currentUser) {
+        return next(
+            new AppError(
+                "The user belonging to this token does no longer exist.",
+                401
+            )
+        );
+    }
+
+    // 4) Check if user changed password after the token was issued
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+            new AppError(
+                "User recently changed password! Please log in again.",
+                401
+            )
+        );
+    }
+
+    // GRANT ACCESS TO PROTECTED ROUTE
+    res.status(200).json({
+        status: "success",
+    });
+});
+
+// Only for rendered pages, no errors!
+// exports.isLoggedIn = async (req, res, next) => {
+//     if (req.cookies.jwt) {
+//         try {
+//             // 1) verify token
+//             const decoded = await promisify(jwt.verify)(
+//                 req.cookies.jwt,
+//                 process.env.JWT_SECRET
+//             );
+
+//             // 2) Check if user still exists
+//             const currentUser = await User.findById(decoded.id);
+//             if (!currentUser) {
+//                 return next();
+//             }
+
+//             // 3) Check if user changed password after the token was issued
+//             if (currentUser.changedPasswordAfter(decoded.iat)) {
+//                 return next();
+//             }
+
+//             // THERE IS A LOGGED IN USER
+//             res.locals.user = currentUser;
+//             return next();
+//         } catch (err) {
+//             return next();
+//         }
+//     }
+//     next();
+// };
 
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {

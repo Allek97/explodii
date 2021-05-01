@@ -1,3 +1,5 @@
+@import "../../base/_animations.scss";
+
 @font-face {
     font-family: Manrope;
     src: url("../../assets/fonts/Manrope-ExtraLight.ttf");
@@ -7,119 +9,14 @@
     height: 100vh;
     // background-image: url("../../assets/img/home/signup.png");
     background-size: cover;
-
-    // &__abstract {
-    //     position: absolute;
-    //     top: 0;
-    //     right: 0;
-
-    //     height: 12rem;
-    //     width: 12rem;
-
-    //     background-image: linear-gradient(
-    //         to bottom right,
-    //         rgba(var(--color-primary-light)),
-    //         rgba(var(--color-primary-dark))
-    //     );
-    //     // background-image: rgba(var(--color-gold), 1);
-
-    //     mask-image: url("../../assets/svgs/abstract.svg");
-    //     mask-size: cover;
-    // }
 }
 
-.signupNav {
-    display: flex;
-    align-items: center;
+// Navigation Bar, styling
 
-    // padding-left: 28.5rem;
-    // padding-right: 28.5rem;
-
-    padding: 0 14%;
-
-    background-color: #fff;
-
-    &__logo-box {
-        display: flex;
-        align-items: center;
-
-        margin-right: auto;
+.navBar {
+    &--signup {
+        padding: 0 14%;
     }
-
-    &__logo {
-        position: relative;
-
-        display: flex;
-        flex-direction: column;
-
-        height: 6rem;
-        width: 6rem;
-        margin-right: 2rem;
-
-        background-image: linear-gradient(
-            to bottom right,
-            rgba(var(--color-primary-light)),
-            rgba(var(--color-primary-dark))
-        );
-        // background-image: rgba(var(--color-gold), 1);
-
-        mask-image: url("../../assets/img/home/mountain.png");
-        mask-size: cover;
-    }
-
-    &__logo-text {
-        font-size: 2.5rem;
-        font-family: "Manrope", sans-serif;
-        background-image: linear-gradient(
-            to bottom right,
-            rgba(var(--color-primary-light)),
-            rgba(var(--color-primary-dark))
-        );
-        background-clip: text;
-        color: transparent;
-    }
-
-    // &__btn {
-    //     &,
-    //     &:link,
-    //     &:visited {
-    //         position: relative;
-
-    //         display: inline-block;
-
-    //         transition: all 0.2s;
-
-    //         padding: 0.8rem 3rem;
-    //         border-radius: 4px;
-    //         border: none;
-    //         box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
-
-    //         background-color: #1a5ef3;
-
-    //         // text-transform: uppercase;
-    //         text-decoration: none;
-    //         font-family: "Manrope" sans-serif;
-    //         font-size: 1.4rem;
-    //         font-weight: 700;
-    //         color: #fff;
-    //         cursor: pointer;
-    //     }
-
-    //     &:active,
-    //     &:focus {
-    //         outline: none;
-    //         transform: translateY(-1px);
-    //         box-shadow: 0 0.5rem 1rem rgba(var(--color-black), 0.2);
-    //     }
-
-    //     &:hover {
-    //         filter: brightness(1.1);
-    //     }
-
-    //     &:not(:last-child) {
-    //         margin-right: 2rem;
-    //     }
-    // }
 }
 
 .signup-info {
@@ -189,10 +86,6 @@
 .signupForm {
     position: relative;
 
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-
     padding: 4rem;
     padding-top: 3rem;
     width: min-content;
@@ -248,11 +141,13 @@
         padding: 1.5rem 2rem;
         margin-bottom: 2rem;
 
-        background-color: #f5f8fa94;
+        // background-color: #eceff1a4;
+        background-color: #e5e5e56b;
 
         border-radius: 2px;
         border: 1px solid #cbd6e2;
-        // border-bottom: 3px solid transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
         border-radius: 8px;
 
         font-size: 1.7rem;
@@ -263,7 +158,7 @@
 
         &:focus {
             outline: none;
-            box-shadow: var(--shadow-dark);
+            // box-shadow: var(--shadow-dark);
             border-bottom: 3px solid rgb(var(--color-primary-light));
         }
 
@@ -294,6 +189,7 @@
 
     &__label {
         position: relative;
+        display: flex;
     }
 
     &__label-text {
@@ -335,10 +231,85 @@
     }
 }
 
+// NOTE: Error handling in form
+
+.signupForm {
+    &__error {
+        position: relative;
+
+        position: absolute;
+        bottom: -0.5rem;
+        left: 2.5rem;
+
+        font-size: 1.22rem;
+        font-weight: bolder;
+        color: #e34850;
+
+        &::before {
+            content: "";
+
+            position: absolute;
+            left: -2.3rem;
+            bottom: 2px;
+
+            height: 2rem;
+            width: 2rem;
+
+            background-color: #e34850;
+
+            mask-image: url("../../assets/svgs/warning.svg");
+            mask-size: cover;
+        }
+    }
+}
+
+// Handling success signup message
+
+.success-signup {
+    position: relative;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 3rem;
+
+    transition: all 3s;
+
+    width: 50rem;
+
+    // box-shadow: 0 0 10rem white;
+
+    background-color: #2a3887;
+
+    // background-image: linear-gradient(
+    //     76deg,
+    //     rgb(var(--color-main-1)),
+    //     rgb(var(--color-main-2))
+    // );
+
+    color: white;
+
+    &__bg {
+        height: 28rem;
+        background-image: url("../../assets/svgs/travel-equipment.jpg");
+        background-size: cover;
+    }
+}
+
 //NOTE: Buttons handling
 
 .signupForm,
-.signupNav {
+.success-signup {
     // font-family: "Manrope" sans-serif;
     &__btn {
         &,
@@ -346,7 +317,7 @@
         &:visited {
             position: relative;
 
-            display: inline-block;
+            display: block;
 
             transition: all 0.2s;
 
@@ -374,18 +345,6 @@
     }
 }
 
-.signupNav {
-    &__btn {
-        padding: 0.8rem 3rem;
-        box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
-        border-radius: 4px;
-        font-size: 1.4rem;
-        &:not(:last-child) {
-            margin-right: 2rem;
-        }
-    }
-}
-
 .signupForm {
     &__btn {
         border: none;
@@ -400,60 +359,18 @@
     }
 }
 
-// NOTE: Error handling in form
-
-.signupForm {
-    &__errors {
-        position: absolute;
-        bottom: -0.5rem;
-        right: 8rem;
-
-        display: flex;
-        flex-direction: column;
-        // align-items: center;
-
-        height: 15rem;
-        width: 25rem;
-
-        // background-color: black;
-        span {
-            color: red;
-            font-size: 1.3rem;
-            // text-align: center;
-
-            &:not(:last-child) {
-                margin-bottom: 1.2rem;
-            }
-        }
-    }
-}
-
-.signupForm {
-    &__error {
-        position: relative;
-
-        position: absolute;
-        bottom: -0.5rem;
-        left: 2.5rem;
-
-        font-size: 1.22rem;
-        font-weight: bolder;
-        color: #e34850;
-
-        &::before {
-            content: "";
-            position: relative;
-            position: absolute;
-            left: -2.3rem;
-            bottom: 2px;
-
-            height: 2rem;
-            width: 2rem;
-
-            background-color: #e34850;
-
-            mask-image: url("../../assets/svgs/warning.svg");
-            mask-size: cover;
+.success-signup {
+    &__btn {
+        border: none;
+        padding: 1rem 0.1rem;
+        width: 15rem;
+        margin-top: 3rem;
+        border-radius: 8px;
+        font-size: 1.65rem;
+        margin: 0 auto;
+        // margin-bottom: 4rem;
+        &:focus {
+            box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
         }
     }
 }
