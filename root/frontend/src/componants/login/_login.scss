@@ -106,9 +106,10 @@
             // TODO: Make it better
             // animation: inputEffect 0.3s cubic-bezier(0.27, 0.93, 0.1, 0.89) 1;
             outline: none;
-            box-shadow: var(--shadow-dark);
+            // box-shadow: var(--shadow-dark);
 
             border-bottom: 3px solid rgb(var(--color-primary-light));
+            animation: inputEffect 0.6s 1;
         }
 
         &:focus ~ span {
@@ -217,11 +218,11 @@
 .loginForm {
     &__emailLogo,
     &__passwordLogo {
-        transition: all 0.4s;
+        transition: all 0.2s;
 
         display: block;
         position: absolute;
-        top: 1.8rem;
+        top: 1.6rem;
         left: 2.5rem;
 
         height: 1.8rem;

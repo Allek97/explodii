@@ -26,8 +26,8 @@
         "no-unused-vars": [
             "error",
             {
-                "argsIgnorePattern": "req|res|next|val",
-                "varsIgnorePattern": "^[A-Z]"
+                "argsIgnorePattern": "req|res|next|val"
+                // "varsIgnorePattern": "^[A-Z]"
             }
         ],
         "spaced-comment": "off",

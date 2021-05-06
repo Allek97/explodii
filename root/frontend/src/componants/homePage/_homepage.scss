@@ -22,7 +22,7 @@
 .header {
     position: relative;
 
-    height: 100vh;
+    height: 90vh;
     padding: 0 15%;
     width: calc(100vw-3px);
 
@@ -116,7 +116,7 @@
     }
 }
 
-// NavigationBar , part of the header
+// NavigationBar , part of the header part of reusable
 
 .navBar {
     &--homepage {
@@ -135,6 +135,27 @@
                 white,
                 white
             ) !important;
+        }
+    }
+
+    &__btn {
+        &--log-out {
+            position: relative;
+            padding: "0.9rem 3rem";
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0.9rem;
+                left: 0.9rem;
+                display: inline-block;
+                height: 2.1rem;
+                width: 2.1rem;
+                // background-image: linear-gradient(to right, #02effe, #4dadfe);
+                background-image: linear-gradient(76deg, #3be5dd, #05edfe);
+
+                mask-image: url(../../assets/svgs/log-out.svg);
+                mask-size: cover;
+            }
         }
     }
 }

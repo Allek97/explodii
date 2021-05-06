@@ -26,9 +26,10 @@ router.patch(
     userController.resizeUserPhoto,
     userController.updateMe
 );
-router.delete("/deleteMe", userController.deleteMe);
 
 router.use(authController.restrictTo("admin"));
+
+router.delete("/deleteMe", userController.deleteMe);
 
 router
     .route("/")

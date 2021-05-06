@@ -11,15 +11,21 @@ import {
     InfoWindow,
 } from "@react-google-maps/api";
 
-import wYStyle from "./mapStyles/wYStyle";
+import accountMapStyle from "./accountMapStyle";
 
 // Google variables
 
 const libraries = ["places"];
 
 const mapContainerStyle = {
-    width: "50vw",
-    height: "80vh",
+    gridArea: "map",
+    justifySelf: "center",
+    borderRadius: "2px",
+
+    width: "50rem",
+    height: "30rem",
+    boxShadow: "var(--shadow-dark)",
+    // boxShadow: "0 2rem 6rem #ddd5d5",
 };
 
 const center = {
@@ -29,12 +35,12 @@ const center = {
 
 // For styling maps : https://snazzymaps.com
 const options = {
-    styles: wYStyle,
+    styles: accountMapStyle,
     disableDefaultUI: true,
     zoomControl: true,
 };
 
-export default function reservation() {
+export default function AccountMap() {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,

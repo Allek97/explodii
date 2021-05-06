@@ -8,12 +8,15 @@ import {
     Redirect,
 } from "react-router-dom";
 
+// Routed componants
 import HomePage from "./homePage/HomePage";
 import SignUp from "./signUp/SignUp";
 import LogIn from "./login/Login";
+import Account from "./account/Account";
 
 import "./App.scss";
 
+// TODO: BUILD ORIGINAL 404 PAGE
 const NoMatchComp = () => <h1>Not Matched</h1>;
 
 export default function App() {
@@ -24,18 +27,38 @@ export default function App() {
     // Retrieving the user info when logging in
     const [userName, setUserName] = useState("");
     const [userPhoto, setUserPhoto] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userId, setUserId] = useState("");
 
     useEffect(async () => {
         try {
-            await axios.get("http://localhost:5001/api/v1/users/login", {
-                withCredentials: true,
-            });
+            const loginRes = await axios.get(
+                "http://localhost:5001/api/v1/users/login",
+                {
+                    withCredentials: true,
+                }
+            );
             setAuthStatus(true);
+            if (loginRes.data.status === "success") {
+                const res = await axios.get(
+                    "http://localhost:5001/api/v1/users/me",
+                    {
+                        withCredentials: true,
+                    }
+                );
+
+                const user = res.data.data.data;
+                setUserName(user.name);
+                setUserPhoto(user.photo);
+                setUserEmail(user.email);
+                setUserId(user._id);
+            }
         } catch (err) {
             setAuthStatus(false);
         }
         setIsApiConsumed(true);
     }, []);
+
     return (
         <Router>
             {isApiConsumed && (
@@ -66,20 +89,29 @@ export default function App() {
                             <Route
                                 exact
                                 path="/login"
-                                render={() =>
-                                    !authStatus && (
-                                        <LogIn
-                                            setUserName={setUserName}
-                                            setUserPhoto={setUserPhoto}
-                                        />
-                                    )
-                                }
+                                render={() => <LogIn />}
                             />
                         )}
-                        <Route exact path="/account" />
+                        {authStatus && (
+                            <Route
+                                exact
+                                path="/account"
+                                render={() => (
+                                    <Account
+                                        userName={userName}
+                                        userPhoto={userPhoto}
+                                        userEmail={userEmail}
+                                        userId={userId}
+                                        setUserName={setUserName}
+                                        setUserPhoto={setUserPhoto}
+                                        setUserEmail={setUserEmail}
+                                    />
+                                )}
+                            />
+                        )}
                         {/*NOTE: Redirect login qnd signup to home page if user is logged in*/}
                         {/*NOTE: 404 error for unhandled routes*/}
-                        <Route component={NoMatchComp} />{" "}
+                        <Route component={NoMatchComp} />
                     </Switch>
                 </div>
             )}

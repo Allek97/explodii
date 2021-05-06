@@ -1,0 +1,318 @@
+.account {
+    justify-content: center;
+
+    height: 100vh;
+
+    background-image: linear-gradient(
+            76deg,
+            rgba(var(--color-main-1), 0.5),
+            rgba(var(--color-main-2), 0.5)
+        ),
+        url(../../assets/img/tours/tour-3-cover.jpg);
+    background-size: cover;
+}
+
+.dashboard {
+    display: flex;
+
+    // height: 80.2rem;
+    height: 85.5rem;
+    width: 160rem;
+    // width: 173rem;
+
+    box-shadow: var(--shadow-dark);
+
+    margin: 0 auto;
+    margin-top: 4rem;
+    background-color: white;
+
+    &__view {
+        flex: 0 0 26rem;
+        padding: 6rem 0;
+        background-image: linear-gradient(
+            76deg,
+            rgba(var(--color-main-1)),
+            rgba(var(--color-main-2))
+        );
+    }
+
+    &__content {
+        // display: flex;
+        // justify-content: space-between;
+
+        display: grid;
+        grid-template-areas:
+            "map map"
+            "formSet formPW";
+        grid-template-columns: repeat(2, min-content);
+
+        justify-content: space-between;
+
+        width: 100%;
+
+        padding: 2rem 10rem;
+    }
+}
+
+// Profile
+.profile {
+    position: relative;
+
+    display: grid;
+    flex-direction: column;
+
+    cursor: default;
+
+    &__photo {
+        width: 12rem;
+        height: 12rem;
+        border-radius: 50%;
+
+        margin-left: 7rem;
+    }
+
+    &__name {
+        position: relative;
+
+        font-size: 2rem;
+        text-align: center;
+
+        margin-left: 0rem;
+
+        background-image: linear-gradient(76deg, #1a5ef3, #1a5ef3);
+        background-clip: text;
+        color: transparent;
+    }
+
+    &__email {
+        // grid-area: 1/2/1/2;
+
+        // margin-top: 7rem;
+        // margin-left: -2rem;
+        text-align: center;
+
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+
+        position: absolute;
+        bottom: -2.5rem;
+        left: 12rem;
+
+        height: 2rem;
+        width: 2rem;
+
+        color: transparent;
+
+        // background-image: url(../../assets/svgs/online.svg);
+        // background-size: cover;
+
+        background-image: linear-gradient(to right, #1a5ef3, #1a5ef3);
+
+        mask-image: url(../../assets/svgs/online-1.svg);
+        mask-size: cover;
+        mask-position: top;
+    }
+}
+
+// Gestion de navBar
+
+.navBar {
+    &--account {
+        padding: 0 14%;
+    }
+    &__logo,
+    &__logo-text {
+        &--account {
+            background-image: linear-gradient(to bottom right, white, white);
+        }
+    }
+}
+
+// Forms handling
+.profileForm {
+    position: relative;
+
+    padding: 4rem;
+    padding-top: 3rem;
+    height: min-content;
+
+    border-radius: 3rem;
+
+    background-color: #ffffff;
+
+    &--Set {
+        grid-area: formSet;
+    }
+
+    &--PW {
+        grid-area: formPW;
+    }
+
+    // box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.151);
+
+    &__heading {
+        background-image: linear-gradient(
+            to bottom right,
+            rgba(var(--color-blue-special)),
+            rgba(var(--color-blue-special))
+        );
+        background-clip: text;
+        color: transparent;
+
+        text-transform: uppercase;
+        font-family: "Manrope" sans-serif;
+        font-size: 2.5rem;
+    }
+
+    &__illustration {
+        position: absolute;
+        top: -8rem;
+        right: 3rem;
+
+        height: 15rem;
+        width: 23rem;
+
+        padding: 1rem;
+        box-shadow: var(--shadow-dark);
+        border-radius: 3rem;
+
+        background-image: url("../../assets/svgs/camping.svg");
+        background-size: cover;
+    }
+
+    &__input {
+        display: block;
+        transition: all 0.3s;
+
+        width: 45rem;
+        padding: 1.2rem 2rem;
+        margin-bottom: 2rem;
+
+        // background-color: #eceff1a4;
+        background-color: #e5e5e56b;
+
+        border-radius: 2px;
+        border: 1px solid #cbd6e2;
+        border: none;
+        border-bottom: 3px solid transparent;
+        border-radius: 8px;
+
+        font-size: 1.7rem;
+        font-family: "Lato", sans-serif;
+        color: rgb(var(--color-grey-dark));
+        // color: rgb(var(--color-grey-dark));
+        font-weight: lighter;
+
+        &:focus {
+            outline: none;
+            // box-shadow: var(--shadow-dark);
+            border-bottom: 3px solid rgb(var(--color-primary-light));
+        }
+
+        &:focus:invalid {
+            border-bottom: 3px solid rgba(204, 0, 0, 1);
+        }
+
+        &::-webkit-input-placeholder {
+            font-size: 1.7rem;
+            color: rgb(var(--color-grey-dark));
+        }
+    }
+
+    &__input::placeholder {
+        font-size: 1.6rem;
+        opacity: 0.5;
+    }
+
+    &__label {
+        position: relative;
+        display: flex;
+    }
+
+    &__upload-label {
+        position: absolute;
+        bottom: 15rem;
+        left: 14rem;
+
+        display: block;
+
+        transition: all 0.2s;
+
+        height: 2.8rem;
+        width: 14.5rem;
+
+        font-size: 1.5rem;
+        text-decoration: none;
+        border-bottom: 1px solid rgb(var(--color-blue-special));
+
+        color: rgb(var(--color-blue-special));
+
+        text-align: center;
+
+        cursor: pointer;
+
+        p {
+            margin-top: 2rem;
+        }
+    }
+
+    &__label-text {
+        padding: 1rem;
+        transition: all 0.3s;
+
+        font-size: 1.3rem;
+        font-family: "Lato", sans-serif;
+        color: rgb(var(--color-grey-dark));
+        font-weight: 600;
+    }
+
+    &__upload {
+        height: 0px;
+    }
+
+    &__photo {
+        height: 8.5rem;
+        width: 8.5rem;
+        border-radius: 50%;
+
+        margin-top: 1.5rem;
+    }
+}
+
+// Error handling
+
+// TODO: Making it reusable
+.profileForm {
+    &__error {
+        position: relative;
+
+        position: absolute;
+        bottom: 7.5rem;
+        right: 0;
+
+        font-size: 1.22rem;
+        font-weight: bolder;
+        color: #e34850;
+
+        &::before {
+            content: "";
+
+            position: absolute;
+            left: -2.3rem;
+            bottom: 2px;
+
+            height: 2rem;
+            width: 2rem;
+
+            background-color: #e34850;
+
+            mask-image: url("../../assets/svgs/warning.svg");
+            mask-size: cover;
+        }
+    }
+}

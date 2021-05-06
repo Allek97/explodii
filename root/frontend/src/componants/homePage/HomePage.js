@@ -1,7 +1,10 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import styled from "styled-components";
 
 // import { v4 as uuidv4 } from "uuid";
 
@@ -25,10 +28,50 @@ import BgVideo from "../../assets/videos/cosmos.mp4";
 import "./_homepage.scss";
 import "../reusable/_button.scss";
 import "../../base/_typography.scss";
+import "../reusable/_navBar.scss";
+
+// Styling
+const photoStyle = {
+    width: "3.8rem",
+    borderRadius: "18px",
+};
+
+const ProfileBtn = styled.a`
+    &,
+    &:link,
+    &:visited {
+        display: flex;
+        align-items: center;
+
+        transition: all 0.2s;
+        box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
+
+        height: 3.8rem;
+        /* width: 3.8rem; */
+
+        border-radius: 18px;
+
+        background-color: #1a5ef3;
+        overflow: hidden;
+
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+    }
+    &:hover {
+        filter: brightness(1.1);
+    }
+`;
 
 export default function HomePage(props) {
     // Props
     const { authStatus, userName, userPhoto } = props;
+    // Styling
+    const userImg = (photo) => {
+        return require(`../../assets/img/users/${photo}`).default;
+    };
 
     const handleLogOut = async (e) => {
         e.preventDefault();
@@ -41,8 +84,6 @@ export default function HomePage(props) {
             console.log(err.response.data.message);
         }
     };
-
-    console.log(userName);
 
     return (
         <>
@@ -63,8 +104,12 @@ export default function HomePage(props) {
                     ) : (
                         <a
                             href="/"
-                            className="navBar__btn"
+                            className="navBar__btn navBar__btn--log-out"
                             onClick={handleLogOut}
+                            style={{
+                                padding: "0.8rem 4rem",
+                                paddingRight: "2.6rem",
+                            }}
                         >
                             Log Out
                         </a>
@@ -74,9 +119,20 @@ export default function HomePage(props) {
                             Sign Up
                         </a>
                     ) : (
-                        <a href="/signup" className="navBar__btn">
-                            {`${userName}`}
-                        </a>
+                        <ProfileBtn href="/account">
+                            {/* <div style={profileStyle(userPhoto)}>{}</div> */}
+                            <img
+                                src={userImg(userPhoto)}
+                                alt="profile"
+                                style={photoStyle}
+                            />
+                            <span
+                                style={{
+                                    padding: "0 2rem",
+                                    paddingLeft: "1.2rem",
+                                }}
+                            >{`${userName}`}</span>
+                        </ProfileBtn>
                     )}
                 </div>
 

@@ -16,7 +16,7 @@ const loginMsgAnimation = {
 //     animation: "loginStatusEffect .6s cubic-bezier(.64,.01,1,.03) 1",
 // }
 
-export default function LogIn(props) {
+export default function LogIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -24,8 +24,6 @@ export default function LogIn(props) {
 
     // Keep track of the log status and display a succesful login message
     const [loginStatus, setLoginStatus] = useState(false);
-    // User prop from app
-    const { setUserName, setUserPhoto } = props;
 
     const handleSubmit = async (e) => {
         try {
@@ -43,19 +41,12 @@ export default function LogIn(props) {
                 { withCredentials: true, credentials: "include" }
             );
 
-            const { user } = res.data.data;
-
-            setUserName(user.name);
-            setUserPhoto(user.photo);
-
-            console.log(user.name);
-
             if (res.data.status === "success") {
                 setLoginStatus(true);
                 window.setTimeout(() => {
                     // setLogStatus(true);
                     window.location.assign("/");
-                }, 150000);
+                }, 1500);
             }
         } catch (err) {
             setAuthError("");
@@ -149,8 +140,3 @@ export default function LogIn(props) {
         </>
     );
 }
-
-LogIn.propTypes = {
-    setUserName: PropTypes.func.isRequired,
-    setUserPhoto: PropTypes.func.isRequired,
-};
