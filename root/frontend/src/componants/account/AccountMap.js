@@ -22,9 +22,10 @@ const mapContainerStyle = {
     justifySelf: "center",
     borderRadius: "2px",
 
-    width: "50rem",
-    height: "30rem",
+    width: "100%",
+    height: "33rem",
     boxShadow: "var(--shadow-dark)",
+    marginBottom: "2rem",
     // boxShadow: "0 2rem 6rem #ddd5d5",
 };
 

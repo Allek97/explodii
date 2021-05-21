@@ -35,8 +35,10 @@
     --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
     --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.6);
 
-    height: 100vh !important;
-    overflow-x: auto !important;
+    // height: 100vh !important;
+    // overflow-x: auto !important;
+
+    --excursion-clip-height: 9vw;
 }
 
 * {
@@ -66,6 +68,28 @@ body {
     line-height: 1.6;
 
     box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 8rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        //#226f91;
+        //  -webkit-border-radius: 10px;
+        //  border-radius: 10px;
+        background-color: rgb(var(--color-blue-special));
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        border-radius: 8rem;
+    }
+
+    &::-webkit-scrollbar-thumb:window-inactive {
+        background-color: rgb(var(--color-blue-special));
+    }
 
     // -webkit-font-smoothing: antialiased;
 }

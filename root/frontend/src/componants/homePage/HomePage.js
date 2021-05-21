@@ -145,7 +145,7 @@ export default function HomePage(props) {
 
                     <RotatingText className="header__heading-secondary" />
 
-                    <a href="/" className="header__btn">
+                    <a href="/excursions" className="header__btn">
                         See our excursions
                     </a>
                 </div>

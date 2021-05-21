@@ -1,5 +1,5 @@
 .account {
-    justify-content: center;
+    // justify-content: center;
 
     height: 100vh;
 
@@ -9,6 +9,9 @@
             rgba(var(--color-main-2), 0.5)
         ),
         url(../../assets/img/tours/tour-3-cover.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
     background-size: cover;
 }
 
@@ -16,14 +19,16 @@
     display: flex;
 
     // height: 80.2rem;
-    height: 85.5rem;
-    width: 160rem;
+    // height: 87.5rem;
+    height: 80.5rem;
+    // height: 75.5rem;
+    width: 150rem;
     // width: 173rem;
 
     box-shadow: var(--shadow-dark);
 
     margin: 0 auto;
-    margin-top: 4rem;
+    margin-top: 6rem;
     background-color: white;
 
     &__view {
@@ -37,16 +42,19 @@
     }
 
     &__content {
-        // display: flex;
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+
+        // display: grid;
+        // grid-template-areas:
+        //     "formSet formPW"
+        //     "map maps";
+        // grid-template-columns: repeat(2, min-content);
+
         // justify-content: space-between;
 
-        display: grid;
-        grid-template-areas:
-            "map map"
-            "formSet formPW";
-        grid-template-columns: repeat(2, min-content);
-
-        justify-content: space-between;
+        margin-top: 1rem;
 
         width: 100%;
 
@@ -145,14 +153,6 @@
 
     background-color: #ffffff;
 
-    &--Set {
-        grid-area: formSet;
-    }
-
-    &--PW {
-        grid-area: formPW;
-    }
-
     // box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.151);
 
     &__heading {
@@ -166,7 +166,7 @@
 
         text-transform: uppercase;
         font-family: "Manrope" sans-serif;
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
 
     &__illustration {
@@ -190,7 +190,7 @@
         transition: all 0.3s;
 
         width: 45rem;
-        padding: 1.2rem 2rem;
+        padding: 1.5rem 2rem;
         margin-bottom: 2rem;
 
         // background-color: #eceff1a4;
@@ -292,7 +292,7 @@
         position: relative;
 
         position: absolute;
-        bottom: 7.5rem;
+        bottom: 8.5rem;
         right: 0;
 
         font-size: 1.22rem;

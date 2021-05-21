@@ -3,7 +3,6 @@ import axios from "axios";
 import {
     BrowserRouter as Router,
     Route,
-    Link,
     Switch,
     Redirect,
 } from "react-router-dom";
@@ -13,8 +12,14 @@ import HomePage from "./homePage/HomePage";
 import SignUp from "./signUp/SignUp";
 import LogIn from "./login/Login";
 import Account from "./account/Account";
+import Excursion from "./excursions/Excursion";
+import ExcursionContent from "./excursions/excursionContent/ExcursionContent";
 
 import "./App.scss";
+
+// Global Fonts
+
+import GlobalFonts from "../assets/fonts/GlobalFonts";
 
 // TODO: BUILD ORIGINAL 404 PAGE
 const NoMatchComp = () => <h1>Not Matched</h1>;
@@ -60,61 +65,88 @@ export default function App() {
     }, []);
 
     return (
-        <Router>
-            {isApiConsumed && (
-                <div className="App">
-                    <Switch>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => (
-                                <HomePage
-                                    authStatus={authStatus}
-                                    setAuthStatus={setAuthStatus}
-                                    userName={userName}
-                                    userPhoto={userPhoto}
-                                />
-                            )}
-                        />
-                        {authStatus && <Redirect from="/login" to="/" />}
-                        {!authStatus && (
+        <>
+            <GlobalFonts />
+            <Router>
+                {isApiConsumed && (
+                    <div className="App">
+                        <Switch>
                             <Route
                                 exact
-                                path="/signup"
-                                render={() => <SignUp />}
-                            />
-                        )}
-                        {authStatus && <Redirect from="/signup" to="/" />}
-                        {!authStatus && (
-                            <Route
-                                exact
-                                path="/login"
-                                render={() => <LogIn />}
-                            />
-                        )}
-                        {authStatus && (
-                            <Route
-                                exact
-                                path="/account"
+                                path="/"
                                 render={() => (
-                                    <Account
+                                    <HomePage
+                                        authStatus={authStatus}
+                                        setAuthStatus={setAuthStatus}
                                         userName={userName}
                                         userPhoto={userPhoto}
-                                        userEmail={userEmail}
-                                        userId={userId}
-                                        setUserName={setUserName}
-                                        setUserPhoto={setUserPhoto}
-                                        setUserEmail={setUserEmail}
                                     />
                                 )}
                             />
-                        )}
-                        {/*NOTE: Redirect login qnd signup to home page if user is logged in*/}
-                        {/*NOTE: 404 error for unhandled routes*/}
-                        <Route component={NoMatchComp} />
-                    </Switch>
-                </div>
-            )}
-        </Router>
+                            {authStatus && <Redirect from="/login" to="/" />}
+                            {!authStatus && (
+                                <Route
+                                    exact
+                                    path="/signup"
+                                    render={() => <SignUp />}
+                                />
+                            )}
+                            {authStatus && <Redirect from="/signup" to="/" />}
+                            {!authStatus && (
+                                <Route
+                                    exact
+                                    path="/login"
+                                    render={() => <LogIn />}
+                                />
+                            )}
+                            {authStatus && (
+                                <Route
+                                    exact
+                                    path="/account"
+                                    render={() => (
+                                        <Account
+                                            userName={userName}
+                                            userPhoto={userPhoto}
+                                            userEmail={userEmail}
+                                            userId={userId}
+                                            setUserName={setUserName}
+                                            setUserPhoto={setUserPhoto}
+                                            setUserEmail={setUserEmail}
+                                        />
+                                    )}
+                                />
+                            )}
+                            <Route
+                                exact
+                                path="/excursions"
+                                render={() => (
+                                    <Excursion
+                                        authStatus={authStatus}
+                                        setAuthStatus={setAuthStatus}
+                                        userName={userName}
+                                        userPhoto={userPhoto}
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/excursions/:slug"
+                                render={() => (
+                                    <ExcursionContent
+                                        authStatus={authStatus}
+                                        setAuthStatus={setAuthStatus}
+                                        userName={userName}
+                                        userPhoto={userPhoto}
+                                    />
+                                )}
+                            />
+                            {/*NOTE: Redirect login qnd signup to home page if user is logged in*/}
+                            {/*NOTE: 404 error for unhandled routes*/}
+                            <Route component={NoMatchComp} />
+                        </Switch>
+                    </div>
+                )}
+            </Router>
+        </>
     );
 }

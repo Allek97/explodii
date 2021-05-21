@@ -1,0 +1,45 @@
+.accountReview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url("../../../assets/img/home/bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+
+    &__reviewBox {
+        // align-self: center;
+        display: flex;
+        justify-content: flex-start;
+
+        transition: transform 5s;
+
+        width: 110rem;
+
+        // padding: 2rem;
+        // padding-right: 4rem;
+
+        // padding-top: 2rem;
+        // margin-left: 20rem;
+
+        overflow: hidden;
+        transform: translateX(0);
+    }
+
+    &__rotativeBox {
+        display: flex;
+        width: max-content;
+        padding: 4rem;
+
+        transition: transform 3s ease;
+
+        transform: translateX(-1rem);
+        // transform: translateX(-111rem);
+    }
+}
