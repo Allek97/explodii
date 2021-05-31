@@ -47,9 +47,9 @@ export default function SignUp() {
                 body
             );
 
-            // if (res.data.status === "success") {
-            //     setLogStatus(true);
-            // }
+            if (res.data.status === "success") {
+                setSignupStatus(true);
+            }
         } catch (err) {
             // NOTE: See userModel for validation errors
             console.log(err.response.data.message);

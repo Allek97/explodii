@@ -422,7 +422,7 @@ const setReviewStarsBg = (reviewVal) => {
         )`,
         };
     }
-    // console.log(reviewVal);
+
     return {
         backgroundImage: `linear-gradient(
         to right bottom,
@@ -451,7 +451,7 @@ const StyledReview = styled.div`
     flex-direction: column;
     align-items: center;
 
-    width: 50rem;
+    width: 50rem !important;
 
     padding: 3rem;
     margin-right: 5rem;
@@ -575,9 +575,9 @@ const StyledReview = styled.div`
 
 export const ReviewBox = (props) => {
     // Props
-    const { userReview } = props;
+    const { userReview, isExcursion } = props;
     const { review, rating, user, tour } = userReview;
-    const { photo: UserPhoto } = user;
+    const { photo: UserPhoto, name: UserName } = user;
     const { name: ExcursionName } = tour;
 
     //variables
@@ -589,7 +589,7 @@ export const ReviewBox = (props) => {
         <StyledReview img={worldImage} svg={quoteSvg}>
             <img src={userImage} alt="user" />
             <p>{review}</p>
-            <p>{ExcursionName}</p>
+            <p>{isExcursion ? UserName : ExcursionName}</p>
             <span />
             <ul>
                 {[1, 2, 3, 4, 5].map((el) => {
@@ -620,11 +620,13 @@ SuccessSave.propTypes = {
 };
 
 ReviewBox.propTypes = {
+    isExcursion: PropTypes.bool.isRequired,
     userReview: PropTypes.shape({
         review: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         user: PropTypes.shape({
             photo: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
         }),
         tour: PropTypes.shape({
             name: PropTypes.string.isRequired,

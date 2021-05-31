@@ -14,7 +14,7 @@
 }
 @font-face {
     font-family: Manrope;
-    src: url("../../assets/fonts/Manrope-ExtraBold.ttf");
+    src: url("../../assets/fonts/Manrope-VariableFont_wght.ttf");
 }
 
 // HEADER
@@ -22,9 +22,8 @@
 .header {
     position: relative;
 
-    height: 90vh;
+    height: 45.5vw;
     padding: 0 15%;
-    width: calc(100vw-3px);
 
     background-image: linear-gradient(76deg, #110f2e, #010028 50%);
     // background-size: 100%; // FIXME: Image changing resolution at 100%.
@@ -51,7 +50,7 @@
         background-clip: text;
         color: transparent;
 
-        font-family: "Manrope", sans-serif;
+        font-family: Manrope, sans-serif;
         font-size: 5.5rem;
         line-height: 72px;
         font-weight: 800;
@@ -113,6 +112,20 @@
         overflow: hidden;
 
         cursor: grab;
+    }
+
+    &__bgimg {
+        position: absolute;
+        top: 17.2rem;
+        right: 10rem;
+        height: 36.5vw;
+        width: 47vw;
+        // margin-top: 10.2rem;
+        // margin-left: 57rem;
+
+        background-image: url(../../assets/svgs/adventure-homepage-3.svg);
+        background-size: cover;
+        // background-position: center;
     }
 }
 

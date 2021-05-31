@@ -34,14 +34,14 @@ const options = {
     zoomControl: true,
 };
 
-export default function reservation() {
+export default function Map() {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
     });
 
     if (loadError) return "Error loading maps";
-    if (!isLoaded) return "Loading maps...";
+    if (!isLoaded) return "Loading maps";
 
     return (
         <>

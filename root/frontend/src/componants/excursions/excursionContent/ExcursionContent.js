@@ -9,11 +9,15 @@ import { useParams } from "react-router-dom";
 import "./_excursionContent.scss";
 
 // Componentes
+import ExcursionMap from "./components/excursionMap/ExcursionMap";
+import ExcursionReview from "./components/excursionsReviews/ExcursionReviews";
+import ExcursionBooking from "./components/excursionBooking/ExcursionBooking";
+
 import MenuBtn from "./components/MenuBtn";
+import Decoration from "./components/DecorationSection";
 
 // Fonts
 import "../../../assets/fonts/_global-fonts.scss";
-import { Center } from "@react-three/drei";
 
 // styles
 
@@ -97,6 +101,41 @@ const Header = styled.div`
     }
 `;
 
+const HeaderPage = styled.header`
+    position: relative;
+
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 85vh;
+    padding: 0 10rem;
+
+    background-image: linear-gradient(
+            to right bottom,
+            rgba(var(--color-primary-light), 0.85),
+            rgba(var(--color-primary-dark), 0.85) 50%
+        ),
+        url(${(props) => props.imageCover});
+
+    // background-image: linear-gradient(
+    //         76deg,
+    //         rgba(var(--color-main-1), 0.9),
+    //         rgba(var(--color-main-2), 0.9) 50%
+    //     ),
+    //     url("../../../assets/img/tours/tour-1-cover.jpg");
+    background-position: center;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - (var(--excursion-clip-height))),
+        0 100%
+    );
+`;
+
 const Heading = styled.h1`
     display: flex;
     flex-direction: column;
@@ -173,7 +212,16 @@ const InfoHeading = styled.h1`
 
 export default function ExcursionContent(props) {
     // props
-    const { authStatus, userPhoto, userName } = props;
+    const {
+        authStatus,
+        userName,
+        userPhoto,
+        setPaymentStatus,
+        setBookedExcursionName,
+        setBookedExcursionPrice,
+        setBookedExcursionDuration,
+        setBookedExcursionDate,
+    } = props;
     // URL slug param
     const { slug } = useParams();
     // hooks
@@ -208,10 +256,10 @@ export default function ExcursionContent(props) {
                 return window.location.assign("/excursions");
             }
             setExcursion(res.data.data[0]);
-            console.log(res.data.data);
+            console.log(res.data.data[0]);
             setApiConsumed(true);
         } catch (err) {
-            console.log(err);
+            console.log(err.response.data.message);
         }
     }, []);
 
@@ -220,6 +268,38 @@ export default function ExcursionContent(props) {
             return setIsScrolled(true);
         }
         return setIsScrolled(false);
+    };
+
+    const getNextDate = (dateArray) => {
+        //NOTE: format: "2016-02-18T23:59:48.039Z"
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+
+        // eslint-disable-next-line no-restricted-syntax
+        for (let date of dateArray) {
+            const convertedDate = new Date(date);
+
+            if (convertedDate > Date.now()) {
+                date = date.split("T")[0];
+                const dateMonth = months[parseInt(date.split("-")[1], 10) - 1];
+                const dateYear = date.split("-")[0];
+                return `${dateMonth} ${dateYear}`;
+            }
+        }
+
+        return "No tours planned for now, new dates will be coming soon !";
     };
 
     useEffect(() => {
@@ -252,12 +332,21 @@ export default function ExcursionContent(props) {
                                 Sign Up
                             </a>
                         ) : (
-                            <MenuBtn isScrolled={isScrolled} />
+                            <MenuBtn
+                                isScrolled={isScrolled}
+                                userName={userName}
+                                userPhoto={userPhoto}
+                            />
                         )}
                     </Header>
-                    <header className="excursion-content__header">
+
+                    <HeaderPage
+                        imageCover={
+                            require(`../../../assets/img/tours/${excursion.imageCover}`)
+                                .default
+                        }
+                    >
                         <Heading>
-                            {" "}
                             <span>{excursion.name}</span>
                             <span>Excursion</span>
                         </Heading>
@@ -274,171 +363,306 @@ export default function ExcursionContent(props) {
                                 {excursion.startLocation.description}
                             </WithLogo>
                         </div>
-                    </header>
+                    </HeaderPage>
 
-                    <section className="excursion-information">
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                flex: "0 0 50%",
-                                // marginLeft: "10rem",
-                            }}
-                        >
-                            <div style={{ display: "block" }}>
-                                <InfoHeading style={{ marginBottom: "3.5rem" }}>
-                                    Excursion Information
-                                </InfoHeading>
-                                <WithLogo
-                                    svg={calenderSvg}
-                                    leftGradiant="rgb(var(--color-blue-special))"
-                                    rightGradiant="rgb(var(--color-blue-special))"
-                                    style={{ marginBottom: "2.25rem" }}
-                                >
-                                    <span style={fieldsStyle}>NEXT DATE</span>
-                                    <span style={infoFieldsStyle}>
-                                        June 2021
-                                    </span>
-                                </WithLogo>
-                                <WithLogo
-                                    svg={levelSvg}
-                                    leftGradiant="rgb(var(--color-blue-special))"
-                                    rightGradiant="rgb(var(--color-blue-special))"
-                                    style={{ marginBottom: "2.25rem" }}
-                                >
-                                    <span style={fieldsStyle}>DIFFICULTY</span>
-                                    <span style={infoFieldsStyle}>Medium</span>
-                                </WithLogo>
-                                <WithLogo
-                                    svg={participantSvg}
-                                    leftGradiant="rgb(var(--color-blue-special))"
-                                    rightGradiant="rgb(var(--color-blue-special))"
-                                    style={{ marginBottom: "2.25rem" }}
-                                >
-                                    <span style={fieldsStyle}>
-                                        PARTICIPANTS
-                                    </span>
-                                    <span style={infoFieldsStyle}>
-                                        15 People
-                                    </span>
-                                </WithLogo>
-                                <WithLogo
-                                    svg={reviewSvg}
-                                    leftGradiant="rgb(var(--color-blue-special))"
-                                    rightGradiant="rgb(var(--color-blue-special))"
-                                    style={{ marginBottom: "7rem" }}
-                                >
-                                    <span style={fieldsStyle}>RATING</span>
-                                    <span style={infoFieldsStyle}>4.8 / 5</span>
-                                </WithLogo>
+                    <main>
+                        <section className="excursion-information">
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    flex: "0 0 50%",
+                                    // marginLeft: "10rem",
+                                }}
+                            >
+                                <div style={{ display: "block" }}>
+                                    <InfoHeading
+                                        style={{ marginBottom: "3.5rem" }}
+                                    >
+                                        Excursion Information
+                                    </InfoHeading>
+                                    <WithLogo
+                                        svg={calenderSvg}
+                                        leftGradiant="rgb(var(--color-blue-special))"
+                                        rightGradiant="rgb(var(--color-blue-special))"
+                                        style={{ marginBottom: "2.25rem" }}
+                                    >
+                                        <span style={fieldsStyle}>
+                                            NEXT DATE
+                                        </span>
+                                        <span style={infoFieldsStyle}>
+                                            {getNextDate(excursion.startDates)}
+                                        </span>
+                                    </WithLogo>
+                                    <WithLogo
+                                        svg={levelSvg}
+                                        leftGradiant="rgb(var(--color-blue-special))"
+                                        rightGradiant="rgb(var(--color-blue-special))"
+                                        style={{ marginBottom: "2.25rem" }}
+                                    >
+                                        <span style={fieldsStyle}>
+                                            DIFFICULTY
+                                        </span>
+                                        <span
+                                            style={{
+                                                ...infoFieldsStyle,
+                                                textTransform: "capitalize",
+                                            }}
+                                        >
+                                            {excursion.difficulty}
+                                        </span>
+                                    </WithLogo>
+                                    <WithLogo
+                                        svg={participantSvg}
+                                        leftGradiant="rgb(var(--color-blue-special))"
+                                        rightGradiant="rgb(var(--color-blue-special))"
+                                        style={{ marginBottom: "2.25rem" }}
+                                    >
+                                        <span style={fieldsStyle}>
+                                            PARTICIPANTS
+                                        </span>
+                                        <span
+                                            style={{
+                                                ...infoFieldsStyle,
+                                                textTransform: "capitalize",
+                                            }}
+                                        >
+                                            15 People
+                                        </span>
+                                    </WithLogo>
+                                    <WithLogo
+                                        svg={reviewSvg}
+                                        leftGradiant="rgb(var(--color-blue-special))"
+                                        rightGradiant="rgb(var(--color-blue-special))"
+                                        style={{ marginBottom: "7rem" }}
+                                    >
+                                        <span style={fieldsStyle}>RATING</span>
+                                        <span style={infoFieldsStyle}>
+                                            {excursion.ratingsAverage} / 5
+                                        </span>
+                                    </WithLogo>
 
-                                <InfoHeading style={{ marginBottom: "3.5rem" }}>
-                                    YOUR EXCURSION GUIDES
-                                </InfoHeading>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        marginBottom: "2.25rem",
-                                    }}
-                                >
-                                    <img
-                                        src={guidePhoto("user-3.jpg")}
-                                        alt="Lead guide"
-                                        style={photoStyle}
-                                    />
-                                    <span style={fieldsStyle}>LEAD GUIDE</span>
-                                    <span style={infoFieldsStyle}>
-                                        Miyah Myles
-                                    </span>
-                                </div>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <img
-                                        src={guidePhoto("user-5.jpg")}
-                                        alt="Excursion guide"
-                                        style={photoStyle}
-                                    />
-                                    <span style={fieldsStyle}>
-                                        Excursion GUIDE
-                                    </span>
-                                    <span style={infoFieldsStyle}>
-                                        Miyah Myles
-                                    </span>
+                                    <InfoHeading
+                                        style={{ marginBottom: "3.5rem" }}
+                                    >
+                                        YOUR EXCURSION GUIDES
+                                    </InfoHeading>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            marginBottom: "2.25rem",
+                                        }}
+                                    >
+                                        <img
+                                            src={guidePhoto("user-3.jpg")}
+                                            alt="Lead guide"
+                                            style={photoStyle}
+                                        />
+                                        <span style={fieldsStyle}>
+                                            LEAD GUIDE
+                                        </span>
+                                        <span style={infoFieldsStyle}>
+                                            {excursion.guides
+                                                .filter(
+                                                    (guide) =>
+                                                        guide.role ===
+                                                        "lead-guide"
+                                                )
+                                                .map((guide) => guide.name)}
+                                        </span>
+                                    </div>
+
+                                    {excursion.guides
+                                        .filter(
+                                            (guide) => guide.role === "guide"
+                                        )
+                                        .map((guide) => (
+                                            <div
+                                                key={guide.name}
+                                                style={{
+                                                    marginBottom: "3.5rem",
+                                                }}
+                                            >
+                                                <img
+                                                    src={guidePhoto(
+                                                        guide.photo
+                                                    )}
+                                                    alt="Excursion guide"
+                                                    style={photoStyle}
+                                                />
+                                                <span style={fieldsStyle}>
+                                                    Excursion GUIDE
+                                                </span>
+                                                <span style={infoFieldsStyle}>
+                                                    {guide.name}
+                                                </span>{" "}
+                                            </div>
+                                        ))}
                                 </div>
                             </div>
+
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+
+                                    flex: "0 0 50%",
+
+                                    fontSize: "1.7rem",
+                                    fontWeight: "300",
+                                }}
+                            >
+                                <InfoHeading
+                                    style={{
+                                        marginBottom: "3.5rem",
+                                        textTransform: "uppercase",
+                                    }}
+                                >
+                                    ABOUT {excursion.name} EXCURSION
+                                </InfoHeading>
+                                <p style={{ marginBottom: "2.5rem" }}>
+                                    {excursion.description
+                                        .split(".")
+                                        .filter(
+                                            (el, idx) => idx === 0 || idx === 1
+                                        )}
+                                    .
+                                </p>
+                                <p>
+                                    {excursion.description
+                                        .split(".")
+                                        .filter(
+                                            (el, idx) => idx !== 0 && idx !== 1
+                                        )}
+                                </p>
+                            </div>
+
+                            <Decoration />
+                        </section>
+
+                        <section className="excursion-pictures">
+                            {excursion.images.map((imageName) => (
+                                <img
+                                    src={excursionPhoto(imageName)}
+                                    alt="Excursion guide"
+                                    style={{
+                                        height: "60rem",
+                                        width: "calc((1/3)*100%)",
+                                    }}
+                                    key={imageName}
+                                />
+                            ))}
+                        </section>
+
+                        <section className="excursion-map">
+                            <ExcursionMap
+                                startLocation={excursion.startLocation}
+                                locations={excursion.locations}
+                            />
+                        </section>
+
+                        <section className="excursion-reviews">
+                            <ExcursionReview
+                                excursionId={excursion.id}
+                                excursionName={excursion.name}
+                            />
+                            {/* <Decoration /> */}
+                        </section>
+
+                        <section className="excursion-booking">
+                            <ExcursionBooking
+                                excursionId={excursion.id}
+                                excursionDuration={excursion.duration}
+                                excursionPrice={excursion.price}
+                                excursionImages={excursion.images}
+                                excursionName={excursion.name}
+                                excursionDate={getNextDate(
+                                    excursion.startDates
+                                )}
+                                authStatus={authStatus}
+                                setPaymentStatus={setPaymentStatus}
+                                setBookedExcursionName={setBookedExcursionName}
+                                setBookedExcursionPrice={
+                                    setBookedExcursionPrice
+                                }
+                                setBookedExcursionDuration={
+                                    setBookedExcursionDuration
+                                }
+                                setBookedExcursionDate={setBookedExcursionDate}
+                            />
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: "45rem",
+                                    width: "100%",
+                                    height: "35rem",
+                                }}
+                            >
+                                <Decoration />
+                            </div>
+                        </section>
+                    </main>
+
+                    <footer className="footer">
+                        <div className="footer__logobox">
+                            <div className="footer__logo">{}</div>
+                            <h1 className="footer__logo-heading">Explodii</h1>
                         </div>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-
-                                flex: "0 0 50%",
-
-                                fontSize: "1.7rem",
-                                fontWeight: "300",
-                            }}
-                        >
-                            <InfoHeading style={{ marginBottom: "3.5rem" }}>
-                                ABOUT THE SEA EXPLORER TOUR
-                            </InfoHeading>
-                            <p style={{ marginBottom: "2.5rem" }}>
-                                Consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna
-                                aliqua. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum.
-                            </p>
-                            <p>
-                                Irure dolor in reprehenderit in voluptate velit
-                                esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident,
-                                sunt in culpa qui officia deserunt mollit anim
-                                id est laborum. Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna
-                                aliqua. Duis aute irure dolor in reprehenderit
-                                in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur.
-                            </p>
+                        <div className="footer__content">
+                            <div className="footer__navigation">
+                                <a href="/" className="footer__btn">
+                                    About Us
+                                </a>
+                                <a href="/" className="footer__btn">
+                                    Careers
+                                </a>
+                                <a href="/" className="footer__btn">
+                                    Events
+                                </a>
+                                <a href="/" className="footer__btn">
+                                    Contact Us
+                                </a>
+                                <a href="/" className="footer__btn">
+                                    Privacy Policy
+                                </a>
+                                <a href="/" className="footer__btn">
+                                    Terms of Use
+                                </a>
+                            </div>
+                            <div className="footer__copyright">
+                                &copy; 2021 by{" "}
+                                <a
+                                    href="/"
+                                    className="footer__btn"
+                                    style={{
+                                        textTransform: "none",
+                                    }}
+                                >
+                                    Ilias Allek
+                                </a>
+                                . All rights reserved.
+                            </div>
+                            <div className="footer__media">
+                                <a href="/" className="footer__media--1">
+                                    {}
+                                </a>
+                                <a href="/" className="footer__media--2">
+                                    {}
+                                </a>
+                                <a href="/" className="footer__media--3">
+                                    {}
+                                </a>
+                                <a href="/" className="footer__media--4">
+                                    {}
+                                </a>
+                                <a href="/" className="footer__media--5">
+                                    {}
+                                </a>
+                            </div>
                         </div>
-
-                        <div className="deco" />
-                        <span className="deco-2" />
-                    </section>
-
-                    <section className="excursion-pictures">
-                        <img
-                            src={excursionPhoto("tour-1-1.jpg")}
-                            alt="Excursion guide"
-                            style={{
-                                height: "60rem",
-                                width: "calc((1/3)*100%)",
-                            }}
-                        />
-                        <img
-                            src={excursionPhoto("tour-1-2.jpg")}
-                            alt="Excursion guide"
-                            style={{
-                                height: "60rem",
-                                width: "calc((1/3)*100%)",
-                            }}
-                        />
-                        <img
-                            src={excursionPhoto("tour-1-3.jpg")}
-                            alt="Excursion guide"
-                            style={{
-                                height: "60rem",
-                                width: "calc((1/3)*100%)",
-                            }}
-                        />
-                    </section>
+                    </footer>
                 </div>
             )}
         </>
@@ -447,6 +671,11 @@ export default function ExcursionContent(props) {
 
 ExcursionContent.propTypes = {
     authStatus: PropTypes.bool.isRequired,
-    userPhoto: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
+    userPhoto: PropTypes.string.isRequired,
+    setPaymentStatus: PropTypes.func.isRequired,
+    setBookedExcursionName: PropTypes.func.isRequired,
+    setBookedExcursionPrice: PropTypes.func.isRequired,
+    setBookedExcursionDuration: PropTypes.func.isRequired,
+    setBookedExcursionDate: PropTypes.func.isRequired,
 };

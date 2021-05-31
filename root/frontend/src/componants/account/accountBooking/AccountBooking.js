@@ -111,8 +111,8 @@ export default function AccountReview(props) {
             {bookings.map((excursion, idx) => {
                 return (
                     <div
-                        key={uuidv4()}
-                        id={uuidv4()}
+                        key={excursion._id}
+                        id={excursion._id}
                         className="bookings__container"
                         style={{ zIndex: "2" }}
                     >
@@ -149,8 +149,8 @@ export default function AccountReview(props) {
                                         {[1, 2, 3, 4, 5].map((el) => {
                                             return (
                                                 <span
-                                                    key={uuidv4()}
-                                                    id={uuidv4()}
+                                                    key={el}
+                                                    id={el}
                                                     className="starbox__star"
                                                     style={
                                                         excursion.ratingsAverage >

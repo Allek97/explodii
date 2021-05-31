@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import React, { createRef } from "react";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
@@ -5,9 +6,52 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
-import { ReviewBox } from "../AccountStyledComponents";
+import { ReviewBox } from "../../../../account/AccountStyledComponents";
 
-import "./_accountReview.scss";
+const ExcursionReviewContainer = styled.div`
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    /* margin-bottom: 2rem; //TODO: GET RIDE OF THE MARGIN
+    margin-top: var(--excursion-clip-height); */
+
+    padding: 15rem;
+`;
+
+const RotativeBox = styled.div`
+    position: relative;
+    z-index: 4;
+
+    display: flex;
+    justify-content: flex-start;
+
+    transition: transform 5s;
+
+    width: 89vw;
+
+    padding: 5rem 5rem 0 5rem;
+
+    overflow: hidden;
+    transform: translateX(0);
+
+    div {
+        display: flex;
+        width: max-content;
+        padding: 4rem;
+
+        transition: transform 3s ease;
+
+        transform: translateX(-1rem);
+    }
+`;
 
 export const UserNameStyled = styled.p`
     position: relative;
@@ -58,21 +102,23 @@ const Tracker = styled.span`
 
 export default function AccountReview(props) {
     //Props
-    const { userId, userName } = props;
+    const { excursionId, excursionName } = props;
 
     //Hooks
     const [reviews, setReviews] = useState([]);
     const [revIdx, setRevIdx] = useState(0);
 
+    // variables
+    const reviewBgImg = require("../../../../../assets/img/home/bg.png")
+        .default;
+
     useEffect(async () => {
         try {
             const res = await axios.get(
-                `http://localhost:5001/api/v1/users/${userId}/reviews`,
+                `${process.env.REACT_APP_URL}/api/v1/tours/${excursionId}/reviews`,
                 { withCredentials: true, credentials: "include" }
             );
-
             setReviews(res.data.data);
-            console.log(res.data.data);
         } catch (err) {
             console.log(err.response.data);
             setReviews([]);
@@ -84,7 +130,7 @@ export default function AccountReview(props) {
             (reviews.length / 2) % 1 === 0
                 ? reviews.length / 2 - 1
                 : Math.floor(reviews.length / 2);
-        console.log(revIdx, maxIdx);
+        // console.log(revIdx, maxIdx);
         if (revIdx === maxIdx) {
             return setRevIdx(0);
         }
@@ -100,17 +146,16 @@ export default function AccountReview(props) {
         };
     });
 
-    // console.log(revIdx);
+    // console.log(excursionId);
 
     return (
-        <div className="accountReview">
-            <UserNameStyled>{userName}</UserNameStyled>
+        <ExcursionReviewContainer bgImg={reviewBgImg}>
+            <UserNameStyled>{excursionName}</UserNameStyled>
             <h1 style={{ marginBottom: "2rem", fontSize: "3rem" }}>
                 Your words matter to us
             </h1>
-            <div className="accountReview__reviewBox">
+            <RotativeBox>
                 <div
-                    className="accountReview__rotativeBox"
                     style={{
                         transform: `translateX(${-revIdx * 110 - 1}rem)`,
                     }}
@@ -118,22 +163,22 @@ export default function AccountReview(props) {
                     {reviews.map((el) => {
                         return (
                             <ReviewBox
-                                key={el._id}
+                                key={uuidv4()}
                                 userReview={el}
-                                isExcursion={false}
+                                isExcursion
                             />
                         );
                     })}
                 </div>
-            </div>
+            </RotativeBox>
             <div style={{ display: "flex" }}>
                 {reviews.map((el, idx) => {
                     if (!(idx % 2)) {
                         const index = idx / 2;
                         return (
                             <Tracker
-                                key={el._id}
-                                id={el._id}
+                                key={uuidv4()}
+                                id={uuidv4()}
                                 isSelected={revIdx === index}
                                 onClick={() => {
                                     setRevIdx(index);
@@ -144,11 +189,11 @@ export default function AccountReview(props) {
                     return null;
                 })}
             </div>
-        </div>
+        </ExcursionReviewContainer>
     );
 }
 
 AccountReview.propTypes = {
-    userId: PropTypes.string.isRequired,
-    userName: PropTypes.string.isRequired,
+    excursionId: PropTypes.string.isRequired,
+    excursionName: PropTypes.string.isRequired,
 };

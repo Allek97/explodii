@@ -27,6 +27,14 @@ const NoMatchComp = () => <h1>Not Matched</h1>;
 export default function App() {
     // Hook/prop to keep track in all the map if user/admin is logged or not
     const [authStatus, setAuthStatus] = useState(false);
+    const [paymentStatus, setPaymentStatus] = useState(false);
+    // Retrieve booked excursion information to display a successful message
+    // BUG: I NEED TO USE WEBHOOKS CAUSE STRIPE WILL RELOAD THE PAGE ANYWAY,
+    // TODO: MAYBE CREATE A SEPARATE PAGE DISPLAY SUCCESSFUL TRANSACTION/ REDIRECT TO ACCOUNT BOOKINGS
+    const [bookedExcursionName, setBookedExcursionName] = useState("");
+    const [bookedExcursionDuration, setBookedExcursionDuration] = useState(0);
+    const [bookedExcursionPrice, setBookedExcursionPrice] = useState(0);
+    const [bookedExcursionDate, setBookedExcursionDate] = useState("");
     // TRICK: Wait for the API to consume before rendering
     const [isApiConsumed, setIsApiConsumed] = useState(false);
     // Retrieving the user info when logging in
@@ -125,6 +133,19 @@ export default function App() {
                                         setAuthStatus={setAuthStatus}
                                         userName={userName}
                                         userPhoto={userPhoto}
+                                        paymentStatus={paymentStatus}
+                                        bookedExcursionName={
+                                            bookedExcursionName
+                                        }
+                                        bookedExcursionDuration={
+                                            bookedExcursionDuration
+                                        }
+                                        bookedExcursionPrice={
+                                            bookedExcursionPrice
+                                        }
+                                        bookedExcursionDate={
+                                            bookedExcursionDate
+                                        }
                                     />
                                 )}
                             />
@@ -137,6 +158,19 @@ export default function App() {
                                         setAuthStatus={setAuthStatus}
                                         userName={userName}
                                         userPhoto={userPhoto}
+                                        setPaymentStatus={setPaymentStatus}
+                                        setBookedExcursionName={
+                                            setBookedExcursionName
+                                        }
+                                        setBookedExcursionDuration={
+                                            setBookedExcursionDuration
+                                        }
+                                        setBookedExcursionPrice={
+                                            setBookedExcursionPrice
+                                        }
+                                        setBookedExcursionDate={
+                                            setBookedExcursionDate
+                                        }
                                     />
                                 )}
                             />

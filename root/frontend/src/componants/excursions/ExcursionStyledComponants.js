@@ -29,6 +29,11 @@ export const ProfileBtn = styled.a`
         color: #fff;
         cursor: pointer;
     }
+
+    img {
+        background-color: #3be5dd;
+    }
+
     &:hover {
         filter: brightness(1.1);
     }
@@ -77,24 +82,42 @@ export const Tour = styled.div`
     cursor: pointer;
 
     & > div:first-child {
-        height: 28rem;
         flex: 0 0 35rem;
-
-        clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-
+        height: 28rem;
+        overflow: hidden;
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;
 
-        background-image: linear-gradient(
-                to right bottom,
-                rgba(var(--color-main-1), 0.85),
-                rgba(var(--color-main-2), 0.85)
-            ),
-            url(${(props) => props.tourImg});
+        clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+        &::before {
+            content: "";
 
-        background-blend-mode: color-dodge; // TODO: Change
-        background-size: cover;
-        background-position: center;
+            display: block;
+
+            transition: all 0.5s ease-in;
+
+            height: 28rem;
+
+            border-top-left-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+
+            background-image: linear-gradient(
+                    to right bottom,
+                    rgba(var(--color-main-1), 0.85),
+                    rgba(var(--color-main-2), 0.85)
+                ),
+                url(${(props) => props.tourImg});
+
+            background-blend-mode: color-dodge; // TODO: Change
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+        }
+
+        &:hover::before {
+            transition: all 0.5s ease-in;
+            transform: scale(1.05);
+        }
     }
 
     & > div:nth-child(2),
@@ -249,8 +272,8 @@ export const TourBox = (props) => {
                                         ? setReviewStarsBg()
                                         : setReviewStarsBg(el)
                                 }
-                                key={uuidv4()}
-                                id={uuidv4()}
+                                key={el}
+                                id={el}
                                 svg={starSvg}
                                 // rating={el <= 4.5 ? null : 4.5}
                             />
@@ -269,7 +292,7 @@ export const TourBox = (props) => {
                 <p style={{ marginTop: "3rem" }}>
                     {shortDescription}...
                     <a
-                        href="/"
+                        href={`/excursions/${slug}`}
                         style={{ color: "rgb(var(--color-blue-special))" }}
                     >
                         More
@@ -328,17 +351,6 @@ export const TourBox = (props) => {
                 <DetailBtn href={`/excursions/${slug}`}>Details</DetailBtn>
             </div>
         </Tour>
-    );
-};
-
-// TODO: Filter Componant
-
-export const FilterBox = (props) => {
-    const starSvg = require("../../assets/svgs/star-review.svg").default;
-    return (
-        <div>
-            <div></div>
-        </div>
     );
 };
 

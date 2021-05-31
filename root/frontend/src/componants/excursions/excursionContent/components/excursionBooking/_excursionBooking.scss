@@ -1,0 +1,47 @@
+// TODO: CREATE A STYLED COMPONENT FROM THIS
+
+.composition-excursion {
+    position: relative;
+
+    // display: flex;
+    // flex-direction: column;
+    // text-align: start;
+    grid-area: photo;
+    // width: 100%;
+
+    &__photo {
+        position: absolute;
+        z-index: 10;
+
+        transition: all 0.2s;
+        width: 31rem;
+        // width: 45%;
+
+        box-shadow: 0 1.5rem 4rem rgba(var(--color-black), 0.4);
+        border-radius: 3px;
+        outline-offset: 2rem;
+
+        &:hover {
+            outline: 1.5rem solid #252397;
+            transform: scale(1.05) translateY(-0.5rem);
+            box-shadow: 0 2.5rem 4rem rgba(var(--color-black), 0.5);
+            z-index: 20;
+        }
+
+        &--1 {
+            left: 0rem;
+            top: 4rem;
+        }
+
+        &--2 {
+            right: 0rem;
+            top: 10rem;
+        }
+
+        &--3 {
+            left: 10rem;
+            top: 20rem;
+            z-index: 11;
+        }
+    }
+}

@@ -21,6 +21,7 @@ import RotatingText from "../rotatingText/RotatingText";
 import Nat1 from "../../assets/img/tours/tour-5-1.jpg";
 import Nat2 from "../../assets/img/tours/tour-3-2.jpg";
 import Nat3 from "../../assets/img/tours/tour-9-3.jpg";
+import HomeBg from "../../assets/img/home/joshua-oluwagbemiga-Z6HQ0EhoD6g-unsplash.jpg";
 
 // VIDEOS
 import BgVideo from "../../assets/videos/cosmos.mp4";
@@ -36,7 +37,7 @@ const photoStyle = {
     borderRadius: "18px",
 };
 
-const ProfileBtn = styled.a`
+export const ProfileBtn = styled.a`
     &,
     &:link,
     &:visited {
@@ -60,6 +61,11 @@ const ProfileBtn = styled.a`
         color: #fff;
         cursor: pointer;
     }
+
+    img {
+        background-color: #3be5dd;
+    }
+
     &:hover {
         filter: brightness(1.1);
     }
@@ -130,6 +136,7 @@ export default function HomePage(props) {
                                 style={{
                                     padding: "0 2rem",
                                     paddingLeft: "1.2rem",
+                                    minWidth: "6rem",
                                 }}
                             >{`${userName}`}</span>
                         </ProfileBtn>
@@ -138,19 +145,23 @@ export default function HomePage(props) {
 
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 {/* <svg>{Earth()}</svg> */}
-                <div className="header__headings">
-                    <h1 className="header__heading-primary">
-                        Discover New Places,Meet New People and Travel.
-                    </h1>
+                <div style={{ display: "flex" }}>
+                    <div className="header__headings">
+                        <h1 className="header__heading-primary">
+                            Discover New Places,Meet New People and Travel.
+                        </h1>
 
-                    <RotatingText className="header__heading-secondary" />
+                        <RotatingText className="header__heading-secondary" />
 
-                    <a href="/excursions" className="header__btn">
-                        See our excursions
-                    </a>
+                        <a href="/excursions" className="header__btn">
+                            See our excursions
+                        </a>
+                    </div>
+
+                    <div className="header__bgimg" />
                 </div>
 
-                <Globe className="header__globe" />
+                {/* <Globe className="header__globe" /> */}
             </header>
 
             <main>

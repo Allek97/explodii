@@ -1,0 +1,96 @@
+@font-face {
+    font-family: Poppins;
+    src: url("../../../../assets/fonts/Poppins-Regular.ttf");
+
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+    'embedded-opentype', and 'svg' */
+}
+
+.container {
+    // height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider {
+    position: relative;
+    width: 25rem;
+}
+
+.slider__track,
+.slider__range,
+.slider__left-value,
+.slider__right-value {
+    position: absolute;
+}
+
+.slider__track,
+.slider__range {
+    border-radius: 3px;
+    height: 5px;
+}
+
+.slider__track {
+    background-color: #ced4da;
+    width: 100%;
+    z-index: 1;
+}
+
+.slider__range {
+    background-color: rgb(var(--color-blue-special));
+    z-index: 2;
+}
+
+.slider__left-value,
+.slider__right-value {
+    color: rgb(41, 43, 46);
+    font-size: 1.45rem;
+    margin-top: -4rem;
+    font-weight: 400;
+    font-family: Poppins;
+}
+
+.slider__left-value {
+    left: -1.5rem;
+}
+
+.slider__right-value {
+    right: -1.5rem;
+}
+
+/* Removing the default appearance */
+.thumb,
+.thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+.thumb {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    width: 25rem;
+    outline: none;
+}
+
+/* Left and right thumbs */
+.thumb::-webkit-slider-thumb {
+    background-color: #f1f5f7;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    cursor: pointer;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-top: 4px;
+    pointer-events: all;
+    position: relative;
+}
+
+.thumb--left::-webkit-slider-thumb {
+    z-index: 3;
+}
+
+.thumb--right::-webkit-slider-thumb {
+    z-index: 4;
+}

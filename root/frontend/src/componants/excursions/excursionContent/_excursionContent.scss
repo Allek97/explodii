@@ -1,39 +1,3 @@
-.excursion-content {
-    &__header {
-        position: relative;
-
-        z-index: 5;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        height: 85vh;
-        padding: 0 10rem;
-
-        background-image: linear-gradient(
-                to right bottom,
-                rgba(var(--color-primary-light), 0.85),
-                rgba(var(--color-primary-dark), 0.85) 50%
-            ),
-            url("../../../assets/img/tours/tour-1-cover.jpg");
-        // background-image: linear-gradient(
-        //         76deg,
-        //         rgba(var(--color-main-1), 0.9),
-        //         rgba(var(--color-main-2), 0.9) 50%
-        //     ),
-        //     url("../../../assets/img/tours/tour-1-cover.jpg");
-        background-position: center;
-
-        clip-path: polygon(
-            0 0,
-            100% 0,
-            100% calc(100% - (var(--excursion-clip-height))),
-            0 100%
-        );
-    }
-}
-
 .excursion-information {
     position: relative;
 
@@ -50,28 +14,11 @@
         0 100%
     );
 
-    // background-color: rgb(247, 241, 241);
-
     & > * {
         padding: 0 8vw;
         padding-top: 14vw;
         padding-bottom: calc(1vw + var(--excursion-clip-height));
     }
-
-    // &::after {
-    //     content: "";
-
-    //     position: absolute;
-    //     bottom: 1rem;
-    //     left: -1rem;
-
-    //     width: 60rem;
-    //     height: 5rem;
-
-    //     background-color: blue;
-
-    //     transform: rotate(-3.7deg);
-    // }
 }
 
 .excursion-pictures {
@@ -90,58 +37,106 @@
         0 100%
     );
 
-    background-color: rgb(247, 241, 241);
-
     filter: brightness(85%);
-
-    // &::before {
-    //     content: "";
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     height: 100%;
-    //     width: 100%;
-    //     background-image: linear-gradient(
-    //         to right bottom,
-    //         rgba(var(--color-primary-light), 0.2),
-    //         rgba(var(--color-primary-dark), 0.2) 50%
-    //     );
-    //     z-index: 999;
-    // }
 }
 
-.deco {
-    position: absolute;
-    bottom: 2.65rem;
-    left: 0;
-    z-index: 2;
+.excursion-map {
+    position: relative;
 
-    display: block;
+    z-index: 4;
 
-    width: 55rem;
-    height: 4rem;
+    display: flex;
 
-    padding: 0;
+    margin-top: calc(0px - var(--excursion-clip-height));
 
-    transform: skewY(-5.2deg);
+    clip-path: polygon(
+        0 (var(--excursion-clip-height)),
+        100% 0,
+        100% calc(100% - (var(--excursion-clip-height))),
+        0 100%
+    );
 
-    background-color: rgba(var(--color-blue-special), 0.8);
+    // background-color: rgb(247, 241, 241);
+
+    // filter: brightness(85%);
+
+    // overflow: hidden;
 }
 
-.deco-2 {
-    position: absolute;
-    bottom: 6rem;
-    left: 30rem;
-    z-index: 2;
+.excursion-reviews {
+    position: relative;
 
-    display: block;
+    z-index: 3;
 
-    width: 20rem;
-    height: 4rem;
+    display: flex;
 
-    padding: 0;
+    // height: 40vw;
 
-    transform: skewY(-5.2deg);
+    margin-top: calc(0px - var(--excursion-clip-height));
 
-    background-color: rgba(var(--color-primary-dark), 0.8);
+    background-image: linear-gradient(
+        76deg,
+        rgba(var(--color-primary-dark), 0.02),
+        rgba(var(--color-primary-dark), 0.02)
+    );
+
+    clip-path: polygon(
+        0 (var(--excursion-clip-height)),
+        100% 0,
+        100% calc(100% - (var(--excursion-clip-height))),
+        0 100%
+    );
+
+    &:before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        z-index: 1;
+
+        display: block;
+
+        height: 100%;
+        width: 100%;
+
+        background-image: linear-gradient(
+            76deg,
+            rgb(var(--color-primary-dark)),
+            rgb(var(--color-primary-dark))
+        );
+
+        opacity: 0.03;
+
+        mask-image: url("../../../assets/img/home/bg.png");
+        mask-size: cover;
+        mask-repeat: no-repeat;
+    }
+}
+
+.excursion-booking {
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // height: 40vw;
+
+    margin-top: calc(0px - var(--excursion-clip-height));
+
+    clip-path: polygon(
+        0 (var(--excursion-clip-height)),
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+
+    // background-color: red;
+
+    // filter: brightness(85%);
+
+    // overflow: hidden;
 }

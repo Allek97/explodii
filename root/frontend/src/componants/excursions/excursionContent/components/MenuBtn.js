@@ -47,6 +47,10 @@ export const ProfileBtn = styled.a`
     &:hover {
         filter: brightness(1.1);
     }
+
+    img {
+        background-color: #3be5dd;
+    }
 `;
 
 const ArrowMenu = styled.span`
@@ -180,11 +184,12 @@ export const SideLink = styled.span`
 
 export default function MenuBtn(props) {
     //props
-    const { isScrolled } = props;
+    const { isScrolled, userName, userPhoto } = props;
     // Hooks
     const [isMenu, SetMenu] = useState(false);
 
-    const userPhoto = require("../../../../assets/img/users/user-6.jpg")
+    // eslint-disable-next-line import/no-dynamic-require
+    const userPicture = require(`../../../../assets/img/users/${userPhoto}`)
         .default;
     // svgs
     const arrowSvg = require("../../../../assets/svgs/keyboard_arrow_down.svg")
@@ -213,14 +218,15 @@ export default function MenuBtn(props) {
                 style={{ position: "relative" }}
                 isScrolled={isScrolled}
             >
-                <img src={userPhoto} alt="userPhoto" style={photoStyle} />
+                <img src={userPicture} alt="userPhoto" style={photoStyle} />
                 <span
                     style={{
                         paddingLeft: "1.2rem",
                         paddingRight: "5px",
+                        minWidth: "6rem",
                     }}
                 >
-                    Sabrine Lamina
+                    {userName}
                 </span>
                 <ArrowMenu svg={arrowSvg} isMenu={isMenu} />
             </ProfileBtn>
@@ -251,4 +257,6 @@ export default function MenuBtn(props) {
 
 MenuBtn.propTypes = {
     isScrolled: PropTypes.bool.isRequired,
+    userName: PropTypes.string.isRequired,
+    userPhoto: PropTypes.string.isRequired,
 };
