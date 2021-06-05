@@ -175,7 +175,9 @@ export default function AccountReview(props) {
                                     <p className="bookings__price-only">Only</p>
                                     <p className="bookings__price-value">{`$${excursion.price}`}</p>
                                 </div>
-                                <BookBtn href="/excursions">Book now!</BookBtn>
+                                <BookBtn href={`/excursions/${excursion.slug}`}>
+                                    Book now!
+                                </BookBtn>
                             </div>
                         </div>
                     </div>

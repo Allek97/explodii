@@ -67,7 +67,7 @@ exports.aliasTopTours = (req, res, next) => {
     req.query.limit = "5";
     req.query.sort = "price,-ratingsAverage,";
     req.query.fields =
-        "name,duration,maxGroupSize,guides,startLocation,ratingsAverage,price,imageCover";
+        "name,duration,maxGroupSize,guides,startLocation,ratingsAverage,price,imageCover,slug";
     next();
 };
 
@@ -75,7 +75,7 @@ exports.popularTours = (req, res, next) => {
     req.query.limit = "3";
     req.query.sort = "ratingsQuantity,-ratingsAverage";
     req.query.fields =
-        "name,duration,maxGroupSize,guides,startLocation,ratingsAverage,price,imageCover";
+        "name,duration,maxGroupSize,guides,startLocation,ratingsAverage,price,imageCover,slug";
     next();
 };
 

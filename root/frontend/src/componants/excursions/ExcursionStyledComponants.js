@@ -1,9 +1,8 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { keyframes, css } from "styled-components";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 
 export const ProfileBtn = styled.a`
     &,
@@ -63,16 +62,38 @@ const setReviewStarsBg = (reviewVal) => {
     };
 };
 
+const tourAnimation = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+`;
+
 export const Tour = styled.div`
     display: flex;
+
+    /* transition: all 2s; */
+    /* transform: translateX(100%); */
+    /* transform: translateX(0%); */
 
     width: 98rem;
     margin-left: auto;
     margin-bottom: 5rem;
 
-    border-radius: 1rem;
+    // TODO: FIND A WAY TO DO IT ONLY ON RELOAD
+    /* animation: ${(props) =>
+        props.animationLoad
+            ? css`
+                  ${tourAnimation} 0.3s cubic-bezier(0.64, 0.01, 1, 0.03) 1
+              `
+            : "none"}; */
 
     box-shadow: 0px 0px 2rem rgb(0 0 0 / 20%);
+    border-radius: 1rem;
 
     font-size: 1.4rem;
     font-weight: 300;
@@ -231,7 +252,7 @@ const DetailBtn = styled.a`
 `;
 export const TourBox = (props) => {
     // props
-    const { excursion } = props;
+    const { excursion, animationLoad } = props;
     const {
         name,
         imageCover,
@@ -243,6 +264,9 @@ export const TourBox = (props) => {
         slug,
     } = excursion;
 
+    // hooks
+
+    // variables
     const tourImg = require(`../../assets/img/tours/${imageCover}`).default;
 
     const roundedPrice = price.toFixed(2);
@@ -250,8 +274,16 @@ export const TourBox = (props) => {
 
     const starSvg = require("../../assets/svgs/star-review.svg").default;
 
+    // effects
+
+    console.log(animationLoad);
+
     return (
-        <Tour tourImg={tourImg}>
+        <Tour
+            tourImg={tourImg}
+            animationLoad={animationLoad}
+            // style={animationLoad ? { transform: "translateX(0)" } : null}
+        >
             <div />
             <div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
@@ -367,4 +399,5 @@ TourBox.propTypes = {
         price: PropTypes.number.isRequired,
         slug: PropTypes.string.isRequired,
     }).isRequired,
+    animationLoad: PropTypes.bool.isRequired,
 };

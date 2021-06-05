@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 
 import "./_login.scss";
 import "../reusable/_navBar.scss";
 import "../../base/_animations.scss";
 
+// Components
+import Loading from "../loading/PageLoading";
+
 // Animations
 const loginMsgAnimation = {
-    animation: "loginStatusEffect .6s cubic-bezier(.64,.01,1,.03) 1",
+    animation: "loginStatusEffect .7s cubic-bezier(.64,.01,1,.03) 1",
 };
 
 // const bgFilterAnimation = {
@@ -42,11 +43,14 @@ export default function LogIn() {
             );
 
             if (res.data.status === "success") {
-                setLoginStatus(true);
+                window.setTimeout(() => {
+                    // setLogStatus(true);
+                    setLoginStatus(true);
+                }, 500);
                 window.setTimeout(() => {
                     // setLogStatus(true);
                     window.location.assign("/");
-                }, 1500);
+                }, 1800);
             }
         } catch (err) {
             setAuthError("");
@@ -57,6 +61,7 @@ export default function LogIn() {
 
     return (
         <>
+            <Loading />
             {loginStatus && (
                 <div className="success-login" style={loginMsgAnimation}>
                     {/* <span /> */}

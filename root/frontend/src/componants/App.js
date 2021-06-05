@@ -5,6 +5,7 @@ import {
     Route,
     Switch,
     Redirect,
+    useHistory,
 } from "react-router-dom";
 
 // Routed componants
@@ -20,6 +21,7 @@ import "./App.scss";
 // Global Fonts
 
 import GlobalFonts from "../assets/fonts/GlobalFonts";
+import { Loader } from "three";
 
 // TODO: BUILD ORIGINAL 404 PAGE
 const NoMatchComp = () => <h1>Not Matched</h1>;

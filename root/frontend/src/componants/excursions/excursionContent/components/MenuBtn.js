@@ -223,7 +223,7 @@ export default function MenuBtn(props) {
                     style={{
                         paddingLeft: "1.2rem",
                         paddingRight: "5px",
-                        minWidth: "6rem",
+                        minWidth: "9rem",
                     }}
                 >
                     {userName}

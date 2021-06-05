@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 
 import "./_signUp.scss";
 import "../reusable/_navBar.scss";
 
+// Components
+import Loading from "../loading/PageLoading";
+import SmallLoading from "../loading/SmallLoading";
+
 // Stylying and animations
 const signupMsgAnimation = {
-    animation: "signupStatusEffect .6s linear 1",
+    animation: "signupStatusEffect 1s cubic-bezier(.64,.01,1,.03) 1",
 };
 
 // TODO: MAKE BACKGROUND UNCLICKABLE POINTERS EVENT
@@ -23,12 +25,15 @@ export default function SignUp() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [passworConfirmError, setPasswordConfirmError] = useState("");
-    // Signup Status, to confirm that use has signed up
-    const [signupStatus, setSignupStatus] = useState(false);
+    // Signup Status, to confirm that usee has signed up
     // Keep track of the log status and display a succesful signup message
+    const [signupStatus, setSignupStatus] = useState(false);
+    // Small loading while the registration is getting processed
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         try {
+            setIsLoading(true);
             setEmailError("");
             setPasswordError("");
             setPasswordConfirmError("");
@@ -48,7 +53,10 @@ export default function SignUp() {
             );
 
             if (res.data.status === "success") {
-                setSignupStatus(true);
+                window.setTimeout(() => {
+                    setSignupStatus(true);
+                    setIsLoading(false);
+                }, 500);
             }
         } catch (err) {
             // NOTE: See userModel for validation errors
@@ -87,6 +95,7 @@ export default function SignUp() {
 
     return (
         <>
+            <Loading />
             {signupStatus && (
                 <div className="success-signup" style={signupMsgAnimation}>
                     <div className="success-signup__bg" />
@@ -106,14 +115,25 @@ export default function SignUp() {
                                 fontSize: "1.7rem",
                                 fontWeight: "bold",
                                 textAlign: "center",
-                                padding: "3rem",
+                                padding: "2rem",
                                 paddingTop: "1.5rem",
                             }}
                         >
                             Congratulation for taking your first steps towards
                             experiencing adventures all over the world!
                         </p>
-                        <a href="/" className="success-signup__btn">
+                        <p
+                            style={{
+                                fontSize: "1.7rem",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                padding: "3rem",
+                                paddingTop: "0rem",
+                            }}
+                        >
+                            An email has been sent to you with all the details !
+                        </p>
+                        <a href="/login" className="success-signup__btn">
                             Continue
                         </a>
                     </div>
@@ -247,6 +267,17 @@ export default function SignUp() {
                             <p>Already have an account?</p>
                             <a href="/login">Sign In</a>
                         </div>
+                        {isLoading && (
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    bottom: "9rem",
+                                    right: "5rem",
+                                }}
+                            >
+                                <SmallLoading />
+                            </div>
+                        )}
                     </form>
                     <div className="signupBox__illustration">{}</div>
                 </div>

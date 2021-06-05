@@ -77,6 +77,9 @@ export default function ExcursionBooking(props) {
         setBookedExcursionDate,
     } = props;
 
+    // Hooks
+    const [inProcess, setInProcess] = useState(false);
+
     // variables
     const Nat1 = require(`../../../../../assets/img/tours/${excursionImages[0]}`)
         .default;
@@ -99,6 +102,7 @@ export default function ExcursionBooking(props) {
 
     const handleBookingCheckout = async () => {
         try {
+            setInProcess(true);
             const session = await axios.get(
                 `${process.env.REACT_APP_URL}/api/v1/bookings/checkout-session/${excursionId}`,
                 {
@@ -197,7 +201,7 @@ export default function ExcursionBooking(props) {
                     className="navBar__btn"
                     onClick={handleBookingCheckout}
                 >
-                    Book Excursion Now →
+                    {inProcess ? `Processing...` : `Book Excursion Now →`}
                 </BookingBtn>
             ) : (
                 <BookingBtn href="/login" className="navBar__btn">

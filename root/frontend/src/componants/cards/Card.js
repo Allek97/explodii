@@ -8,7 +8,7 @@ import "./_cards.scss";
 
 export default function PopCards() {
     // List of requested excursions
-    const [excursions, setExcurtions] = useState([]);
+    const [excursions, setExcursions] = useState([]);
     // Background image colors
     const rootColor = getComputedStyle(document.body);
     const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
@@ -20,7 +20,8 @@ export default function PopCards() {
             const res = await axios.get(
                 "http://localhost:5001/api/v1/tours/top-3-popular"
             );
-            setExcurtions(res.data.data);
+            console.log(res.data.data);
+            setExcursions(res.data.data);
         } catch (err) {
             console.log(err);
         }
@@ -136,7 +137,7 @@ export default function PopCards() {
                                     <p className="cardbox__price-value">{`$${excursion.price}`}</p>
                                 </div>
                                 <a
-                                    href="/"
+                                    href={`/excursions/${excursion.slug}`}
                                     className="cardbox__btn btn btn--explo btn--blue btn--animated"
                                 >
                                     Book now!

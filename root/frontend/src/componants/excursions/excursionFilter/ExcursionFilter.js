@@ -35,7 +35,7 @@ const handleLogOut = async (e) => {
 
 export default function ExcursionFilter(props) {
     // props
-    const { setExcursions, authStatus } = props;
+    const { setExcursions, setNbResults, authStatus, sortField } = props;
     // Hooks
     const [durationChecked, setDurationChecked] = useState(
         new Array(5).fill(false)
@@ -201,13 +201,14 @@ export default function ExcursionFilter(props) {
             console.log(queryStr);
 
             const res = await axios.get(
-                `${process.env.REACT_APP_URL}/api/v1/tours?q=${queryStr}`,
+                `${process.env.REACT_APP_URL}/api/v1/tours?q=${queryStr}&sort=${sortField}`,
                 {
                     withCredentials: true,
                 }
             );
 
             setExcursions(res.data.data);
+            setNbResults(res.data.data.length);
         } catch (err) {
             console.log(err.response.data.message);
         }
@@ -216,6 +217,7 @@ export default function ExcursionFilter(props) {
         participantQueryObject,
         ratingQueryObject,
         priceQueryObject,
+        sortField,
     ]);
 
     return (
@@ -368,5 +370,7 @@ export default function ExcursionFilter(props) {
 
 ExcursionFilter.propTypes = {
     setExcursions: PropTypes.func.isRequired,
+    setNbResults: PropTypes.func.isRequired,
     authStatus: PropTypes.bool.isRequired,
+    sortField: PropTypes.string.isRequired,
 };

@@ -115,7 +115,7 @@
 @keyframes loginStatusEffect {
     0% {
         // transform: translate(-50%, -50%);
-        transform: translate(-50%, -500%);
+        transform: translate(-50%, -300%);
         opacity: 0.5;
     }
     100% {
@@ -149,7 +149,7 @@
 @keyframes signupStatusEffect {
     0% {
         // transform: translate(-50%, -50%);
-        transform: translate(-50%, -100%);
+        transform: translate(-50%, -300%);
         // opacity: 0.5;
     }
     100% {
@@ -177,5 +177,16 @@
     }
     100% {
         transform: translateX(0);
+    }
+}
+
+// Error handling animation
+
+@keyframes errorHandlingAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

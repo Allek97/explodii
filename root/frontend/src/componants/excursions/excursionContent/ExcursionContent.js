@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import "./_excursionContent.scss";
 
 // Componentes
+import Loading from "../../loading/PageLoading";
 import ExcursionMap from "./components/excursionMap/ExcursionMap";
 import ExcursionReview from "./components/excursionsReviews/ExcursionReviews";
 import ExcursionBooking from "./components/excursionBooking/ExcursionBooking";
@@ -312,358 +313,380 @@ export default function ExcursionContent(props) {
     return (
         <>
             {isApiConsumed && (
-                <div className="excursion-content">
-                    <Header className="navBar" isScrolled={isScrolled}>
-                        <div className="navBar__logo-box">
-                            <div className="navBar__logo ">{}</div>
-                            <div className="navBar__logo-text ">explodii</div>
-                        </div>
-                        <a href="/excursions" className="navBar__btn">
-                            Our Excursions
-                        </a>
-                        {!authStatus && (
-                            <a href="/login" className="navBar__btn">
-                                Log In
-                            </a>
-                        )}
-
-                        {!authStatus ? (
-                            <a href="/signup" className="navBar__btn">
-                                Sign Up
-                            </a>
-                        ) : (
-                            <MenuBtn
-                                isScrolled={isScrolled}
-                                userName={userName}
-                                userPhoto={userPhoto}
-                            />
-                        )}
-                    </Header>
-
-                    <HeaderPage
-                        imageCover={
-                            require(`../../../assets/img/tours/${excursion.imageCover}`)
-                                .default
-                        }
-                    >
-                        <Heading>
-                            <span>{excursion.name}</span>
-                            <span>Excursion</span>
-                        </Heading>
-                        <div style={{ display: "flex", marginTop: "3rem" }}>
-                            <WithLogo
-                                style={{
-                                    marginRight: "4rem",
-                                }}
-                                svg={clockSvg}
-                            >
-                                {excursion.duration} days
-                            </WithLogo>
-                            <WithLogo svg={locationSvg}>
-                                {excursion.startLocation.description}
-                            </WithLogo>
-                        </div>
-                    </HeaderPage>
-
-                    <main>
-                        <section className="excursion-information">
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    flex: "0 0 50%",
-                                    // marginLeft: "10rem",
-                                }}
-                            >
-                                <div style={{ display: "block" }}>
-                                    <InfoHeading
-                                        style={{ marginBottom: "3.5rem" }}
-                                    >
-                                        Excursion Information
-                                    </InfoHeading>
-                                    <WithLogo
-                                        svg={calenderSvg}
-                                        leftGradiant="rgb(var(--color-blue-special))"
-                                        rightGradiant="rgb(var(--color-blue-special))"
-                                        style={{ marginBottom: "2.25rem" }}
-                                    >
-                                        <span style={fieldsStyle}>
-                                            NEXT DATE
-                                        </span>
-                                        <span style={infoFieldsStyle}>
-                                            {getNextDate(excursion.startDates)}
-                                        </span>
-                                    </WithLogo>
-                                    <WithLogo
-                                        svg={levelSvg}
-                                        leftGradiant="rgb(var(--color-blue-special))"
-                                        rightGradiant="rgb(var(--color-blue-special))"
-                                        style={{ marginBottom: "2.25rem" }}
-                                    >
-                                        <span style={fieldsStyle}>
-                                            DIFFICULTY
-                                        </span>
-                                        <span
-                                            style={{
-                                                ...infoFieldsStyle,
-                                                textTransform: "capitalize",
-                                            }}
-                                        >
-                                            {excursion.difficulty}
-                                        </span>
-                                    </WithLogo>
-                                    <WithLogo
-                                        svg={participantSvg}
-                                        leftGradiant="rgb(var(--color-blue-special))"
-                                        rightGradiant="rgb(var(--color-blue-special))"
-                                        style={{ marginBottom: "2.25rem" }}
-                                    >
-                                        <span style={fieldsStyle}>
-                                            PARTICIPANTS
-                                        </span>
-                                        <span
-                                            style={{
-                                                ...infoFieldsStyle,
-                                                textTransform: "capitalize",
-                                            }}
-                                        >
-                                            15 People
-                                        </span>
-                                    </WithLogo>
-                                    <WithLogo
-                                        svg={reviewSvg}
-                                        leftGradiant="rgb(var(--color-blue-special))"
-                                        rightGradiant="rgb(var(--color-blue-special))"
-                                        style={{ marginBottom: "7rem" }}
-                                    >
-                                        <span style={fieldsStyle}>RATING</span>
-                                        <span style={infoFieldsStyle}>
-                                            {excursion.ratingsAverage} / 5
-                                        </span>
-                                    </WithLogo>
-
-                                    <InfoHeading
-                                        style={{ marginBottom: "3.5rem" }}
-                                    >
-                                        YOUR EXCURSION GUIDES
-                                    </InfoHeading>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            marginBottom: "2.25rem",
-                                        }}
-                                    >
-                                        <img
-                                            src={guidePhoto("user-3.jpg")}
-                                            alt="Lead guide"
-                                            style={photoStyle}
-                                        />
-                                        <span style={fieldsStyle}>
-                                            LEAD GUIDE
-                                        </span>
-                                        <span style={infoFieldsStyle}>
-                                            {excursion.guides
-                                                .filter(
-                                                    (guide) =>
-                                                        guide.role ===
-                                                        "lead-guide"
-                                                )
-                                                .map((guide) => guide.name)}
-                                        </span>
-                                    </div>
-
-                                    {excursion.guides
-                                        .filter(
-                                            (guide) => guide.role === "guide"
-                                        )
-                                        .map((guide) => (
-                                            <div
-                                                key={guide.name}
-                                                style={{
-                                                    marginBottom: "3.5rem",
-                                                }}
-                                            >
-                                                <img
-                                                    src={guidePhoto(
-                                                        guide.photo
-                                                    )}
-                                                    alt="Excursion guide"
-                                                    style={photoStyle}
-                                                />
-                                                <span style={fieldsStyle}>
-                                                    Excursion GUIDE
-                                                </span>
-                                                <span style={infoFieldsStyle}>
-                                                    {guide.name}
-                                                </span>{" "}
-                                            </div>
-                                        ))}
+                <>
+                    <Loading loadingTime={500} />
+                    <div className="excursion-content">
+                        <Header className="navBar" isScrolled={isScrolled}>
+                            <div className="navBar__logo-box">
+                                <div className="navBar__logo ">{}</div>
+                                <div className="navBar__logo-text ">
+                                    explodii
                                 </div>
                             </div>
+                            <a href="/excursions" className="navBar__btn">
+                                Our Excursions
+                            </a>
+                            {!authStatus && (
+                                <a href="/login" className="navBar__btn">
+                                    Log In
+                                </a>
+                            )}
 
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-
-                                    flex: "0 0 50%",
-
-                                    fontSize: "1.7rem",
-                                    fontWeight: "300",
-                                }}
-                            >
-                                <InfoHeading
-                                    style={{
-                                        marginBottom: "3.5rem",
-                                        textTransform: "uppercase",
-                                    }}
-                                >
-                                    ABOUT {excursion.name} EXCURSION
-                                </InfoHeading>
-                                <p style={{ marginBottom: "2.5rem" }}>
-                                    {excursion.description
-                                        .split(".")
-                                        .filter(
-                                            (el, idx) => idx === 0 || idx === 1
-                                        )}
-                                    .
-                                </p>
-                                <p>
-                                    {excursion.description
-                                        .split(".")
-                                        .filter(
-                                            (el, idx) => idx !== 0 && idx !== 1
-                                        )}
-                                </p>
-                            </div>
-
-                            <Decoration />
-                        </section>
-
-                        <section className="excursion-pictures">
-                            {excursion.images.map((imageName) => (
-                                <img
-                                    src={excursionPhoto(imageName)}
-                                    alt="Excursion guide"
-                                    style={{
-                                        height: "60rem",
-                                        width: "calc((1/3)*100%)",
-                                    }}
-                                    key={imageName}
+                            {!authStatus ? (
+                                <a href="/signup" className="navBar__btn">
+                                    Sign Up
+                                </a>
+                            ) : (
+                                <MenuBtn
+                                    isScrolled={isScrolled}
+                                    userName={userName}
+                                    userPhoto={userPhoto}
                                 />
-                            ))}
-                        </section>
+                            )}
+                        </Header>
 
-                        <section className="excursion-map">
-                            <ExcursionMap
-                                startLocation={excursion.startLocation}
-                                locations={excursion.locations}
-                            />
-                        </section>
-
-                        <section className="excursion-reviews">
-                            <ExcursionReview
-                                excursionId={excursion.id}
-                                excursionName={excursion.name}
-                            />
-                            {/* <Decoration /> */}
-                        </section>
-
-                        <section className="excursion-booking">
-                            <ExcursionBooking
-                                excursionId={excursion.id}
-                                excursionDuration={excursion.duration}
-                                excursionPrice={excursion.price}
-                                excursionImages={excursion.images}
-                                excursionName={excursion.name}
-                                excursionDate={getNextDate(
-                                    excursion.startDates
-                                )}
-                                authStatus={authStatus}
-                                setPaymentStatus={setPaymentStatus}
-                                setBookedExcursionName={setBookedExcursionName}
-                                setBookedExcursionPrice={
-                                    setBookedExcursionPrice
-                                }
-                                setBookedExcursionDuration={
-                                    setBookedExcursionDuration
-                                }
-                                setBookedExcursionDate={setBookedExcursionDate}
-                            />
-                            <div
-                                style={{
-                                    position: "absolute",
-                                    top: "45rem",
-                                    width: "100%",
-                                    height: "35rem",
-                                }}
-                            >
-                                <Decoration />
-                            </div>
-                        </section>
-                    </main>
-
-                    <footer className="footer">
-                        <div className="footer__logobox">
-                            <div className="footer__logo">{}</div>
-                            <h1 className="footer__logo-heading">Explodii</h1>
-                        </div>
-                        <div className="footer__content">
-                            <div className="footer__navigation">
-                                <a href="/" className="footer__btn">
-                                    About Us
-                                </a>
-                                <a href="/" className="footer__btn">
-                                    Careers
-                                </a>
-                                <a href="/" className="footer__btn">
-                                    Events
-                                </a>
-                                <a href="/" className="footer__btn">
-                                    Contact Us
-                                </a>
-                                <a href="/" className="footer__btn">
-                                    Privacy Policy
-                                </a>
-                                <a href="/" className="footer__btn">
-                                    Terms of Use
-                                </a>
-                            </div>
-                            <div className="footer__copyright">
-                                &copy; 2021 by{" "}
-                                <a
-                                    href="/"
-                                    className="footer__btn"
+                        <HeaderPage
+                            imageCover={
+                                require(`../../../assets/img/tours/${excursion.imageCover}`)
+                                    .default
+                            }
+                        >
+                            <Heading>
+                                <span>{excursion.name}</span>
+                                <span>Excursion</span>
+                            </Heading>
+                            <div style={{ display: "flex", marginTop: "3rem" }}>
+                                <WithLogo
                                     style={{
-                                        textTransform: "none",
+                                        marginRight: "4rem",
+                                    }}
+                                    svg={clockSvg}
+                                >
+                                    {excursion.duration} days
+                                </WithLogo>
+                                <WithLogo svg={locationSvg}>
+                                    {excursion.startLocation.description}
+                                </WithLogo>
+                            </div>
+                        </HeaderPage>
+
+                        <main>
+                            <section className="excursion-information">
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        flex: "0 0 50%",
+                                        // marginLeft: "10rem",
                                     }}
                                 >
-                                    Ilias Allek
-                                </a>
-                                . All rights reserved.
+                                    <div style={{ display: "block" }}>
+                                        <InfoHeading
+                                            style={{ marginBottom: "3.5rem" }}
+                                        >
+                                            Excursion Information
+                                        </InfoHeading>
+                                        <WithLogo
+                                            svg={calenderSvg}
+                                            leftGradiant="rgb(var(--color-blue-special))"
+                                            rightGradiant="rgb(var(--color-blue-special))"
+                                            style={{ marginBottom: "2.25rem" }}
+                                        >
+                                            <span style={fieldsStyle}>
+                                                NEXT DATE
+                                            </span>
+                                            <span style={infoFieldsStyle}>
+                                                {getNextDate(
+                                                    excursion.startDates
+                                                )}
+                                            </span>
+                                        </WithLogo>
+                                        <WithLogo
+                                            svg={levelSvg}
+                                            leftGradiant="rgb(var(--color-blue-special))"
+                                            rightGradiant="rgb(var(--color-blue-special))"
+                                            style={{ marginBottom: "2.25rem" }}
+                                        >
+                                            <span style={fieldsStyle}>
+                                                DIFFICULTY
+                                            </span>
+                                            <span
+                                                style={{
+                                                    ...infoFieldsStyle,
+                                                    textTransform: "capitalize",
+                                                }}
+                                            >
+                                                {excursion.difficulty}
+                                            </span>
+                                        </WithLogo>
+                                        <WithLogo
+                                            svg={participantSvg}
+                                            leftGradiant="rgb(var(--color-blue-special))"
+                                            rightGradiant="rgb(var(--color-blue-special))"
+                                            style={{ marginBottom: "2.25rem" }}
+                                        >
+                                            <span style={fieldsStyle}>
+                                                PARTICIPANTS
+                                            </span>
+                                            <span
+                                                style={{
+                                                    ...infoFieldsStyle,
+                                                    textTransform: "capitalize",
+                                                }}
+                                            >
+                                                {excursion.maxGroupSize} People
+                                            </span>
+                                        </WithLogo>
+                                        <WithLogo
+                                            svg={reviewSvg}
+                                            leftGradiant="rgb(var(--color-blue-special))"
+                                            rightGradiant="rgb(var(--color-blue-special))"
+                                            style={{ marginBottom: "7rem" }}
+                                        >
+                                            <span style={fieldsStyle}>
+                                                RATING
+                                            </span>
+                                            <span style={infoFieldsStyle}>
+                                                {excursion.ratingsAverage} / 5
+                                            </span>
+                                        </WithLogo>
+
+                                        <InfoHeading
+                                            style={{ marginBottom: "3.5rem" }}
+                                        >
+                                            YOUR EXCURSION GUIDES
+                                        </InfoHeading>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                marginBottom: "2.25rem",
+                                            }}
+                                        >
+                                            <img
+                                                src={guidePhoto("user-3.jpg")}
+                                                alt="Lead guide"
+                                                style={photoStyle}
+                                            />
+                                            <span style={fieldsStyle}>
+                                                LEAD GUIDE
+                                            </span>
+                                            <span style={infoFieldsStyle}>
+                                                {excursion.guides
+                                                    .filter(
+                                                        (guide) =>
+                                                            guide.role ===
+                                                            "lead-guide"
+                                                    )
+                                                    .map((guide) => guide.name)}
+                                            </span>
+                                        </div>
+
+                                        {excursion.guides
+                                            .filter(
+                                                (guide) =>
+                                                    guide.role === "guide"
+                                            )
+                                            .map((guide) => (
+                                                <div
+                                                    key={guide.name}
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        marginBottom: "3.5rem",
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={guidePhoto(
+                                                            guide.photo
+                                                        )}
+                                                        alt="Excursion guide"
+                                                        style={photoStyle}
+                                                    />
+                                                    <span style={fieldsStyle}>
+                                                        Excursion GUIDE
+                                                    </span>
+                                                    <span
+                                                        style={infoFieldsStyle}
+                                                    >
+                                                        {guide.name}
+                                                    </span>{" "}
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+
+                                        flex: "0 0 50%",
+
+                                        fontSize: "1.7rem",
+                                        fontWeight: "300",
+                                    }}
+                                >
+                                    <InfoHeading
+                                        style={{
+                                            marginBottom: "3.5rem",
+                                            textTransform: "uppercase",
+                                        }}
+                                    >
+                                        ABOUT {excursion.name} EXCURSION
+                                    </InfoHeading>
+                                    <p style={{ marginBottom: "2.5rem" }}>
+                                        {excursion.description
+                                            .split(".")
+                                            .filter(
+                                                (el, idx) =>
+                                                    idx === 0 || idx === 1
+                                            )}
+                                        .
+                                    </p>
+                                    <p>
+                                        {excursion.description
+                                            .split(".")
+                                            .filter(
+                                                (el, idx) =>
+                                                    idx !== 0 && idx !== 1
+                                            )}
+                                    </p>
+                                </div>
+
+                                <Decoration />
+                            </section>
+
+                            <section className="excursion-pictures">
+                                {excursion.images.map((imageName) => (
+                                    <img
+                                        src={excursionPhoto(imageName)}
+                                        alt="Excursion guide"
+                                        style={{
+                                            height: "60rem",
+                                            width: "calc((1/3)*100%)",
+                                        }}
+                                        key={imageName}
+                                    />
+                                ))}
+                            </section>
+
+                            <section className="excursion-map">
+                                <ExcursionMap
+                                    startLocation={excursion.startLocation}
+                                    locations={excursion.locations}
+                                />
+                            </section>
+
+                            <section className="excursion-reviews">
+                                <ExcursionReview
+                                    excursionId={excursion.id}
+                                    excursionName={excursion.name}
+                                />
+                                {/* <Decoration /> */}
+                            </section>
+
+                            <section className="excursion-booking">
+                                <ExcursionBooking
+                                    excursionId={excursion.id}
+                                    excursionDuration={excursion.duration}
+                                    excursionPrice={excursion.price}
+                                    excursionImages={excursion.images}
+                                    excursionName={excursion.name}
+                                    excursionDate={getNextDate(
+                                        excursion.startDates
+                                    )}
+                                    authStatus={authStatus}
+                                    setPaymentStatus={setPaymentStatus}
+                                    setBookedExcursionName={
+                                        setBookedExcursionName
+                                    }
+                                    setBookedExcursionPrice={
+                                        setBookedExcursionPrice
+                                    }
+                                    setBookedExcursionDuration={
+                                        setBookedExcursionDuration
+                                    }
+                                    setBookedExcursionDate={
+                                        setBookedExcursionDate
+                                    }
+                                />
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        top: "45rem",
+                                        width: "100%",
+                                        height: "35rem",
+                                    }}
+                                >
+                                    <Decoration />
+                                </div>
+                            </section>
+                        </main>
+
+                        <footer className="footer">
+                            <div className="footer__logobox">
+                                <div className="footer__logo">{}</div>
+                                <h1 className="footer__logo-heading">
+                                    Explodii
+                                </h1>
                             </div>
-                            <div className="footer__media">
-                                <a href="/" className="footer__media--1">
-                                    {}
-                                </a>
-                                <a href="/" className="footer__media--2">
-                                    {}
-                                </a>
-                                <a href="/" className="footer__media--3">
-                                    {}
-                                </a>
-                                <a href="/" className="footer__media--4">
-                                    {}
-                                </a>
-                                <a href="/" className="footer__media--5">
-                                    {}
-                                </a>
+                            <div className="footer__content">
+                                <div className="footer__navigation">
+                                    <a href="/" className="footer__btn">
+                                        About Us
+                                    </a>
+                                    <a href="/" className="footer__btn">
+                                        Careers
+                                    </a>
+                                    <a href="/" className="footer__btn">
+                                        Events
+                                    </a>
+                                    <a href="/" className="footer__btn">
+                                        Contact Us
+                                    </a>
+                                    <a href="/" className="footer__btn">
+                                        Privacy Policy
+                                    </a>
+                                    <a href="/" className="footer__btn">
+                                        Terms of Use
+                                    </a>
+                                </div>
+                                <div className="footer__copyright">
+                                    &copy; 2021 by{" "}
+                                    <a
+                                        href="/"
+                                        className="footer__btn"
+                                        style={{
+                                            textTransform: "none",
+                                        }}
+                                    >
+                                        Ilias Allek
+                                    </a>
+                                    . All rights reserved.
+                                </div>
+                                <div className="footer__media">
+                                    <a href="/" className="footer__media--1">
+                                        {}
+                                    </a>
+                                    <a href="/" className="footer__media--2">
+                                        {}
+                                    </a>
+                                    <a href="/" className="footer__media--3">
+                                        {}
+                                    </a>
+                                    <a href="/" className="footer__media--4">
+                                        {}
+                                    </a>
+                                    <a href="/" className="footer__media--5">
+                                        {}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </footer>
-                </div>
+                        </footer>
+                    </div>
+                </>
             )}
         </>
     );

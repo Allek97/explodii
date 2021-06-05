@@ -2,14 +2,12 @@
 // TODO: Use this componant for future map building
 // NOTE: https://www.youtube.com/watch?v=WZcxJGmLbSo
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 
 import {
     GoogleMap,
-    useJsApiLoader,
     useLoadScript,
     Marker,
     StreetViewPanorama,
@@ -54,7 +52,8 @@ export default function ExcursionMap(props) {
             lng: startLocation.coordinates[0] || -73.712678,
         });
         setMarkers([startLocation].concat(locations));
-        setMarkerInfoWindow(startLocation);
+        // TODO: SOLVE THE BUG WHEN EXCURSIONCONTENT IS LOADED
+        // setMarkerInfoWindow(startLocation);
 
         return () => {
             setMarkers([]);
@@ -109,7 +108,7 @@ export default function ExcursionMap(props) {
                 options={options}
             >
                 <StreetViewPanorama options={panoramaOptions} />
-                {markers.map((marker, markerIdx) => (
+                {markers.map((marker) => (
                     <Marker
                         key={`${marker.coordinates[1]}_${marker.coordinates[0]}_${marker.day}`}
                         // key={uuidv4()}
@@ -132,6 +131,7 @@ export default function ExcursionMap(props) {
                         }}
                     />
                 ))}
+                {/* BUG: Fix the bug about infowindow close button getting focus when I load */}
                 {markerInfoWindow && (
                     <InfoWindow
                         position={{

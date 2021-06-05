@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+// import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import styled from "styled-components";
@@ -12,8 +12,9 @@ import styled from "styled-components";
 import PopCards from "../cards/Card";
 import Reviews from "../reviews/Reviews";
 import Reservation from "../reservation/Reservation";
-import Globe from "../globe/Globe";
+// import Globe from "../globe/Globe";
 import RotatingText from "../rotatingText/RotatingText";
+import Loading from "../loading/PageLoading";
 // import Earth from "../earth/Earth";
 
 // IMAGES
@@ -21,10 +22,10 @@ import RotatingText from "../rotatingText/RotatingText";
 import Nat1 from "../../assets/img/tours/tour-5-1.jpg";
 import Nat2 from "../../assets/img/tours/tour-3-2.jpg";
 import Nat3 from "../../assets/img/tours/tour-9-3.jpg";
-import HomeBg from "../../assets/img/home/joshua-oluwagbemiga-Z6HQ0EhoD6g-unsplash.jpg";
+// import HomeBg from "../../assets/img/home/joshua-oluwagbemiga-Z6HQ0EhoD6g-unsplash.jpg";
 
 // VIDEOS
-import BgVideo from "../../assets/videos/cosmos.mp4";
+// import BgVideo from "../../assets/videos/cosmos.mp4";
 // SCSS
 import "./_homepage.scss";
 import "../reusable/_button.scss";
@@ -74,6 +75,7 @@ export const ProfileBtn = styled.a`
 export default function HomePage(props) {
     // Props
     const { authStatus, userName, userPhoto } = props;
+
     // Styling
     const userImg = (photo) => {
         return require(`../../assets/img/users/${photo}`).default;
@@ -91,8 +93,16 @@ export default function HomePage(props) {
         }
     };
 
+    // const handleLoading = (link) => {
+    //     setIsLoading(true);
+    //     setTimeout(() => {
+    //         // window.location.assign(`/${link}`);
+    //     }, 1000);
+    // };
+
     return (
         <>
+            <Loading />
             <header className="header">
                 <div className="navBar navBar--homepage">
                     <div className="navBar__logo-box">
@@ -283,7 +293,7 @@ export default function HomePage(props) {
                     </h2>
                     <PopCards />
                     <a
-                        href="/"
+                        href="/excursions"
                         className="excursion-btn btn btn--explo btn--blue btn--animated"
                     >
                         Discover our excursions
