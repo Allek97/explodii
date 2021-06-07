@@ -234,7 +234,7 @@ export default function Excursions(props) {
                                             Privacy Policy
                                         </a>
                                         <a href="/" className="footer__btn">
-                                            Terms of Use
+                                            Terms Of Use
                                         </a>
                                     </div>
                                     <div className="footer__copyright">
