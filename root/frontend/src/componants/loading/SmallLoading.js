@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
-import PropTypes from "prop-types";
 
 const spin = keyframes`
     0% {

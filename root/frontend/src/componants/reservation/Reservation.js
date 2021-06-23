@@ -148,8 +148,8 @@ function Search() {
                         return (
                             //  eslint-disable-next-line jsx-a11y/anchor-is-valid
                             <a
-                                key={uuidv4()}
-                                id={uuidv4()}
+                                key={`${main_text},${secondary_text}`}
+                                id={`${main_text},${secondary_text}`}
                                 role="button"
                                 tabIndex={0}
                                 onClick={handleSelect(suggestion)}

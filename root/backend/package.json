@@ -9,7 +9,7 @@
         "debug": "ndb server.js",
         "postbuild": "nodemon utils/convertMjml.js"
     },
-    "author": "Jonas Schmedtmann",
+    "author": "Ilias Allek",
     "license": "ISC",
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
