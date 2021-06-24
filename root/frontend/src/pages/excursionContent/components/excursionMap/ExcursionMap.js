@@ -117,7 +117,7 @@ export default function ExcursionMap(props) {
                             lng: marker.coordinates[0],
                         }}
                         icon={{
-                            url: require("../../../../../assets/svgs/placeholder.svg")
+                            url: require("../../../../assets/svgs/placeholder.svg")
                                 .default,
                             scaledSize: new window.google.maps.Size(40, 40),
                         }}

@@ -9,12 +9,12 @@ import styled from "styled-components";
 // import { v4 as uuidv4 } from "uuid";
 
 // Componants
-import PopCards from "../cards/Card";
-import Reviews from "../reviews/Reviews";
-import Reservation from "../reservation/Reservation";
+import PopCards from "../../componants/cards/Card";
+import Reviews from "../../componants/reviews/Reviews";
+import Reservation from "../../componants/reservation/Reservation";
 // import Globe from "../globe/Globe";
-import RotatingText from "../rotatingText/RotatingText";
-import Loading from "../loading/PageLoading";
+import RotatingText from "../../componants/rotatingText/RotatingText";
+import Loading from "../../componants/loading/PageLoading";
 // import Earth from "../earth/Earth";
 
 // IMAGES
@@ -28,9 +28,9 @@ import Nat3 from "../../assets/img/tours/tour-9-3.jpg";
 // import BgVideo from "../../assets/videos/cosmos.mp4";
 // SCSS
 import "./_homepage.scss";
-import "../reusable/_button.scss";
+import "../../componants/reusable/_button.scss";
 import "../../base/_typography.scss";
-import "../reusable/_navBar.scss";
+import "../../componants/reusable/_navBar.scss";
 
 // Styling
 const photoStyle = {

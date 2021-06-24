@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import "./_login.scss";
-import "../reusable/_navBar.scss";
+import "../../componants/reusable/_navBar.scss";
 import "../../base/_animations.scss";
 
 // Components
-import Loading from "../loading/PageLoading";
+import Loading from "../../componants/loading/PageLoading";
 
 // Animations
 const loginMsgAnimation = {

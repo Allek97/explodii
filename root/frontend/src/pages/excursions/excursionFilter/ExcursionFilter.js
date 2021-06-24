@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "./_excursionFilter.scss";
 
-import Stars from "../../reusable/Stars";
+import Stars from "../../../componants/reusable/Stars";
 import MultiRangeSlide from "./componants/MultiRangeSlide";
 import Checkbox from "./componants/Checkbox";
 

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
-import { ReviewBox } from "../../../../account/AccountStyledComponents";
+import { ReviewBox } from "../../../account/AccountStyledComponents";
 
 const ExcursionReviewContainer = styled.div`
     position: relative;
@@ -109,7 +109,7 @@ export default function AccountReview(props) {
     const [revIdx, setRevIdx] = useState(0);
 
     // variables
-    const reviewBgImg = require("../../../../../assets/img/home/bg.png")
+    const reviewBgImg = require("../../../../assets/img/home/bg.png")
         .default;
 
     useEffect(async () => {

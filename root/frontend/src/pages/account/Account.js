@@ -13,11 +13,11 @@ import {
 } from "./AccountStyledComponents";
 
 import "./_account.scss";
-import "../reusable/_navBar.scss";
+import "../../componants/reusable/_navBar.scss";
 import "../../base/_animations.scss";
 
 //Components
-import Loading from "../loading/PageLoading";
+import Loading from "../../componants/loading/PageLoading";
 import AccountSettings from "./AccountSettings";
 import AccountBooking from "./accountBooking/AccountBooking";
 import AccountReview from "./accountReview/AccountReview";

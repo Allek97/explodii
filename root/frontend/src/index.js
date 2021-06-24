@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./componants/App";
+import App from "../src/App";
 import reportWebVitals from "./reportWebVitals";
 
 require("dotenv").config({ path: `${__dirname}/../../../../.env` });

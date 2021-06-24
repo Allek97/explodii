@@ -16,3 +16,49 @@
         );
     }
 }
+
+// MEDIA QUERY MANAGER
+
+/*
+
+0-600px: phone
+600-900px: Tablet portrait
+900 - 1200px: Tabelet landscape
+[1200 - 1800] is where normal styles apply
+1800px + : Big desktop
+
+
+$breakpoints
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 37.5em) {
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-port {
+        @media (max-width: 56.25em) {
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-land {
+        @media (max-width: 75em) {
+            @content;
+        }
+    }
+
+    @if $breakpoint == big-desktop {
+        @media (max-width: 112.5em) {
+            @content;
+        }
+    }
+}

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import "./_signUp.scss";
-import "../reusable/_navBar.scss";
+import "../../componants/reusable/_navBar.scss";
 
 // Components
-import Loading from "../loading/PageLoading";
-import SmallLoading from "../loading/SmallLoading";
+import Loading from "../../componants/loading/PageLoading";
+import SmallLoading from "../../componants/loading/SmallLoading";
 
 // Stylying and animations
 const signupMsgAnimation = {

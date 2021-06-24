@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import Loading from "../loading/PageLoading";
+import Loading from "../../componants/loading/PageLoading";
 import ExcursionFilter from "./excursionFilter/ExcursionFilter";
 import PaymentStatusBox from "./PaymentSuccessBox";
 import ExcursionSort from "./ExcursionSort";
@@ -12,7 +12,7 @@ import { ProfileBtn, TourBox } from "./ExcursionStyledComponants";
 import Decoration from "./ExcursionDecoration";
 
 import "./_excursion.scss";
-import "../reusable/_navBar.scss";
+import "../../componants/reusable/_navBar.scss";
 import "../../assets/fonts/_global-fonts.scss";
 
 const photoStyle = {

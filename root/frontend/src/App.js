@@ -8,18 +8,18 @@ import {
 } from "react-router-dom";
 
 // Routed componants
-import HomePage from "./homePage/HomePage";
-import SignUp from "./signUp/SignUp";
-import LogIn from "./login/Login";
-import Account from "./account/Account";
-import Excursion from "./excursions/Excursion";
-import ExcursionContent from "./excursions/excursionContent/ExcursionContent";
+import HomePage from "../src/pages/homePage/HomePage";
+import SignUp from "../src/pages/signUp/SignUp";
+import LogIn from "../src/pages/login/Login";
+import Account from "../src/pages/account/Account";
+import Excursion from "../src/pages/excursions/Excursion";
+import ExcursionContent from "../src/pages/excursionContent/ExcursionContent";
 
 import "./App.scss";
 
 // Global Fonts
 
-import GlobalFonts from "../assets/fonts/GlobalFonts";
+import GlobalFonts from "../src/assets/fonts/GlobalFonts";
 
 // TODO: BUILD ORIGINAL 404 PAGE
 const NoMatchComp = () => <h1>Not Matched</h1>;

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 
 import "./_excursionBooking.scss";
-import "../../../../reusable/_composition.scss";
+import "../../../../componants/reusable/_composition.scss";
 
 // eslint-disable-next-line no-undef
 const stripe = Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
@@ -81,16 +81,16 @@ export default function ExcursionBooking(props) {
     const [inProcess, setInProcess] = useState(false);
 
     // variables
-    const Nat1 = require(`../../../../../assets/img/tours/${excursionImages[0]}`)
+    const Nat1 = require(`../../../../assets/img/tours/${excursionImages[0]}`)
         .default;
-    const Nat2 = require(`../../../../../assets/img/tours/${excursionImages[1]}`)
+    const Nat2 = require(`../../../../assets/img/tours/${excursionImages[1]}`)
         .default;
-    const Nat3 = require(`../../../../../assets/img/tours/${excursionImages[2]}`)
+    const Nat3 = require(`../../../../assets/img/tours/${excursionImages[2]}`)
         .default;
 
-    const bookingSvg1 = require(`../../../../../assets/svgs/booking-travel.svg`)
+    const bookingSvg1 = require(`../../../../assets/svgs/booking-travel.svg`)
         .default;
-    const bookingSvg2 = require(`../../../../../assets/svgs/dreamer.svg`)
+    const bookingSvg2 = require(`../../../../assets/svgs/dreamer.svg`)
         .default;
 
     console.log(

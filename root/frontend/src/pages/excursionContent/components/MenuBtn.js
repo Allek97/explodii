@@ -189,15 +189,15 @@ export default function MenuBtn(props) {
     const [isMenu, SetMenu] = useState(false);
 
     // eslint-disable-next-line import/no-dynamic-require
-    const userPicture = require(`../../../../assets/img/users/${userPhoto}`)
+    const userPicture = require(`../../../assets/img/users/${userPhoto}`)
         .default;
     // svgs
-    const arrowSvg = require("../../../../assets/svgs/keyboard_arrow_down.svg")
+    const arrowSvg = require("../../../assets/svgs/keyboard_arrow_down.svg")
         .default;
-    const accountSvg = require("../../../../assets/svgs/switch_account.svg")
+    const accountSvg = require("../../../assets/svgs/switch_account.svg")
         .default;
-    const homeSvg = require("../../../../assets/svgs/home.svg").default;
-    const logoutSvg = require("../../../../assets/svgs/log-out.svg").default;
+    const homeSvg = require("../../../assets/svgs/home.svg").default;
+    const logoutSvg = require("../../../assets/svgs/log-out.svg").default;
 
     const handleLogOut = async (e) => {
         e.preventDefault();

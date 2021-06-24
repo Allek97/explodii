@@ -9,7 +9,7 @@ import axios from "axios";
 import { SettingsButton, SuccessSave } from "./AccountStyledComponents";
 
 import "./_account.scss";
-import "../reusable/_navBar.scss";
+import "../../componants/reusable/_navBar.scss";
 import "../../base/_animations.scss";
 
 export default function AccountSettings(props) {

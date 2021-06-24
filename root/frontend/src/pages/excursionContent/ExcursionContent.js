@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import "./_excursionContent.scss";
 
 // Componentes
-import Loading from "../../loading/PageLoading";
+import Loading from "../../componants/loading/PageLoading";
 import ExcursionMap from "./components/excursionMap/ExcursionMap";
 import ExcursionReview from "./components/excursionsReviews/ExcursionReviews";
 import ExcursionBooking from "./components/excursionBooking/ExcursionBooking";
@@ -18,7 +18,7 @@ import MenuBtn from "./components/MenuBtn";
 import Decoration from "./components/DecorationSection";
 
 // Fonts
-import "../../../assets/fonts/_global-fonts.scss";
+import "../../assets/fonts/_global-fonts.scss";
 
 // styles
 
@@ -231,19 +231,19 @@ export default function ExcursionContent(props) {
     const [isScrolled, setIsScrolled] = useState(false);
     // function
     const guidePhoto = (photo = "default.jpg") => {
-        return require(`../../../assets/img/users/${photo}`).default;
+        return require(`../../assets/img/users/${photo}`).default;
     };
     const excursionPhoto = (photo = "tour-1-1.jpg") => {
-        return require(`../../../assets/img/tours/${photo}`).default;
+        return require(`../../assets/img/tours/${photo}`).default;
     };
 
-    const clockSvg = require("../../../assets/svgs/clock.svg").default;
-    const locationSvg = require("../../../assets/svgs/map-pin.svg").default;
+    const clockSvg = require("../../assets/svgs/clock.svg").default;
+    const locationSvg = require("../../assets/svgs/map-pin.svg").default;
 
-    const participantSvg = require("../../../assets/svgs/user1.svg").default;
-    const levelSvg = require("../../../assets/svgs/profits.svg").default;
-    const calenderSvg = require("../../../assets/svgs/calendar.svg").default;
-    const reviewSvg = require("../../../assets/svgs/star.svg").default;
+    const participantSvg = require("../../assets/svgs/user1.svg").default;
+    const levelSvg = require("../../assets/svgs/profits.svg").default;
+    const calenderSvg = require("../../assets/svgs/calendar.svg").default;
+    const reviewSvg = require("../../assets/svgs/star.svg").default;
 
     //Functions
 
@@ -347,7 +347,7 @@ export default function ExcursionContent(props) {
 
                         <HeaderPage
                             imageCover={
-                                require(`../../../assets/img/tours/${excursion.imageCover}`)
+                                require(`../../assets/img/tours/${excursion.imageCover}`)
                                     .default
                             }
                         >

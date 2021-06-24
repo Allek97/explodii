@@ -1,3 +1,5 @@
+@import "../src/abstracts/mixins";
+
 :root {
     // See abstract file "_variables.scss" for true colors
 
@@ -56,10 +58,22 @@ html {
     box-sizing: border-box;
     font-size: 62.5%; // 1rem = 10px
 
-    //Fix the disgusting bookmark in chrome
+    //Fix the bookmark in chrome
     // @media screen and (min-height: 930px) and (max-height: 950px) {
     //     font-size: 60.4%;
     // }
+
+    @include respond(tab-port) {
+        font-size: 50%;
+    }
+
+    @include respond(tab-land) {
+        font-size: 56.25%;
+    }
+
+    @include respond(big-desktop) {
+        font-size: 75%;
+    }
 }
 
 body {
