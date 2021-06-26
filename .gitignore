@@ -21,6 +21,7 @@ node_modules/
 root/backend/config.env
 root/frontend/public
 root/frontend/.env
+*.env
 
 npm-debug.log*
 yarn-debug.log*

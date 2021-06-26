@@ -90,8 +90,7 @@ export default function ExcursionBooking(props) {
 
     const bookingSvg1 = require(`../../../../assets/svgs/booking-travel.svg`)
         .default;
-    const bookingSvg2 = require(`../../../../assets/svgs/dreamer.svg`)
-        .default;
+    const bookingSvg2 = require(`../../../../assets/svgs/dreamer.svg`).default;
 
     console.log(
         excursionName,

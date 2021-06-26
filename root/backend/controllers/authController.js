@@ -154,8 +154,6 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
         token = req.cookies.jwt;
     }
 
-    console.log(`My cookie : ${req.cookies.jwt}`);
-
     if (!token) {
         return next(
             new AppError(

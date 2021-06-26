@@ -1,0 +1,172 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+
+    background-image: linear-gradient(76deg, #020f1f, #0f0d2e);
+
+    height: 50rem;
+
+    &__logobox {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-top: 10rem;
+        margin-bottom: -5rem;
+    }
+    &__logo {
+        height: 15rem;
+        width: 15rem;
+
+        background-image: linear-gradient(
+            to bottom right,
+            rgba(var(--color-primary-dark)),
+            rgba(var(--color-primary-light))
+        );
+        mask-image: url("../../assets/img/home/mountain.png");
+        mask-size: cover;
+    }
+
+    &__logo-heading {
+        // position: absolute;
+        // top: 9rem;
+        // left: 2rem;
+
+        // margin-top: -8rem;
+
+        background-image: linear-gradient(
+            to bottom right,
+            rgba(var(--color-primary-light)),
+            rgba(var(--color-primary-dark))
+        );
+        -webkit-background-clip: text;
+        color: transparent;
+
+        font-size: 2.8rem;
+        letter-spacing: 0.2rem;
+    }
+
+    &__content {
+        display: flex;
+        // justify-content: space-around;
+        align-items: center;
+        margin-top: 15rem;
+    }
+
+    &__navigation {
+        display: inline-block;
+        border-top: 1px solid rgb(var(--color-grey-dark));
+        margin-right: 30rem;
+        margin-left: 10rem;
+        padding-top: 2rem;
+    }
+
+    &__btn {
+        &:link,
+        &:visited {
+            display: inline-block;
+
+            transition: all 0.2s;
+
+            // margin-top: 5rem;
+            &:not(:last-child) {
+                margin-right: 3rem;
+            }
+
+            color: rgb(var(--color-grey-light-1));
+            // background-color: #020f1f;
+
+            text-decoration: none;
+            font-size: 1.7rem;
+            text-transform: uppercase;
+        }
+
+        &:hover,
+        &:active {
+            color: rgba(var(--color-primary-light));
+            box-shadow: 0 1rem 2rem rgba(var(--color-black), 0.9);
+            transform: rotate(5deg) scale(1.3);
+        }
+    }
+
+    &__copyright {
+        border-top: 1px solid rgb(var(--color-grey-dark));
+        padding-top: 2rem;
+        margin-right: 12rem;
+
+        color: white;
+        font-size: 1.7rem;
+    }
+
+    &__media {
+        display: flex;
+        padding-top: 2rem;
+
+        border-top: 1px solid rgb(var(--color-grey-dark));
+
+        &--1,
+        &--2,
+        &--3,
+        &--4,
+        &--5 {
+            &:link,
+            &:visited {
+                transition: all 0.2s;
+
+                height: 2.5rem;
+                width: 2.5rem;
+                &:not(:last-child) {
+                    margin-right: 2rem;
+                }
+            }
+
+            &:hover,
+            &:active {
+                color: rgba(var(--color-primary-light));
+                box-shadow: 0 1rem 2rem rgba(var(--color-black), 0.9);
+                transform: rotate(5deg) scale(1.3);
+            }
+        }
+        // NOTE: https://www.iconfinder.com
+        &--1 {
+            background-color: white;
+            // background-image: rgba(var(--color-gold), 1);
+
+            mask-image: url("../../assets/svgs/twitter-framed.svg");
+            mask-size: cover;
+        }
+        &--2 {
+            background-color: white;
+            // background-image: rgba(var(--color-gold), 1);
+
+            mask-image: url("../../assets/svgs/github.svg");
+            mask-size: cover;
+        }
+        &--3 {
+            background-color: white;
+            // background-image: rgba(var(--color-gold), 1);
+
+            mask-image: url("../../assets/svgs/facebook-framed.svg");
+            mask-size: cover;
+        }
+        // NOTE: https://www.flaticon.com
+        &--4 {
+            background-color: white;
+            // background-image: rgba(var(--color-gold), 1);
+
+            mask-image: url("../../assets/svgs/linkedin.svg");
+            mask-size: cover;
+
+            // background-image: url("../../assets/svgs/linkedin.svg");
+        }
+        &--5 {
+            background-color: white;
+            // background-image: rgba(var(--color-gold), 1);
+
+            mask-image: url("../../assets/svgs/instagram-logo.svg");
+            mask-size: cover;
+        }
+    }
+}
