@@ -64,19 +64,22 @@ export default function AccountReview(props) {
     const [reviews, setReviews] = useState([]);
     const [revIdx, setRevIdx] = useState(0);
 
-    useEffect(async () => {
-        try {
-            const res = await axios.get(
-                `http://localhost:5001/api/v1/users/${userId}/reviews`,
-                { withCredentials: true, credentials: "include" }
-            );
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/users/${userId}/reviews`,
+                    { withCredentials: true, credentials: "include" }
+                );
 
-            setReviews(res.data.data);
-            console.log(res.data.data);
-        } catch (err) {
-            console.log(err.response.data);
-            setReviews([]);
+                setReviews(res.data.data);
+                // console.log(res.data.data);
+            } catch (err) {
+                console.log(err.response.data);
+                setReviews([]);
+            }
         }
+        fetchApi();
     }, []);
 
     const switchReviewIdx = () => {
@@ -84,7 +87,7 @@ export default function AccountReview(props) {
             (reviews.length / 2) % 1 === 0
                 ? reviews.length / 2 - 1
                 : Math.floor(reviews.length / 2);
-        console.log(revIdx, maxIdx);
+        // console.log(revIdx, maxIdx);
         if (revIdx === maxIdx) {
             return setRevIdx(0);
         }

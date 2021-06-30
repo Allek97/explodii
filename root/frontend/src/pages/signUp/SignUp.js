@@ -48,7 +48,7 @@ export default function SignUp() {
             };
 
             const res = await axios.post(
-                "http://localhost:5001/api/v1/users/signup",
+                `${process.env.REACT_APP_URL}/api/v1/users/signup`,
                 body
             );
 
@@ -88,6 +88,8 @@ export default function SignUp() {
             setEmailError(errorList.get(" email"));
             setPasswordError(errorList.get(" password"));
             setPasswordConfirmError(errorList.get(" passwordConfirm"));
+
+            setIsLoading(false);
 
             console.log(errorList);
         }

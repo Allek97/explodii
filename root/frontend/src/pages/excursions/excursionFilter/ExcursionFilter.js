@@ -113,7 +113,7 @@ export default function ExcursionFilter(props) {
         let query = [];
         durationChecked.forEach((isChecked, idx) => {
             if (isChecked) {
-                console.log(`index:${idx}`);
+                // console.log(`index:${idx}`);
                 const durationQuery = {
                     duration: {
                         gte: durationFields[idx].min,
@@ -159,7 +159,7 @@ export default function ExcursionFilter(props) {
             }
         });
         query = query.length === 0 ? [{}] : query;
-        console.log(query);
+        // console.log(query);
         setRatingQueryObject(query);
     }, [ratingChecked]);
 
@@ -177,41 +177,44 @@ export default function ExcursionFilter(props) {
     }, [priceRangeLeft, priceRangeRight]);
 
     // Update the final queryObject everytime there is a check
-    useEffect(async () => {
-        try {
-            const query = {
-                and: [
-                    {
-                        or: durationQueryObject,
-                    },
-                    {
-                        or: participantQueryObject,
-                    },
-                    {
-                        or: ratingQueryObject,
-                    },
-                    {
-                        or: priceQueryObject,
-                    },
-                ],
-            };
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const query = {
+                    and: [
+                        {
+                            or: durationQueryObject,
+                        },
+                        {
+                            or: participantQueryObject,
+                        },
+                        {
+                            or: ratingQueryObject,
+                        },
+                        {
+                            or: priceQueryObject,
+                        },
+                    ],
+                };
 
-            const queryStr = JSON.stringify(query);
+                const queryStr = JSON.stringify(query);
 
-            console.log(queryStr);
+                // console.log(queryStr);
 
-            const res = await axios.get(
-                `${process.env.REACT_APP_URL}/api/v1/tours?q=${queryStr}&sort=${sortField}`,
-                {
-                    withCredentials: true,
-                }
-            );
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/tours?q=${queryStr}&sort=${sortField}`,
+                    {
+                        withCredentials: true,
+                    }
+                );
 
-            setExcursions(res.data.data);
-            setNbResults(res.data.data.length);
-        } catch (err) {
-            console.log(err.response.data.message);
+                setExcursions(res.data.data);
+                setNbResults(res.data.data.length);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         }
+        fetchApi();
     }, [
         durationQueryObject,
         participantQueryObject,

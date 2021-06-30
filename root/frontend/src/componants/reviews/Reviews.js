@@ -128,41 +128,44 @@ export default function Reviews() {
     };
 
     // Request the reviews from my RestAPI while server is running
-    useEffect(async () => {
-        try {
-            // BUG: https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app
-            // NOTE: I need to make requests to backend that willl store my sensitive variables so I can get the data I need, react .env file is not secure
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                // BUG: https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app
+                // NOTE: I need to make requests to backend that will store my sensitive variables so I can get the data I need, react .env file is not secure
 
-            // TODO: FIND A WAY TO GET RESTRICTED DATA FREOM BACKEND WITHOUT JWT / LOGIN
+                // TODO: FIND A WAY TO GET RESTRICTED DATA FREOM BACKEND WITHOUT JWT / LOGIN // FAIT
 
-            // const body = {
-            //     email: "admin@natours.io",
-            //     password: process.env.REACT_APP_ADMIN_PASSWORD,
-            //     adminCode: process.env.REACT_APP_ADMIN_SPECIAL_CODE, // NOTE: Not secure everyone can view it in dev tools
-            // };
-            // // On doit login first pour recevoir le token
-            // const loginRes = await axios.post(
-            //     "http://localhost:5001/api/v1/users/login",
-            //     body,
-            //     { withCredentials: true, credentials: "include" } // For allowing cookie stooring
-            // );
-            // const { token } = loginRes.data;
-            // const config = {
-            //     headers: {
-            //         Authorization: `Bearer ${token}`,
-            //     },
-            // };
-            const reviewsRes = await axios.get(
-                "http://localhost:5001/api/v1/reviews/"
-            );
-            let reviewsData = reviewsRes.data.data;
-            // Get reviews from unique users
-            reviewsData = getUnique(reviewsData, "name");
+                // const body = {
+                //     email: "admin@natours.io",
+                //     password: process.env.REACT_APP_ADMIN_PASSWORD,
+                //     adminCode: process.env.REACT_APP_ADMIN_SPECIAL_CODE, // NOTE: Not secure everyone can view it in dev tools
+                // };
+                // // On doit login first pour recevoir le token
+                // const loginRes = await axios.post(
+                //     "http://localhost:5001/api/v1/users/login",
+                //     body,
+                //     { withCredentials: true, credentials: "include" } // For allowing cookie stooring
+                // );
+                // const { token } = loginRes.data;
+                // const config = {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`,
+                //     },
+                // };
+                const reviewsRes = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/reviews/`
+                );
+                let reviewsData = reviewsRes.data.data;
+                // Get reviews from unique users
+                reviewsData = getUnique(reviewsData, "name");
 
-            setReviews(reviewsData);
-        } catch (err) {
-            console.log(err);
+                setReviews(reviewsData);
+            } catch (err) {
+                console.log(err);
+            }
         }
+        fetchApi();
     }, []);
 
     // Delay The unmount of my componant(review)

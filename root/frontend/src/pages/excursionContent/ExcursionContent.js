@@ -248,20 +248,23 @@ export default function ExcursionContent(props) {
     //Functions
 
     // Find the concerned excursion using the slug param in the url since slug is unique
-    useEffect(async () => {
-        try {
-            const res = await axios.get(
-                `${process.env.REACT_APP_URL}/api/v1/tours?slug=${slug}`
-            );
-            if (!res.data.data[0]) {
-                return window.location.assign("/excursions");
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/tours?slug=${slug}`
+                );
+                if (!res.data.data[0]) {
+                    return window.location.assign("/excursions");
+                }
+                setExcursion(res.data.data[0]);
+                // console.log(res.data.data[0]);
+                setApiConsumed(true);
+            } catch (err) {
+                console.log(err.response.data.message);
             }
-            setExcursion(res.data.data[0]);
-            console.log(res.data.data[0]);
-            setApiConsumed(true);
-        } catch (err) {
-            console.log(err.response.data.message);
         }
+        fetchApi();
     }, []);
 
     const listenScrollEvent = () => {

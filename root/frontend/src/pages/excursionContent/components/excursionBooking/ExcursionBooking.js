@@ -92,12 +92,12 @@ export default function ExcursionBooking(props) {
         .default;
     const bookingSvg2 = require(`../../../../assets/svgs/dreamer.svg`).default;
 
-    console.log(
-        excursionName,
-        excursionPrice,
-        excursionDuration,
-        excursionDate
-    );
+    // console.log(
+    //     excursionName,
+    //     excursionPrice,
+    //     excursionDuration,
+    //     excursionDate
+    // );
 
     const handleBookingCheckout = async () => {
         try {
@@ -114,18 +114,18 @@ export default function ExcursionBooking(props) {
             });
 
             setPaymentStatus(true);
-            console.log(
-                excursionName,
-                excursionPrice,
-                excursionDuration,
-                excursionDate
-            );
+            // console.log(
+            //     excursionName,
+            //     excursionPrice,
+            //     excursionDuration,
+            //     excursionDate
+            // );
             setBookedExcursionName(excursionName);
             setBookedExcursionPrice(excursionPrice);
             setBookedExcursionDuration(excursionDuration);
             setBookedExcursionDate(excursionDate);
         } catch (err) {
-            console.log("Payment has failed!");
+            // console.log("Payment has failed!");
             console.log(err.response.data.message);
             setPaymentStatus(false);
         }

@@ -44,20 +44,23 @@ export default function Excursions(props) {
         return require(`../../assets/img/users/${photo}`).default;
     };
 
-    useEffect(async () => {
-        try {
-            const res = await axios.get(
-                `${process.env.REACT_APP_URL}/api/v1/tours`
-            );
-            // setExcursions(res.data.data);
-            // setNbResults(res.data.data.length);
-            // console.log(res);
-            if (res.data.status === "success") {
-                setIsApiConsumed(true);
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/tours`
+                );
+                // setExcursions(res.data.data);
+                // setNbResults(res.data.data.length);
+                // console.log(res);
+                if (res.data.status === "success") {
+                    setIsApiConsumed(true);
+                }
+            } catch (err) {
+                console.log(err);
             }
-        } catch (err) {
-            console.log(err);
         }
+        fetchApi();
     }, []);
 
     useEffect(() => {

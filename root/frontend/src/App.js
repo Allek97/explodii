@@ -8,18 +8,18 @@ import {
 } from "react-router-dom";
 
 // Routed componants
-import HomePage from "../src/pages/homePage/HomePage";
-import SignUp from "../src/pages/signUp/SignUp";
-import LogIn from "../src/pages/login/Login";
-import Account from "../src/pages/account/Account";
-import Excursion from "../src/pages/excursions/Excursion";
-import ExcursionContent from "../src/pages/excursionContent/ExcursionContent";
+import HomePage from "./pages/homePage/HomePage";
+import SignUp from "./pages/signUp/SignUp";
+import LogIn from "./pages/login/Login";
+import Account from "./pages/account/Account";
+import Excursion from "./pages/excursions/Excursion";
+import ExcursionContent from "./pages/excursionContent/ExcursionContent";
 
 import "./App.scss";
 
 // Global Fonts
 
-import GlobalFonts from "../src/assets/fonts/GlobalFonts";
+import GlobalFonts from "./assets/fonts/GlobalFonts";
 
 // TODO: BUILD ORIGINAL 404 PAGE
 const NoMatchComp = () => <h1>Not Matched</h1>;
@@ -43,33 +43,37 @@ export default function App() {
     const [userEmail, setUserEmail] = useState("");
     const [userId, setUserId] = useState("");
 
-    useEffect(async () => {
-        try {
-            const loginRes = await axios.get(
-                "http://localhost:5001/api/v1/users/login",
-                {
-                    withCredentials: true,
-                }
-            );
-            setAuthStatus(true);
-            if (loginRes.data.status === "success") {
-                const res = await axios.get(
-                    "http://localhost:5001/api/v1/users/me",
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const loginRes = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/users/login`,
                     {
                         withCredentials: true,
                     }
                 );
+                setAuthStatus(true);
+                if (loginRes.data.status === "success") {
+                    const res = await axios.get(
+                        `${process.env.REACT_APP_URL}/api/v1/users/me`,
+                        {
+                            withCredentials: true,
+                        }
+                    );
 
-                const user = res.data.data.data;
-                setUserName(user.name);
-                setUserPhoto(user.photo);
-                setUserEmail(user.email);
-                setUserId(user._id);
+                    const user = res.data.data.data;
+                    setUserName(user.name);
+                    setUserPhoto(user.photo);
+                    setUserEmail(user.email);
+                    setUserId(user._id);
+                }
+            } catch (err) {
+                setAuthStatus(false);
             }
-        } catch (err) {
-            setAuthStatus(false);
+            setIsApiConsumed(true);
         }
-        setIsApiConsumed(true);
+
+        fetchApi();
     }, []);
 
     return (

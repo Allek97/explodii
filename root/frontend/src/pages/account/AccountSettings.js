@@ -1,8 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 
-import React, { createRef } from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -54,7 +53,7 @@ export default function AccountSettings(props) {
             body.append("email", newUserEmail);
 
             const res = await axios.patch(
-                "http://localhost:5001/api/v1/users/updateMe",
+                `${process.env.REACT_APP_URL}/api/v1/users/updateMe`,
                 body,
                 { withCredentials: true, credentials: "include" }
             );
@@ -100,7 +99,7 @@ export default function AccountSettings(props) {
             };
 
             const res = await axios.patch(
-                "http://localhost:5001/api/v1/users/updateMyPassword",
+                `${process.env.REACT_APP_URL}/api/v1/users/updateMyPassword`,
                 body,
                 {
                     withCredentials: true,
@@ -147,7 +146,7 @@ export default function AccountSettings(props) {
             setPasswordError(errorList.get(" password"));
             setPasswordConfirmError(errorList.get(" passwordConfirm"));
 
-            console.log(passworConfirmError);
+            // console.log(passworConfirmError);
         }
     };
 

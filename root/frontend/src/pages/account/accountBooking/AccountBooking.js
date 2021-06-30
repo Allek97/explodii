@@ -1,13 +1,11 @@
 /* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import PropTypes from "prop-types";
 
 import "./_accountBooking.scss";
 import { BookBtn, Disclaimer } from "../AccountStyledComponents";
 
-export default function AccountReview(props) {
+export default function AccountReview() {
     //Props
 
     // Hooks
@@ -16,53 +14,61 @@ export default function AccountReview(props) {
     const [suggested, setSuggested] = useState(false);
     // Background image colors
 
-    useEffect(async () => {
-        try {
-            // Axios envoit tous les informations concernant la request/responce
-            const userBookingsRes = await axios.get(
-                `http://localhost:5001/api/v1/bookings/my-bookings`,
-                {
-                    withCredentials: true,
-                    credentials: "include",
-                }
-            );
-            setBookings(userBookingsRes.data.data);
-        } catch (err) {
-            if (
-                err.response.data.message === "No document found with that ID"
-            ) {
-                const res = await axios.get(
-                    `http://localhost:5001/api/v1/tours/top-5-cheap`,
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                // Axios envoit tous les informations concernant la request/responce
+                const userBookingsRes = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/bookings/my-bookings`,
                     {
                         withCredentials: true,
                         credentials: "include",
                     }
                 );
-                setBookings(res.data.data);
-                setSuggested(true);
-            } else {
-                console.log(err.response.data.message);
+                setBookings(userBookingsRes.data.data);
+            } catch (err) {
+                if (
+                    err.response.data.message ===
+                    "No document found with that ID"
+                ) {
+                    const res = await axios.get(
+                        `${process.env.REACT_APP_URL}/api/v1/tours/top-5-cheap`,
+                        {
+                            withCredentials: true,
+                            credentials: "include",
+                        }
+                    );
+                    setBookings(res.data.data);
+                    setSuggested(true);
+                } else {
+                    console.log(err.response.data.message);
+                }
             }
         }
+        fetchApi();
     }, []);
 
-    useEffect(async () => {
-        try {
-            // Empty booking means user didnt book yet
-            if (bookings.length === 0) {
-                const res = await axios.get(
-                    `http://localhost:5001/api/v1/tours/top-5-cheap`,
-                    {
-                        withCredentials: true,
-                    }
-                );
-                setBookings(res.data.data);
-                setSuggested(true);
-            }
-        } catch (err) {
-            console.log(err.response.data.message);
-        }
-    }, []);
+    // useEffect(() => {
+    //     async function fetchApi() {
+    //         try {
+    //             // Empty booking means user didnt book yet
+    //             if (bookings.length === 0) {
+    //                 const res = await axios.get(
+    //                     `${process.env.REACT_APP_URL}/api/v1/tours/top-5-cheap`,
+    //                     {
+    //                         withCredentials: true,
+    //                     }
+    //                 );
+    //                 setBookings(res.data.data);
+    //                 setSuggested(true);
+    //             }
+    //         } catch (err) {
+    //             console.log(err.response.data.message);
+    //         }
+    //     }
+
+    //     fetchApi();
+    // }, []);
 
     // console.log(bookings);
 

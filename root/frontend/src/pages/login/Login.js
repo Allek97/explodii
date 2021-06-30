@@ -36,7 +36,7 @@ export default function LogIn() {
             };
 
             const res = await axios.post(
-                "http://localhost:5001/api/v1/users/login",
+                `${process.env.REACT_APP_URL}/api/v1/users/login`,
                 body,
                 //NOTE: For allowing cookie storing in the browser
                 { withCredentials: true, credentials: "include" }

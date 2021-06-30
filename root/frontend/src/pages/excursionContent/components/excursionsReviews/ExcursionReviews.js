@@ -109,20 +109,22 @@ export default function AccountReview(props) {
     const [revIdx, setRevIdx] = useState(0);
 
     // variables
-    const reviewBgImg = require("../../../../assets/img/home/bg.png")
-        .default;
+    const reviewBgImg = require("../../../../assets/img/home/bg.png").default;
 
-    useEffect(async () => {
-        try {
-            const res = await axios.get(
-                `${process.env.REACT_APP_URL}/api/v1/tours/${excursionId}/reviews`,
-                { withCredentials: true, credentials: "include" }
-            );
-            setReviews(res.data.data);
-        } catch (err) {
-            console.log(err.response.data);
-            setReviews([]);
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/tours/${excursionId}/reviews`,
+                    { withCredentials: true, credentials: "include" }
+                );
+                setReviews(res.data.data);
+            } catch (err) {
+                console.log(err.response.data);
+                setReviews([]);
+            }
         }
+        fetchApi();
     }, []);
 
     const switchReviewIdx = () => {

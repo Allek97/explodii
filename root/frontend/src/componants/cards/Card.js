@@ -14,17 +14,21 @@ export default function PopCards() {
     const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
     const BgColor2 = rootColor.getPropertyValue("--color-primary-dark");
 
-    useEffect(async () => {
-        try {
-            // Axios envoit tous les informations concernant la request/responce
-            const res = await axios.get(
-                "http://localhost:5001/api/v1/tours/top-3-popular"
-            );
-            console.log(res.data.data);
-            setExcursions(res.data.data);
-        } catch (err) {
-            console.log(err);
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                // Axios envoit tous les informations concernant la request/responce
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/tours/top-3-popular`
+                );
+                // console.log(res.data.data);
+                setExcursions(res.data.data);
+            } catch (err) {
+                console.log(err);
+            }
         }
+
+        fetchApi();
     }, []);
 
     // console.log(excursions);

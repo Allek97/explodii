@@ -116,7 +116,7 @@ function Search() {
 
             const results = await getGeocode({ address: description });
             const { lat, lng } = await getLatLng(results[0]);
-            console.log("📍 Coordinates: ", { lat, lng });
+            // console.log("📍 Coordinates: ", { lat, lng });
         } catch (error) {
             console.log("😱 Error: ", error);
         }

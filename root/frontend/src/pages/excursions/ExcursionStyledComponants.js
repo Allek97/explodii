@@ -276,7 +276,7 @@ export const TourBox = (props) => {
 
     // effects
 
-    console.log(animationLoad);
+    // console.log(animationLoad);
 
     return (
         <Tour

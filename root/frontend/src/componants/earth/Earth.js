@@ -130,6 +130,4 @@ export default function Earth() {
             this.parentNode.appendChild(this);
         });
     }
-
-    console.log("FOR GOD SAKE");
 }
