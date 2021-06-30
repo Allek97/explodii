@@ -12,7 +12,7 @@ fs.readdir(mjmlFolder, (err, files) => {
     let fileContent;
 
     files.forEach((file) => {
-        console.warn(`Template: ${file}`);
+        // console.warn(`Template: ${file}`);
         fileContent = fs.readFileSync(
             path.join(__dirname, "../views/mjml/", file)
         );
