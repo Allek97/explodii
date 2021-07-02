@@ -18,7 +18,16 @@ const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
 
+// Access-Control-Allow-Origin *
+// TODO: When front-end is deployed make sure to only allow my explodii app to make request to my backend api
+// const app = express().use("*", cors({ origin: "www.explodii.com", credentials: true }));
 const app = express().use("*", cors({ origin: true, credentials: true }));
+
+// testing for secure https connections, especially for x-forwarded-proto header
+app.enable("trust proxy");
+
+app.options("*", cors());
+// app.options("api/v1/tours/:id",cors());
 
 // app.set("view engine", "html");
 app.engine(
@@ -34,7 +43,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
-app.use("/static", express.static(path.join(__dirname, "../frontend/public/")));
+app.use("/static", express.static(path.join(__dirname, "../backend/assets/")));
 
 // Set security HTTP headers
 app.use(helmet());

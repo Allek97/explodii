@@ -1,10 +1,12 @@
 const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
+
 const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const factory = require("./handlerFactory");
+const { uploadFile, getFileStream } = require("../utils/s3");
 
 // const multerStorage = multer.diskStorage({
 //   destination: (req, file, cb) => {
@@ -15,6 +17,9 @@ const factory = require("./handlerFactory");
 //     cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
 //   }
 // });
+
+// const multerStorage = multer.memoryStorage();
+// const multerStorage = multer.diskStorage({ destination: "uploads/" });
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
@@ -39,17 +44,19 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     if (!req.file) return next();
 
     req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+    // console.log(req.file);
+
+    // console.log(req.file);
+
+    // res.send("You uploaded a new profile picture in s3 bucket ");
 
     await sharp(req.file.buffer)
         .resize(500, 500)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
-        .toFile(
-            path.join(
-                __dirname,
-                `../../frontend/src/assets/img/users/${req.file.filename}`
-            )
-        );
+        .toFile(path.join(__dirname, `../uploads/${req.file.filename}`));
+
+    await uploadFile(`uploads\\${req.file.filename}`, req.file.filename);
 
     next();
 });
@@ -99,6 +106,18 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         },
     });
 });
+
+exports.getUsersProfilePicture = (req, res, next) => {
+    const { key } = req.params;
+    const readStream = getFileStream(key);
+    // readStream = readStream.createReadStream();
+    readStream.on("error", (error) => {
+        res.status(403).send({ error, message: "No such key in the bucket" });
+    });
+    readStream.pipe(res);
+
+    // res.send({ key });
+};
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
     await User.findByIdAndUpdate(req.user.id, { active: false });

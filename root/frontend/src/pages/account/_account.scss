@@ -5,10 +5,10 @@
 
     background-image: linear-gradient(
             76deg,
-            rgba(var(--color-main-1), 0.5),
-            rgba(var(--color-main-2), 0.5)
+            RGBA(var(--color-main-1), 0.5),
+            RGBA(var(--color-main-2), 0.5)
         ),
-        url(../../assets/img/tours/tour-3-cover.jpg);
+        url(https://explodii.s3.us-east-2.amazonaws.com/img/tours/tour-3-cover.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -36,8 +36,8 @@
         padding: 6rem 0;
         background-image: linear-gradient(
             76deg,
-            rgba(var(--color-main-1)),
-            rgba(var(--color-main-2))
+            RGBA(var(--color-main-1)),
+            RGBA(var(--color-main-2))
         );
     }
 
@@ -153,13 +153,13 @@
 
     background-color: #ffffff;
 
-    // box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.151);
+    // box-shadow: 0 2rem 6rem RGBA(0, 0, 0, 0.151);
 
     &__heading {
         background-image: linear-gradient(
             to bottom right,
-            rgba(var(--color-blue-special)),
-            rgba(var(--color-blue-special))
+            RGBA(var(--color-blue-special)),
+            RGBA(var(--color-blue-special))
         );
         background-clip: text;
         color: transparent;
@@ -204,23 +204,23 @@
 
         font-size: 1.7rem;
         font-family: "Lato", sans-serif;
-        color: rgb(var(--color-grey-dark));
-        // color: rgb(var(--color-grey-dark));
+        color: RGBA(var(--color-grey-dark));
+        // color: RGBA(var(--color-grey-dark));
         font-weight: lighter;
 
         &:focus {
             outline: none;
             // box-shadow: var(--shadow-dark);
-            border-bottom: 3px solid rgb(var(--color-primary-light));
+            border-bottom: 3px solid RGBA(var(--color-primary-light));
         }
 
         &:focus:invalid {
-            border-bottom: 3px solid rgba(204, 0, 0, 1);
+            border-bottom: 3px solid RGBA(204, 0, 0, 1);
         }
 
         &::-webkit-input-placeholder {
             font-size: 1.7rem;
-            color: rgb(var(--color-grey-dark));
+            color: RGBA(var(--color-grey-dark));
         }
     }
 
@@ -248,9 +248,9 @@
 
         font-size: 1.5rem;
         text-decoration: none;
-        border-bottom: 1px solid rgb(var(--color-blue-special));
+        border-bottom: 1px solid RGBA(var(--color-blue-special));
 
-        color: rgb(var(--color-blue-special));
+        color: RGBA(var(--color-blue-special));
 
         text-align: center;
 
@@ -267,7 +267,7 @@
 
         font-size: 1.3rem;
         font-family: "Lato", sans-serif;
-        color: rgb(var(--color-grey-dark));
+        color: RGBA(var(--color-grey-dark));
         font-weight: 600;
     }
 

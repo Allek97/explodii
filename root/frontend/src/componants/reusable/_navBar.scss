@@ -28,10 +28,10 @@
 
         background-image: linear-gradient(
             to bottom right,
-            rgba(var(--color-primary-light)),
-            rgba(var(--color-primary-dark))
+            RGBA(var(--color-primary-light)),
+            RGBA(var(--color-primary-dark))
         );
-        // background-image: rgba(var(--color-gold), 1);
+        // background-image: RGBA(var(--color-gold), 1);
 
         mask-image: url("../../assets/img/home/mountain.png");
         mask-size: cover;
@@ -42,8 +42,8 @@
         font-family: "Manrope", sans-serif;
         background-image: linear-gradient(
             to bottom right,
-            rgba(var(--color-primary-light)),
-            rgba(var(--color-primary-dark))
+            RGBA(var(--color-primary-light)),
+            RGBA(var(--color-primary-dark))
         );
         background-clip: text;
         color: transparent;
@@ -64,7 +64,7 @@
             transition: all 0.2s;
 
             padding: 0.8rem 3rem;
-            box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
+            box-shadow: 1px 1px 32px 0 RGBA(41 99 221 / 50%);
             border-radius: 4px;
 
             background-color: #1a5ef3;
@@ -82,7 +82,7 @@
         &:active,
         &:focus {
             outline: none;
-            box-shadow: 0 0.5rem 1rem rgba(var(--color-black), 0.2);
+            box-shadow: 0 0.5rem 1rem RGBA(var(--color-black), 0.2);
         }
 
         &:hover {

@@ -52,7 +52,7 @@
         backface-visibility: hidden;
         border-radius: 3px;
         overflow: hidden;
-        box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+        box-shadow: 0 1.5rem 4rem rgba(var(--color-black), 0.15);
 
         &--front {
             background-color: $color-white;

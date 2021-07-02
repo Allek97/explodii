@@ -56,7 +56,7 @@ export default function Account(props) {
     });
     // VARIABLES
     // Profile photo in side navigation bar
-    const profilePhoto = require(`../../assets/img/users/${userPhoto}`).default;
+    const profilePhoto = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
 
     const handleLogOut = async (e) => {
         e.preventDefault();

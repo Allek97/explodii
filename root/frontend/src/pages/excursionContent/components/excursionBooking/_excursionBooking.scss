@@ -17,14 +17,14 @@
         width: 31rem;
         // width: 45%;
 
-        box-shadow: 0 1.5rem 4rem rgba(var(--color-black), 0.4);
+        box-shadow: 0 1.5rem 4rem RGBA(var(--color-black), 0.4);
         border-radius: 3px;
         outline-offset: 2rem;
 
         &:hover {
             outline: 1.5rem solid #252397;
             transform: scale(1.05) translateY(-0.5rem);
-            box-shadow: 0 2.5rem 4rem rgba(var(--color-black), 0.5);
+            box-shadow: 0 2.5rem 4rem RGBA(var(--color-black), 0.5);
             z-index: 20;
         }
 

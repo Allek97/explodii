@@ -74,13 +74,13 @@ export default function Reviews() {
 
     const setBackgroundUrlStyle = (tourBg) => {
         // eslint-disable-next-line global-require
-        const userImg = require(`../../assets/img/users/${tourBg}`);
+        const userImg = `${process.env.REACT_APP_URL}/api/v1/users/images/${tourBg}`;
         return {
             backgroundImage: `linear-gradient(
                 to right,
                 rgba(13, 13, 63, 0.25),
                 rgba(11, 11, 59, 0.25)
-            ),url(${userImg.default})`,
+            ),url(${userImg})`,
         };
     };
 

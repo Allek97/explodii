@@ -41,7 +41,7 @@ export default function Excursions(props) {
 
     // variables
     const userImg = (photo) => {
-        return require(`../../assets/img/users/${photo}`).default;
+        return `${process.env.REACT_APP_URL}/api/v1/users/images/${photo}`;
     };
 
     useEffect(() => {

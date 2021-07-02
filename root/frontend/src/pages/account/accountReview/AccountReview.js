@@ -1,9 +1,7 @@
-import React, { createRef } from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
 
 import { ReviewBox } from "../AccountStyledComponents";
 
@@ -111,6 +109,9 @@ export default function AccountReview(props) {
             <h1 style={{ marginBottom: "2rem", fontSize: "3rem" }}>
                 Your words matter to us
             </h1>
+            <p style={{ fontSize: "2.1rem", fontWeight: "900" }}>
+                You don't have any reviews yet !
+            </p>
             <div className="accountReview__reviewBox">
                 <div
                     className="accountReview__rotativeBox"

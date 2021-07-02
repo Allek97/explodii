@@ -577,11 +577,11 @@ export const ReviewBox = (props) => {
     // Props
     const { userReview, isExcursion } = props;
     const { review, rating, user, tour } = userReview;
-    const { photo: UserPhoto, name: UserName } = user;
+    const { photo: userPhoto, name: userName } = user;
     const { name: ExcursionName } = tour;
 
     //variables
-    const userImage = require(`../../assets/img/users/${UserPhoto}`).default;
+    const userImage = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
     const worldImage = require("../../assets/img/users/world.jpg").default;
     const quoteSvg = require("../../assets/svgs/quotes.svg").default;
     const starSvg = require("../../assets/svgs/star-review.svg").default;
@@ -589,7 +589,7 @@ export const ReviewBox = (props) => {
         <StyledReview img={worldImage} svg={quoteSvg}>
             <img src={userImage} alt="user" />
             <p>{review}</p>
-            <p>{isExcursion ? UserName : ExcursionName}</p>
+            <p>{isExcursion ? userName : ExcursionName}</p>
             <span />
             <ul>
                 {[1, 2, 3, 4, 5].map((el) => {

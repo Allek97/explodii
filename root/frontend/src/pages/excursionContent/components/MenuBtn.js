@@ -189,8 +189,7 @@ export default function MenuBtn(props) {
     const [isMenu, SetMenu] = useState(false);
 
     // eslint-disable-next-line import/no-dynamic-require
-    const userPicture = require(`../../../assets/img/users/${userPhoto}`)
-        .default;
+    const userPicture = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
     // svgs
     const arrowSvg = require("../../../assets/svgs/keyboard_arrow_down.svg")
         .default;

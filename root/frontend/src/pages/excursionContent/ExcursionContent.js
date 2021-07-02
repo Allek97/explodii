@@ -231,10 +231,10 @@ export default function ExcursionContent(props) {
     const [isScrolled, setIsScrolled] = useState(false);
     // function
     const guidePhoto = (photo = "default.jpg") => {
-        return require(`../../assets/img/users/${photo}`).default;
+        return `${process.env.REACT_APP_URL}/api/v1/users/images/${photo}`;
     };
     const excursionPhoto = (photo = "tour-1-1.jpg") => {
-        return require(`../../assets/img/tours/${photo}`).default;
+        return `https://explodii.s3.us-east-2.amazonaws.com/img/tours/${photo}`;
     };
 
     const clockSvg = require("../../assets/svgs/clock.svg").default;
@@ -460,31 +460,37 @@ export default function ExcursionContent(props) {
                                         >
                                             YOUR EXCURSION GUIDES
                                         </InfoHeading>
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                marginBottom: "2.25rem",
-                                            }}
-                                        >
-                                            <img
-                                                src={guidePhoto("user-3.jpg")}
-                                                alt="Lead guide"
-                                                style={photoStyle}
-                                            />
-                                            <span style={fieldsStyle}>
-                                                LEAD GUIDE
-                                            </span>
-                                            <span style={infoFieldsStyle}>
-                                                {excursion.guides
-                                                    .filter(
-                                                        (guide) =>
-                                                            guide.role ===
-                                                            "lead-guide"
-                                                    )
-                                                    .map((guide) => guide.name)}
-                                            </span>
-                                        </div>
+                                        {excursion.guides
+                                            .filter(
+                                                (guide) =>
+                                                    guide.role === "lead-guide"
+                                            )
+                                            .map((guide) => (
+                                                <div
+                                                    key={guide.name}
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        marginBottom: "2.25rem",
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={guidePhoto(
+                                                            guide.photo
+                                                        )}
+                                                        alt="lead guide"
+                                                        style={photoStyle}
+                                                    />
+                                                    <span style={fieldsStyle}>
+                                                        Lead Guide
+                                                    </span>
+                                                    <span
+                                                        style={infoFieldsStyle}
+                                                    >
+                                                        {guide.name}
+                                                    </span>{" "}
+                                                </div>
+                                            ))}
 
                                         {excursion.guides
                                             .filter(

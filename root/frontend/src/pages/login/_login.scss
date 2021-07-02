@@ -4,8 +4,8 @@
     height: 100vh;
     background-image: linear-gradient(
         to right bottom,
-        rgba(var(--color-primary-light)),
-        rgba(var(--color-primary-dark))
+        RGBA(var(--color-primary-light)),
+        RGBA(var(--color-primary-dark))
     );
     // filter: blur(8px);
     transition: filter 1s linear;
@@ -65,8 +65,8 @@
 
         background-image: linear-gradient(
             to bottom right,
-            rgba(var(--color-primary-light)),
-            rgba(var(--color-primary-dark))
+            RGBA(var(--color-primary-light)),
+            RGBA(var(--color-primary-dark))
         );
         background-clip: text;
         color: transparent;
@@ -99,7 +99,7 @@
 
         font-size: 1.5rem;
         font-family: "Lato", sans-serif;
-        color: rgb(var(--color-grey-dark));
+        color: RGBA(var(--color-grey-dark));
         font-weight: 600;
 
         &:focus {
@@ -108,7 +108,7 @@
             outline: none;
             // box-shadow: var(--shadow-dark);
 
-            border-bottom: 3px solid rgb(var(--color-primary-light));
+            border-bottom: 3px solid RGBA(var(--color-primary-light));
             animation: inputEffect 0.5s ease-out 1;
         }
 
@@ -118,11 +118,11 @@
         }
 
         &:focus:invalid {
-            border-bottom: 3px solid rgba(204, 0, 0, 1);
+            border-bottom: 3px solid RGBA(204, 0, 0, 1);
         }
 
         &::-webkit-input-placeholder {
-            color: rgba(var(--color-grey-dark), 0.6);
+            color: RGBA(var(--color-grey-dark), 0.6);
         }
     }
 
@@ -152,7 +152,7 @@
             &:link,
             &:visited {
                 text-decoration: none;
-                color: rgb(63, 63, 63);
+                color: RGBA(63, 63, 63);
                 font-weight: 600;
 
                 &:hover {
@@ -205,7 +205,7 @@
         &:focus {
             outline: none;
             transform: translateY(-1px);
-            box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
+            box-shadow: 1px 1px 32px 0 RGBA(41 99 221 / 50%);
         }
 
         &:hover {
@@ -304,7 +304,7 @@
 
     transition: all 3s;
 
-    color: rgb(68, 94, 182);
+    color: RGBA(68, 94, 182);
 
     font-size: 5rem;
 
@@ -323,8 +323,8 @@
 
         background-image: linear-gradient(
             to right bottom,
-            rgba(var(--color-primary-light)),
-            rgba(var(--color-primary-dark))
+            RGBA(var(--color-primary-light)),
+            RGBA(var(--color-primary-dark))
         );
 
         // background-image: url(../../assets/svgs/checked.svg);

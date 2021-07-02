@@ -62,7 +62,7 @@
     transition: all 0.4s;
 
     width: 30rem;
-    background-color: rgba(255, 255, 255, 0.322);
+    background-color: RGBA(255, 255, 255, 0.322);
 
     box-shadow: var(--shadow-light);
 
@@ -71,8 +71,8 @@
     &__picture {
         // background-image: linear-gradient(
         //         to right,
-        //         rgba(var(--color-primary-light), 0.35),
-        //         rgba(var(--color-primary-dark), 0.35)
+        //         RGBA(var(--color-primary-light), 0.35),
+        //         RGBA(var(--color-primary-dark), 0.35)
         //     ),
         //     url(../../assets/img/users/user-8.jpg);
 
@@ -124,8 +124,8 @@
 
             //     background-image: linear-gradient(
             //         to right,
-            //         rgba(var(--color-primary-light), 0.8) 80%,
-            //         rgba(var(--color-primary-dark), 0.1) 20%
+            //         RGBA(var(--color-primary-light), 0.8) 80%,
+            //         RGBA(var(--color-primary-dark), 0.1) 20%
             //     );
             mask-image: url("../../assets/svgs/star-review.svg");
             mask-size: cover;
@@ -157,7 +157,7 @@
 
         // background-color: grey;
         color: #ffffff;
-        // background-color: rgba(var(--color-primary-light), 0.4);
+        // background-color: RGBA(var(--color-primary-light), 0.4);
         background-color: #b3b3b39d;
 
         &--selected {

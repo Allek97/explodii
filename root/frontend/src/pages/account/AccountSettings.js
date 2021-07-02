@@ -23,7 +23,7 @@ export default function AccountSettings(props) {
 
     const [newUserName, setNewUserName] = useState(userName);
     const [newUserEmail, setNewUserEmail] = useState(userEmail);
-    const [newUserPhoto, setNewUserPhoto] = useState(userPhoto);
+    const [selectedImageFile, setSelectedImageFile] = useState(userPhoto);
 
     const [displaySuccessMsgSet, setDisplaySuccessMsgSet] = useState(false);
     const [displaySuccessMsgPW, setDisplaySuccessMsgPW] = useState(false);
@@ -33,8 +33,7 @@ export default function AccountSettings(props) {
     const [passwordError, setPasswordError] = useState("");
     const [passworConfirmError, setPasswordConfirmError] = useState("");
 
-    const requiredUserImage = require(`../../assets/img/users/${userPhoto}`)
-        .default;
+    const requiredUserImage = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
 
     // API MANAGEMENT
     const handleProfileSubmit = async (e) => {
@@ -59,9 +58,11 @@ export default function AccountSettings(props) {
             );
 
             if (res.data.status === "success") {
+                const newUserProifilePic = res.data.data.user.photo;
+
                 setUserName(newUserName);
                 setUserEmail(newUserEmail);
-                setUserPhoto(newUserPhoto);
+                setUserPhoto(newUserProifilePic);
 
                 setDisplaySuccessMsgSet(true);
 
@@ -215,7 +216,7 @@ export default function AccountSettings(props) {
                             id="profileForm-photo"
                             name="photo"
                             onChange={(e) => {
-                                setNewUserPhoto(e.target.files[0].name);
+                                setSelectedImageFile(e.target.files[0].name);
                             }}
                         />
                     </label>
