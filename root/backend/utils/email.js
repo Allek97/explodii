@@ -69,7 +69,7 @@ module.exports = class Email {
         const replacements = {
             FirstName: this.firstName,
             CompanyName: "Explodii",
-            Link: "http://localhost:5000/",
+            Link: `${process.env.CLIENT_URL}/`,
             ContactEmail: process.env.EMAIL_FROM,
         };
 
