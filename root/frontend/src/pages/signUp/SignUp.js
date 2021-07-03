@@ -49,7 +49,8 @@ export default function SignUp() {
 
             const res = await axios.post(
                 `${process.env.REACT_APP_URL}/api/v1/users/signup`,
-                body
+                body,
+                { withCredentials: true, credentials: "include" }
             );
 
             if (res.data.status === "success") {

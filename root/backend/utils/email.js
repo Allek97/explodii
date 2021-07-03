@@ -84,13 +84,14 @@ module.exports = class Email {
             attachments: [
                 {
                     filename: "mountain.png",
-                    path: "../../root/frontend/public/mountain.png",
+                    path:
+                        "https://explodii.s3.us-east-2.amazonaws.com/mountain.png",
                     cid: "mountain",
                 },
                 {
                     filename: "tour-3-2-600x400.jpg",
                     path:
-                        "../../root/frontend/src/assets/img/tours/tour-3-2-600x400.jpg",
+                        "https://explodii.s3.us-east-2.amazonaws.com/tour-3-2-600x400.jpg",
                     cid: "tour-3-2-600x400",
                 },
             ],
