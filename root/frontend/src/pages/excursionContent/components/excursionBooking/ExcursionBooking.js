@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import React, { useState } from "react";
+
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -71,10 +73,6 @@ export default function ExcursionBooking(props) {
         excursionDate,
         authStatus,
         setPaymentStatus,
-        setBookedExcursionName,
-        setBookedExcursionPrice,
-        setBookedExcursionDuration,
-        setBookedExcursionDate,
     } = props;
 
     // Hooks
@@ -102,6 +100,7 @@ export default function ExcursionBooking(props) {
     const handleBookingCheckout = async () => {
         try {
             setInProcess(true);
+            console.log("hey");
             const session = await axios.get(
                 `${process.env.REACT_APP_URL}/api/v1/bookings/checkout-session/${excursionId}`,
                 {
@@ -109,21 +108,13 @@ export default function ExcursionBooking(props) {
                 }
             );
 
-            await stripe.redirectToCheckout({
+            const result = await stripe.redirectToCheckout({
                 sessionId: session.data.session.id,
             });
 
+            console.log(result);
+
             setPaymentStatus(true);
-            // console.log(
-            //     excursionName,
-            //     excursionPrice,
-            //     excursionDuration,
-            //     excursionDate
-            // );
-            setBookedExcursionName(excursionName);
-            setBookedExcursionPrice(excursionPrice);
-            setBookedExcursionDuration(excursionDuration);
-            setBookedExcursionDate(excursionDate);
         } catch (err) {
             // console.log("Payment has failed!");
             console.log(err.response.data.message);
@@ -223,9 +214,4 @@ ExcursionBooking.propTypes = {
 
     authStatus: PropTypes.bool.isRequired,
     setPaymentStatus: PropTypes.func.isRequired,
-
-    setBookedExcursionName: PropTypes.func.isRequired,
-    setBookedExcursionPrice: PropTypes.func.isRequired,
-    setBookedExcursionDuration: PropTypes.func.isRequired,
-    setBookedExcursionDate: PropTypes.func.isRequired,
 };

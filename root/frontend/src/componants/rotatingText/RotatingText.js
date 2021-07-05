@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
 
 import "./_rotatingText.scss";
 import "../../base/_animations.scss";
@@ -45,12 +43,7 @@ export default function RotatingText() {
     return (
         <div className="rotate">
             <span className="rotate__side">{}</span>
-            <p
-                key={uuidv4()}
-                id={uuidv4()}
-                className="rotate__text"
-                style={rotationAnimation}
-            >
+            <p className="rotate__text" style={rotationAnimation}>
                 {sentence}
             </p>
             )

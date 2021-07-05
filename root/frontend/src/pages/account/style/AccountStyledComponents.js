@@ -3,7 +3,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 
 // NOTE: Variables/Animations
 const slideFromUp = keyframes`
@@ -249,49 +248,6 @@ export const SuccessSaveDiv = styled.div`
     } */
 `;
 
-export const SuccessSave = (props) => {
-    const successSvg = require("../../assets/svgs/check-o.svg").default;
-
-    const {
-        isSettings,
-        setDisplaySuccessMsgSet,
-        setDisplaySuccessMsgPW,
-    } = props;
-
-    const msg = isSettings
-        ? "Your modifications have been saved"
-        : "Your password has been updated";
-
-    return (
-        <SuccessSaveDiv
-            svg={successSvg}
-            onClick={() =>
-                isSettings
-                    ? setDisplaySuccessMsgSet(false)
-                    : setDisplaySuccessMsgPW(false)
-            }
-        >
-            <p
-                style={{
-                    fontSize: "1.7rem",
-                    fontWeight: "bolder",
-                    color: "rgba(0,0,0,.7)",
-                }}
-            >
-                Success
-            </p>
-            <p
-                style={{
-                    fontSize: "1.1rem",
-                    color: "rgb(var(--color-grey-dark-2))",
-                }}
-            >
-                {msg}
-            </p>
-        </SuccessSaveDiv>
-    );
-};
-
 // NOTE: Section Account Booking
 export const BookBtn = styled.a`
     &,
@@ -390,27 +346,11 @@ export const StyledDisclaminer = styled.div`
     }
 `;
 
-export const Disclaimer = () => {
-    const bookingSvg = require("../../assets/svgs/booking.svg").default;
-    const arrowSvg = require("../../assets/svgs/big-arrow.svg").default;
-    const transition = require("../../assets/img/home/transition.png").default;
-    return (
-        <StyledDisclaminer transition={transition} arrow={arrowSvg}>
-            <img src={bookingSvg} alt="booking" />
-            <span>
-                We noticed that you have no bookings on our platform. We have
-                put together our most affordable excursions for you. Take a look
-                below !
-            </span>
-        </StyledDisclaminer>
-    );
-};
-
 ////////////////////////////////////////////////
 // NOTE: Section Review
 ////////////////////////////////////////////////
 
-const setReviewStarsBg = (reviewVal) => {
+export const setReviewStarsBg = (reviewVal) => {
     if (reviewVal) {
         let decimal = reviewVal - Math.floor(reviewVal);
         decimal *= 100;
@@ -432,7 +372,7 @@ const setReviewStarsBg = (reviewVal) => {
     };
 };
 
-const StyledStar = styled.span`
+export const StyledStar = styled.span`
     display: block;
 
     height: 2.5rem;
@@ -444,7 +384,7 @@ const StyledStar = styled.span`
     mask-position: 50% 50%;
 `;
 
-const StyledReview = styled.div`
+export const StyledReview = styled.div`
     position: relative;
 
     display: flex;
@@ -572,64 +512,3 @@ const StyledReview = styled.div`
         }
     }
 `;
-
-export const ReviewBox = (props) => {
-    // Props
-    const { userReview, isExcursion } = props;
-    const { review, rating, user, tour } = userReview;
-    const { photo: userPhoto, name: userName } = user;
-    const { name: ExcursionName } = tour;
-
-    //variables
-    const userImage = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
-    const worldImage = require("../../assets/img/users/world.jpg").default;
-    const quoteSvg = require("../../assets/svgs/quotes.svg").default;
-    const starSvg = require("../../assets/svgs/star-review.svg").default;
-    return (
-        <StyledReview img={worldImage} svg={quoteSvg}>
-            <img src={userImage} alt="user" />
-            <p>{review}</p>
-            <p>{isExcursion ? userName : ExcursionName}</p>
-            <span />
-            <ul>
-                {[1, 2, 3, 4, 5].map((el) => {
-                    return (
-                        <StyledStar
-                            style={
-                                rating >= el
-                                    ? setReviewStarsBg()
-                                    : setReviewStarsBg(rating)
-                            }
-                            key={uuidv4()}
-                            id={uuidv4()}
-                            svg={starSvg}
-                            // rating={el <= 4.5 ? null : 4.5}
-                        />
-                    );
-                })}
-            </ul>
-        </StyledReview>
-    );
-};
-
-// Prop Validation
-SuccessSave.propTypes = {
-    isSettings: PropTypes.bool.isRequired,
-    setDisplaySuccessMsgSet: PropTypes.func.isRequired,
-    setDisplaySuccessMsgPW: PropTypes.func.isRequired,
-};
-
-ReviewBox.propTypes = {
-    isExcursion: PropTypes.bool.isRequired,
-    userReview: PropTypes.shape({
-        review: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        user: PropTypes.shape({
-            photo: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-        }),
-        tour: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-        }),
-    }).isRequired,
-};

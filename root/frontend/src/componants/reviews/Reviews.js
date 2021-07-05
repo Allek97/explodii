@@ -1,7 +1,6 @@
 /* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 import "./_reviews.scss";
 import "../../base/_animations.scss";
@@ -227,20 +226,14 @@ export default function Reviews() {
                         return (
                             (idx === revIdx || idx === revIdx + 1) && (
                                 <div
-                                    key={uuidv4()}
-                                    id={uuidv4()}
+                                    key={`${revIdx}${review.user.name}${review.user._id}`}
+                                    id={`${revIdx}${review.user.name}${review.user._id}`}
                                     className="review"
                                     style={setMountStyle(
                                         animationState,
                                         direction
                                     )}
                                 >
-                                    {/* <img
-                                    // eslint-disable-next-line global-require
-                                    src={require("../../assets/img/users/user-2.jpg").default}
-                                    alt="user"
-                                    className="review__picture"
-                            /> */}
                                     <div
                                         className="review__picture"
                                         style={setBackgroundUrlStyle(
@@ -264,8 +257,8 @@ export default function Reviews() {
                                                 // );
                                                 return (
                                                     <span
-                                                        key={uuidv4()}
-                                                        id={uuidv4()}
+                                                        key={el}
+                                                        id={el}
                                                         className="starbox__star"
                                                         style={
                                                             review.rating >= el
@@ -302,13 +295,13 @@ export default function Reviews() {
             </div>
             <div className="review-tracker">
                 {/* TODO: Add setTimout to rotate reviews */}
-                {reviews.map((el, idx) => {
+                {reviews.map((review, idx) => {
                     if (!(idx % 2)) {
                         // console.log(`revIdx: ${revIdx} \n index:${idx}`);
                         return (
                             <div
-                                key={uuidv4()}
-                                id={uuidv4()}
+                                key={`${review.tour._id}${review.user._id}`}
+                                id={`${review.tour._id}${review.user._id}`}
                                 role="button"
                                 aria-label="Change review"
                                 tabIndex={0}

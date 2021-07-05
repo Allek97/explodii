@@ -22,16 +22,7 @@ const photoStyle = {
 
 export default function Excursions(props) {
     // props
-    const {
-        authStatus,
-        userName,
-        userPhoto,
-        paymentStatus,
-        bookedExcursionName,
-        bookedExcursionPrice,
-        bookedExcursionDuration,
-        bookedExcursionDate,
-    } = props;
+    const { authStatus, userName, userPhoto, paymentStatus } = props;
     // hooks
     const [excursions, setExcursions] = useState([]);
     const [nbResults, setNbResults] = useState(0);
@@ -79,7 +70,7 @@ export default function Excursions(props) {
                 <>
                     <Loading loadingTime={500} />
                     <div>
-                        {paymentStatus && (
+                        {/* {paymentStatus && (
                             <PaymentStatusBox
                                 bookedExcursionName={bookedExcursionName}
                                 bookedExcursionPrice={bookedExcursionPrice}
@@ -88,7 +79,7 @@ export default function Excursions(props) {
                                 }
                                 bookedExcursionDate={bookedExcursionDate}
                             />
-                        )}
+                        )} */}
                         <div
                             className="excursion"
                             style={
@@ -300,8 +291,4 @@ Excursions.propTypes = {
     userName: PropTypes.string.isRequired,
     userPhoto: PropTypes.string.isRequired,
     paymentStatus: PropTypes.bool.isRequired,
-    bookedExcursionName: PropTypes.string.isRequired,
-    bookedExcursionDuration: PropTypes.number.isRequired,
-    bookedExcursionDate: PropTypes.string.isRequired,
-    bookedExcursionPrice: PropTypes.number.isRequired,
 };

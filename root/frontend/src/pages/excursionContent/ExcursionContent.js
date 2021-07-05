@@ -213,16 +213,7 @@ const InfoHeading = styled.h1`
 
 export default function ExcursionContent(props) {
     // props
-    const {
-        authStatus,
-        userName,
-        userPhoto,
-        setPaymentStatus,
-        setBookedExcursionName,
-        setBookedExcursionPrice,
-        setBookedExcursionDuration,
-        setBookedExcursionDate,
-    } = props;
+    const { authStatus, userName, userPhoto, setPaymentStatus } = props;
     // URL slug param
     const { slug } = useParams();
     // hooks
@@ -608,18 +599,6 @@ export default function ExcursionContent(props) {
                                     )}
                                     authStatus={authStatus}
                                     setPaymentStatus={setPaymentStatus}
-                                    setBookedExcursionName={
-                                        setBookedExcursionName
-                                    }
-                                    setBookedExcursionPrice={
-                                        setBookedExcursionPrice
-                                    }
-                                    setBookedExcursionDuration={
-                                        setBookedExcursionDuration
-                                    }
-                                    setBookedExcursionDate={
-                                        setBookedExcursionDate
-                                    }
                                 />
                                 <div
                                     style={{
@@ -706,8 +685,4 @@ ExcursionContent.propTypes = {
     userName: PropTypes.string.isRequired,
     userPhoto: PropTypes.string.isRequired,
     setPaymentStatus: PropTypes.func.isRequired,
-    setBookedExcursionName: PropTypes.func.isRequired,
-    setBookedExcursionPrice: PropTypes.func.isRequired,
-    setBookedExcursionDuration: PropTypes.func.isRequired,
-    setBookedExcursionDate: PropTypes.func.isRequired,
 };

@@ -111,7 +111,6 @@ export default function ExcursionMap(props) {
                 {markers.map((marker) => (
                     <Marker
                         key={`${marker.coordinates[1]}_${marker.coordinates[0]}_${marker.day}`}
-                        // key={uuidv4()}
                         position={{
                             lat: marker.coordinates[1],
                             lng: marker.coordinates[0],

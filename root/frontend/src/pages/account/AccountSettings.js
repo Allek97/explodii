@@ -5,7 +5,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import { SettingsButton, SuccessSave } from "./AccountStyledComponents";
+import { SuccessSave } from "./components/SuccessSave";
+import { SettingsButton } from "./style/AccountStyledComponents";
 
 import "./_account.scss";
 import "../../componants/reusable/_navBar.scss";

@@ -17,6 +17,7 @@ const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
+const bookingController = require("./controllers/bookingController");
 
 // Access-Control-Allow-Origin *
 // TODO: When front-end is deployed make sure to only allow my explodii app to make request to my backend api
@@ -60,6 +61,13 @@ const limiter = rateLimit({
     message: "Too many requests from this IP, please try again in an hour!",
 });
 app.use("/api", limiter);
+
+// We need the body coming to the endpoint as raw and then be json parsed in the next express middleware
+app.post(
+    "/webhook-checkout",
+    express.raw({ type: "application/json" }),
+    bookingController.webhookCheckout
+);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" }));

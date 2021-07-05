@@ -21,33 +21,6 @@
     overflow-y: scroll;
     overflow-x: hidden;
 
-    &::after {
-        // After content to add space when overflow
-        content: "";
-
-        grid-area: 5/1/5/3;
-
-        display: block;
-
-        position: absolute;
-        top: -15rem;
-        left: -10rem;
-
-        height: 20rem;
-        width: calc(100% + 150px);
-
-        background-image: linear-gradient(
-            to right bottom,
-            RGBA(var(--color-primary-light), 0.85),
-            RGBA(var(--color-primary-dark), 0.85)
-        );
-
-        mask-image: url("../../../assets/img/home/transition.png");
-        mask-size: cover;
-        mask-position: 50% 50%;
-        mask-repeat: no-repeat;
-    }
-
     &__header {
         height: 15rem;
         grid-area: 1/1/1/3;

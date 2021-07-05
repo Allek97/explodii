@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import styled from "styled-components";
 
-// import { v4 as uuidv4 } from "uuid";
-
 // Componants
 import PopCards from "../../componants/cards/Card";
 import Reviews from "../../componants/reviews/Reviews";

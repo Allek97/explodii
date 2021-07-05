@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-restricted-globals */
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+import React from "react";
 
 import "./_reservation.scss";
 

@@ -1,7 +1,6 @@
 /* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 // import styled from "styled-components";
 
 import "./_cards.scss";
@@ -77,8 +76,8 @@ export default function PopCards() {
             {excursions.map((excursion, idx) => {
                 return (
                     <div
-                        key={uuidv4()}
-                        id={uuidv4()}
+                        key={excursion._id}
+                        id={excursion._id}
                         className="cardbox__container"
                     >
                         <div
@@ -114,8 +113,8 @@ export default function PopCards() {
                                         {[1, 2, 3, 4, 5].map((el) => {
                                             return (
                                                 <span
-                                                    key={uuidv4()}
-                                                    id={uuidv4()}
+                                                    key={el}
+                                                    id={el}
                                                     className="starbox__star"
                                                     style={
                                                         excursion.ratingsAverage >

@@ -1,7 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -10,7 +13,7 @@ import {
     SideItem,
     SideLink,
     FunctionalBtn,
-} from "./AccountStyledComponents";
+} from "./style/AccountStyledComponents";
 
 import "./_account.scss";
 import "../../componants/reusable/_navBar.scss";
@@ -57,6 +60,8 @@ export default function Account(props) {
     // VARIABLES
     // Profile photo in side navigation bar
     const profilePhoto = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
+    // url link to retreive session_id
+    const { search } = useLocation();
 
     const handleLogOut = async (e) => {
         e.preventDefault();
@@ -72,6 +77,29 @@ export default function Account(props) {
             console.log(err.response.data.message);
         }
     };
+
+    useEffect(() => {
+        async function fetchApi() {
+            try {
+                console.log(search);
+                const { session_id } = queryString.parse(search);
+
+                const res = await axios.get(
+                    `${process.env.REACT_APP_URL}/api/v1/bookings/order/${session_id}`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+
+                console.log(res);
+                console.log("order");
+            } catch (err) {
+                console.log(err.response.data);
+            }
+        }
+
+        fetchApi();
+    }, []);
 
     return (
         <>

@@ -1,12 +1,10 @@
 /* eslint-disable global-require */
-import React, { createRef } from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
 
-import { ReviewBox } from "../../../account/AccountStyledComponents";
+import { ReviewBox } from "../../../account/components/ReviewBox";
 
 const ExcursionReviewContainer = styled.div`
     position: relative;
@@ -165,7 +163,7 @@ export default function AccountReview(props) {
                     {reviews.map((el) => {
                         return (
                             <ReviewBox
-                                key={uuidv4()}
+                                key={el._id}
                                 userReview={el}
                                 isExcursion
                             />
@@ -179,8 +177,8 @@ export default function AccountReview(props) {
                         const index = idx / 2;
                         return (
                             <Tracker
-                                key={uuidv4()}
-                                id={uuidv4()}
+                                key={el._id}
+                                id={el._id}
                                 isSelected={revIdx === index}
                                 onClick={() => {
                                     setRevIdx(index);
