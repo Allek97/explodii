@@ -243,7 +243,14 @@ export default function Account(props) {
                             setUserEmail={setUserEmail}
                         />
                     )}
-                    {selectedBtn.booking && <AccountBooking userId={userId} />}
+                    {selectedBtn.booking && (
+                        <AccountBooking
+                            userId={userId}
+                            userName={userName}
+                            userEmail={userEmail}
+                            userPhoto={userPhoto}
+                        />
+                    )}
                     {selectedBtn.review && (
                         <AccountReview userId={userId} userName={userName} />
                     )}

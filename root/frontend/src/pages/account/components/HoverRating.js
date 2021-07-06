@@ -8,8 +8,8 @@ import GradeIcon from "@material-ui/icons/Grade";
 import { ReactComponent as FavoriteIcon } from "../../../assets/svgs/star-review.svg";
 
 const labels = {
-    0.5: "Useless",
-    1: "Useless+",
+    0.5: "Awful",
+    1: "Awful+",
     1.5: "Poor",
     2: "Poor+",
     2.5: "Ok",
@@ -24,6 +24,8 @@ const useStyles = makeStyles({
     root: {
         display: "flex",
         alignItems: "center",
+        width: "21rem",
+        fontSize: "1.7rem",
     },
     sizeSmall: {
         fontSize: "3rem",
@@ -48,6 +50,20 @@ export default function HoverRating() {
     const [hover, setHover] = React.useState(-1);
     const classes = useStyles();
 
+    function boxColor() {
+        if (hover !== -1) {
+            return {
+                color:
+                    hover < 3.5
+                        ? "#cc141e"
+                        : "rgba(var(--color-green-special))",
+            };
+        }
+        return {
+            color: value < 3.5 ? "#cc141e" : "rgba(var(--color-green-special))",
+        };
+    }
+
     return (
         <div className={classes.root}>
             <StyledRating
@@ -62,10 +78,12 @@ export default function HoverRating() {
                 onChangeActive={(event, newHover) => {
                     setHover(newHover);
                 }}
-                icon={<GradeIcon fontSize="inherit" />}
+                // icon={<GradeIcon fontSize="inherit" />}
             />
             {value !== null && (
-                <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
+                <Box ml={1} style={boxColor()}>
+                    {labels[hover !== -1 ? hover : value]}
+                </Box>
             )}
         </div>
     );

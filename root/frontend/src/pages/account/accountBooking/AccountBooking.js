@@ -1,5 +1,6 @@
 /* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -8,85 +9,16 @@ import { Disclaimer } from "../components/Disclaimer";
 import { BookBtn } from "../style/AccountStyledComponents";
 import ReviewWrite from "../components/ReviewWrite";
 
-import transitionImg from "../../../assets/img/home/transition.png";
+import { Deco, UtilBtn } from "../style/AccountBookingStyle";
 
-const Deco = styled.div`
-    &::before {
-        // After content to add space when overflow
-        content: "";
-
-        grid-area: ${(props) =>
-            `${props.bookingsRow} / ${1} / ${props.bookingsRow} / ${3}`};
-
-        display: block;
-
-        position: absolute;
-        bottom: -5rem;
-        left: -10rem;
-
-        height: 20rem;
-        width: calc(100% + 150px);
-
-        background-image: linear-gradient(
-            to right bottom,
-            RGBA(var(--color-primary-light), 0.9),
-            RGBA(var(--color-primary-dark), 0.9)
-        );
-
-        mask-image: url(${transitionImg});
-        mask-size: cover;
-        mask-position: 50% 50%;
-        mask-repeat: no-repeat;
-    }
-`;
-
-const UtilBtn = styled.a`
-    &,
-    &:link,
-    &:visited {
-        /* position: absolute;
-        top: 0;
-        right: 0; */
-
-        display: flex;
-        align-items: center;
-
-        transition: all 0.3s;
-        /* box-shadow: 1px 1px 3.2rem black; */
-
-        background-color: ${(props) =>
-            props.isSelected
-                ? "rgba(var(--color-blue-special),1)"
-                : "transparent"};
-
-        padding: 8px 1.3rem;
-        width: max-content;
-        height: max-content;
-
-        border-radius: 3px;
-
-        overflow: hidden;
-
-        text-decoration: none;
-        font-size: 1.5rem;
-        font-weight: 600;
-        /* color: rgba(25,103,210,1.0); */
-        color: ${(props) =>
-            props.isSelected ? "#fff" : "rgba(25,103,210,1.0)"};
-        cursor: pointer;
-    }
-
-    &:hover {
-        background-color: ${(props) =>
-            props.isSelected ? "none" : "rgba(25,103,210,0.2)"} !important;
-    }
-`;
-
-export default function AccountReview() {
+export default function AccountBooking(props) {
     //Props
+    const { userId, userName, userEmail, userPhoto } = props;
     // Hooks
     const [bookings, setBookings] = useState([]);
     const [suggestedBookings, setSuggestedBookings] = useState([]);
+    const [tourIdReview, setTourIdReview] = useState("");
+
     // suggested or not
     const [isBookings, setIsBookings] = useState(true);
 
@@ -187,7 +119,12 @@ export default function AccountReview() {
 
     return (
         <>
-            <ReviewWrite />
+            <ReviewWrite
+                userId={userId}
+                userName={userName}
+                userEmail={userEmail}
+                userPhoto={userPhoto}
+            />
             <div className="bookings" style={{ filter: "blur(2rem)" }}>
                 <div
                     style={{
@@ -297,7 +234,13 @@ export default function AccountReview() {
                                                     write a review
                                                 </p>
                                             </div>
-                                            <BookBtn>
+                                            <BookBtn
+                                                onClick={() => {
+                                                    setTourIdReview(
+                                                        excursion._id
+                                                    );
+                                                }}
+                                            >
                                                 Rate the excursion!
                                             </BookBtn>
                                         </>
@@ -326,3 +269,10 @@ export default function AccountReview() {
         </>
     );
 }
+
+AccountBooking.propTypes = {
+    userId: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+    userEmail: PropTypes.string.isRequired,
+    userPhoto: PropTypes.string.isRequired,
+};

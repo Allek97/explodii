@@ -12,6 +12,7 @@ const reviewSchema = new mongoose.Schema(
             type: Number,
             min: 1,
             max: 5,
+            required: [true, "Review must have a rating!"],
         },
         createdAt: {
             type: Date,
