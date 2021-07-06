@@ -6,6 +6,7 @@ import styled from "styled-components";
 import "./_accountBooking.scss";
 import { Disclaimer } from "../components/Disclaimer";
 import { BookBtn } from "../style/AccountStyledComponents";
+import ReviewWrite from "../components/ReviewWrite";
 
 import transitionImg from "../../../assets/img/home/transition.png";
 
@@ -186,7 +187,8 @@ export default function AccountReview() {
 
     return (
         <>
-            <div className="bookings">
+            <ReviewWrite />
+            <div className="bookings" style={{ filter: "blur(2rem)" }}>
                 <div
                     style={{
                         display: "flex",
@@ -209,7 +211,7 @@ export default function AccountReview() {
                             setIsBookings(false);
                         }}
                     >
-                        Recommended Bookings
+                        Recommendations
                     </UtilBtn>
                 </div>
                 <Disclaimer
@@ -279,17 +281,41 @@ export default function AccountReview() {
                             </div>
                             <div className="bookings__side bookings__side--back bookings__side--back">
                                 <div className="bookings__cta">
-                                    <div className="bookings__price-box">
-                                        <p className="bookings__price-only">
-                                            Only
-                                        </p>
-                                        <p className="bookings__price-value">{`$${excursion.price}`}</p>
-                                    </div>
-                                    <BookBtn
-                                        href={`/excursions/${excursion.slug}`}
-                                    >
-                                        Book now!
-                                    </BookBtn>
+                                    {isBookings ? (
+                                        <>
+                                            <div className="bookings__price-box">
+                                                <p className="bookings__price-only">
+                                                    Thank you for the purchase !
+                                                </p>
+                                                <p
+                                                    style={{
+                                                        fontSize: "2rem",
+                                                        fontWeight: "400",
+                                                    }}
+                                                >
+                                                    Use the button below to
+                                                    write a review
+                                                </p>
+                                            </div>
+                                            <BookBtn>
+                                                Rate the excursion!
+                                            </BookBtn>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="bookings__price-box">
+                                                <p className="bookings__price-only">
+                                                    Only
+                                                </p>
+                                                <p className="bookings__price-value">{`$${excursion.price}`}</p>
+                                            </div>
+                                            <BookBtn
+                                                href={`/excursions/${excursion.slug}`}
+                                            >
+                                                Book now!
+                                            </BookBtn>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
