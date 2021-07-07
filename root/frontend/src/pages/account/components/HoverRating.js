@@ -1,11 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import GradeIcon from "@material-ui/icons/Grade";
-
-import { ReactComponent as FavoriteIcon } from "../../../assets/svgs/star-review.svg";
 
 const labels = {
     0.5: "Awful",
@@ -45,8 +42,7 @@ const StyledRating = withStyles({
     },
 })(Rating);
 
-export default function HoverRating() {
-    const [value, setValue] = React.useState(2);
+export default function HoverRating({ rating, setRating }) {
     const [hover, setHover] = React.useState(-1);
     const classes = useStyles();
 
@@ -60,7 +56,8 @@ export default function HoverRating() {
             };
         }
         return {
-            color: value < 3.5 ? "#cc141e" : "rgba(var(--color-green-special))",
+            color:
+                rating < 3.5 ? "#cc141e" : "rgba(var(--color-green-special))",
         };
     }
 
@@ -69,22 +66,31 @@ export default function HoverRating() {
             <StyledRating
                 name="hover-feedback"
                 className={classes.sizeSmall}
-                value={value}
+                value={rating}
                 precision={0.5}
                 size="small"
                 onChange={(event, newValue) => {
-                    setValue(newValue);
+                    setRating(newValue);
                 }}
                 onChangeActive={(event, newHover) => {
                     setHover(newHover);
                 }}
                 // icon={<GradeIcon fontSize="inherit" />}
             />
-            {value !== null && (
+            {rating !== null && (
                 <Box ml={1} style={boxColor()}>
-                    {labels[hover !== -1 ? hover : value]}
+                    {labels[hover !== -1 ? hover : rating]}
                 </Box>
             )}
         </div>
     );
 }
+
+HoverRating.propTypes = {
+    rating: PropTypes.number,
+    setRating: PropTypes.func.isRequired,
+};
+
+HoverRating.defaultProps = {
+    rating: 2,
+};

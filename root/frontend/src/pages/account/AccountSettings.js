@@ -38,10 +38,9 @@ export default function AccountSettings(props) {
 
     // API MANAGEMENT
     const handleProfileSubmit = async (e) => {
+        setEmailErr("");
         try {
             e.preventDefault();
-
-            setEmailErr("");
 
             const body = new FormData();
 
@@ -81,6 +80,9 @@ export default function AccountSettings(props) {
     };
 
     const handlePasswordSubmit = async (e) => {
+        setCurrentPWErr("");
+        setPasswordError("");
+        setPasswordConfirmError("");
         try {
             e.preventDefault();
 
@@ -124,10 +126,6 @@ export default function AccountSettings(props) {
             }
         } catch (err) {
             console.log(err.response.data.message);
-
-            setCurrentPWErr("");
-            setPasswordError("");
-            setPasswordConfirmError("");
 
             const errorList = new Map();
 

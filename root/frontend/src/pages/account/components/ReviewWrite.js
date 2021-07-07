@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 import HoverRating from "./HoverRating";
 
@@ -10,19 +11,70 @@ import {
     ReviewBox,
     TextArea,
     UserNameStyled,
-} from "../style/AccountBookingStyle";
+    CloseReview,
+    ErrorBox,
+} from "../style/ReviewWriteStyle";
 
 export default function ReviewWrite(props) {
-    const { userId, userName, userEmail, userPhoto } = props;
-
+    // props
+    const { userId, userName, tourIdReview, tourName, setIsReviewOpen } = props;
+    // hooks
+    const [review, setReview] = useState(null);
+    const [rating, setRating] = useState(2);
     const [reviewSize, setReviewSize] = useState(0);
+    const [reviewError, setReviewError] = useState(null);
+    const [ratingError, setRatingError] = useState(null);
+    //
 
     const excursionBg = require("../../../assets/img/tours/tour-1-1.jpg")
         .default;
+    const closeBtnSvg = require("../../../assets/svgs/x.svg").default;
+
+    async function handleReviewSubmission() {
+        setRatingError("");
+        setReviewError("");
+        try {
+            const body = {
+                review: review,
+                rating: rating,
+                tour: tourIdReview,
+                user: userId,
+            };
+            if (rating) {
+                const res = await axios.post(
+                    `${process.env.REACT_APP_URL}/api/v1/tours/${tourIdReview}/reviews`,
+                    body,
+                    {
+                        withCredentials: true,
+                        credentials: "include",
+                    }
+                );
+            } else {
+                setRatingError("Review must have a rating!");
+            }
+
+            console.log(rating);
+        } catch (err) {
+            const { message } = err.response.data;
+            if (message.includes("Review cannot be empty!")) {
+                setReviewError("Your review cannot be empty !");
+            } else if (message.includes("Review must have a rating")) {
+                setRatingError("Review must have a rating!");
+            } else {
+                setReviewError("An error occured. Please try again !");
+            }
+        }
+    }
 
     return (
         <ReviewBox>
             {/* <ExcursionBg excursionBg={excursionBg} /> */}
+            <CloseReview
+                svg={closeBtnSvg}
+                onClick={() => {
+                    setIsReviewOpen(false);
+                }}
+            />
             <div
                 style={{
                     display: "flex",
@@ -42,24 +94,39 @@ export default function ReviewWrite(props) {
                         textTransform: "uppercase",
                     }}
                 >
-                    Share your opinion with us
+                    Share your opinion with us{" "}
+                    {`TODO: SUCCESS MESSAGE AFTER SUCCESSFUL TRANSACTION && SUCCESSFUL REVIEW SUBMISSION`}
                 </h1>
-                <UserNameStyled>{userName}</UserNameStyled>
-                <UserNameStyled style={{ marginBottom: "3rem" }}>
-                    The Sea Explorer Excursion
+                <UserNameStyled style={{ textTransform: "capitalize" }}>
+                    {userName}
                 </UserNameStyled>
-                <span
+                <UserNameStyled
                     style={{
+                        marginBottom: "3rem",
+                        textTransform: "capitalize",
+                    }}
+                >
+                    {tourName} excursion
+                </UserNameStyled>
+                <div
+                    style={{
+                        position: "relative",
                         alignSelf: "flex-start",
                         marginBottom: "1rem",
                         fontSize: "1.1rem",
                         fontWeight: 600,
                         color: "#fff",
+                        display: "flex",
+                        width: "100%",
+                        height: "2rem",
                     }}
                 >
-                    Overall rating*
-                </span>
-                <HoverRating />
+                    <span style={{ marginRight: "auto" }}>Overall rating*</span>
+                    {ratingError && (
+                        <ErrorBox>Review must have a rating !</ErrorBox>
+                    )}
+                </div>
+                <HoverRating rating={rating} setRating={setRating} />
 
                 <div
                     style={{
@@ -74,10 +141,17 @@ export default function ReviewWrite(props) {
                             color: "#fff",
                         }}
                     >
-                        <span style={{ marginRight: "1rem" }}>
-                            Write a review*
-                        </span>
-                        <span>({`${reviewSize} / 200`})</span>
+                        <div style={{ display: "flex", height: "2rem" }}>
+                            <span style={{ marginRight: "1rem" }}>
+                                Write a review*
+                            </span>
+                            <span style={{ marginRight: "auto" }}>
+                                ({`${reviewSize} / 200`})
+                            </span>
+                            {reviewError && (
+                                <ErrorBox>Review cannot be empty !</ErrorBox>
+                            )}
+                        </div>
                     </span>
                     <TextArea
                         name="review"
@@ -86,10 +160,18 @@ export default function ReviewWrite(props) {
                         maxLength={200}
                         onChange={(e) => {
                             setReviewSize(e.target.value.length);
+                            setReview(e.target.value);
                         }}
                     />
                 </div>
-                <ConfirmationBtn>Submit</ConfirmationBtn>
+
+                <ConfirmationBtn
+                    onClick={() => {
+                        handleReviewSubmission();
+                    }}
+                >
+                    Submit
+                </ConfirmationBtn>
             </div>
         </ReviewBox>
     );
@@ -98,6 +180,7 @@ export default function ReviewWrite(props) {
 ReviewWrite.propTypes = {
     userId: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
-    userEmail: PropTypes.string.isRequired,
-    userPhoto: PropTypes.string.isRequired,
+    tourIdReview: PropTypes.string.isRequired,
+    tourName: PropTypes.string.isRequired,
+    setIsReviewOpen: PropTypes.func.isRequired,
 };

@@ -1,15 +1,16 @@
 /* eslint-disable import/no-dynamic-require */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import styled from "styled-components";
 
 import "./_accountBooking.scss";
+
 import { Disclaimer } from "../components/Disclaimer";
 import { BookBtn } from "../style/AccountStyledComponents";
 import ReviewWrite from "../components/ReviewWrite";
 
-import { Deco, UtilBtn } from "../style/AccountBookingStyle";
+import { Deco, UtilBtn } from "../style/ReviewWriteStyle";
+import useOuterClick from "../../../componants/utils/UseOuterClick";
 
 export default function AccountBooking(props) {
     //Props
@@ -18,6 +19,17 @@ export default function AccountBooking(props) {
     const [bookings, setBookings] = useState([]);
     const [suggestedBookings, setSuggestedBookings] = useState([]);
     const [tourIdReview, setTourIdReview] = useState("");
+    const [tourName, setTourName] = useState("");
+    const [isReviewOpen, setIsReviewOpen] = useState(false);
+    // Ref
+    // Close when clicked outside (mauvaise idee ?)
+    const reviewWrapperRef = useRef(null);
+
+    const closeReview = () => {
+        setIsReviewOpen(false);
+    };
+
+    useOuterClick(reviewWrapperRef, closeReview);
 
     // suggested or not
     const [isBookings, setIsBookings] = useState(true);
@@ -119,13 +131,23 @@ export default function AccountBooking(props) {
 
     return (
         <>
-            <ReviewWrite
-                userId={userId}
-                userName={userName}
-                userEmail={userEmail}
-                userPhoto={userPhoto}
-            />
-            <div className="bookings" style={{ filter: "blur(2rem)" }}>
+            {isReviewOpen && (
+                <ReviewWrite
+                    userId={userId}
+                    userName={userName}
+                    tourIdReview={tourIdReview}
+                    tourName={tourName}
+                    setIsReviewOpen={setIsReviewOpen}
+                />
+            )}
+            <div
+                className="bookings"
+                style={
+                    isReviewOpen
+                        ? { filter: "blur(2rem)", pointerEvents: "none" }
+                        : null
+                }
+            >
                 <div
                     style={{
                         display: "flex",
@@ -239,6 +261,8 @@ export default function AccountBooking(props) {
                                                     setTourIdReview(
                                                         excursion._id
                                                     );
+                                                    setTourName(excursion.name);
+                                                    setIsReviewOpen(true);
                                                 }}
                                             >
                                                 Rate the excursion!

@@ -17,7 +17,7 @@ export const Disclaimer = ({ isBookings, isBookingsEmpty }) => {
         if (isBookings) {
             if (!isBookingsEmpty) {
                 return `It looks like you didn't booked any excursions in our service ! 
-                We put in place a recommended section above for our most cost-effective excursions.`;
+                We put in place a recommendation section above for our most cost-effective excursions.`;
             }
             return `Take a look on your bookings ! We hope that we offered you the best service possible,
             don't forget to share your excursion's exprience though a review !`;

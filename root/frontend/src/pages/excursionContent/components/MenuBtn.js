@@ -1,8 +1,9 @@
 /* eslint-disable global-require */
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import useOuterClick from "../../../componants/utils/UseOuterClick";
 
 const photoStyle = {
     width: "3.8rem",
@@ -186,7 +187,15 @@ export default function MenuBtn(props) {
     //props
     const { isScrolled, userName, userPhoto } = props;
     // Hooks
-    const [isMenu, SetMenu] = useState(false);
+    const [isMenu, setMenu] = useState(false);
+    // Refs
+    const menuWrapperRef = useRef(null);
+
+    const closeMenu = () => {
+        setMenu(false);
+    };
+
+    useOuterClick(menuWrapperRef, closeMenu);
 
     // eslint-disable-next-line import/no-dynamic-require
     const userPicture = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
@@ -214,9 +223,9 @@ export default function MenuBtn(props) {
     };
 
     return (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" }} ref={menuWrapperRef}>
             <ProfileBtn
-                onClick={() => SetMenu(!isMenu)}
+                onClick={() => setMenu(!isMenu)}
                 style={{ position: "relative" }}
                 isScrolled={isScrolled}
             >

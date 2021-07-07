@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import transitionImg from "../../../assets/img/home/transition.png";
+import warningSvg from "../../../assets/svgs/warning.svg";
 
 export const ReviewBox = styled.div`
     position: fixed;
@@ -166,6 +167,10 @@ export const TextArea = styled.textarea`
     &::-webkit-scrollbar-thumb:window-inactive {
         background-color: RGBA(var(--color-blue-special));
     }
+
+    &:focus {
+        box-shadow: 3px 3px 3rem rgba(var(--color-blue-special), 0.8);
+    }
 `;
 
 export const Deco = styled.div`
@@ -237,5 +242,65 @@ export const UtilBtn = styled.a`
     &:hover {
         background-color: ${(props) =>
             props.isSelected ? "none" : "rgba(25,103,210,0.2)"} !important;
+    }
+`;
+
+export const CloseReview = styled.span`
+    display: block;
+
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+
+    transition: all 0.5s;
+
+    height: 2rem;
+    width: 2rem;
+
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--color-blue-special)),
+        rgb(var(--color-blue-special))
+    );
+
+    mask-image: url(${(props) => props.svg});
+    mask-size: cover;
+    mask-position: center;
+
+    cursor: pointer;
+
+    /* &:hover {
+        transform: scale(1.1);
+    } */
+`;
+
+export const ErrorBox = styled.div`
+    position: relative;
+
+    max-width: 17rem;
+
+    /* position: absolute;
+
+    top: 0;
+    right: 0; */
+
+    font-size: 1.22rem;
+    font-weight: bolder;
+    color: rgb(204, 20, 30);
+
+    &::before {
+        content: "";
+
+        position: absolute;
+        left: -2.3rem;
+        bottom: 2px;
+
+        height: 2rem;
+        width: 2rem;
+
+        background-color: rgb(204, 20, 30);
+
+        mask-image: url(${warningSvg});
+        mask-size: cover;
     }
 `;
