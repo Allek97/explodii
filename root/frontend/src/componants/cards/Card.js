@@ -5,6 +5,8 @@ import axios from "axios";
 
 import "./_cards.scss";
 
+import { setStarRatingStyle } from "../utils/StarFunctionStyle";
+
 export default function PopCards() {
     // List of requested excursions
     const [excursions, setExcursions] = useState([]);
@@ -43,27 +45,6 @@ export default function PopCards() {
                 rgba(${BgColor1},0.8),
                 rgba(${BgColor2},0.8) 
             ),url(${img.default})`,
-        };
-    };
-
-    const setReviewStarsBg = (reviewVal) => {
-        if (reviewVal) {
-            let decimal = reviewVal - Math.floor(reviewVal);
-            decimal *= 100;
-            return {
-                backgroundImage: `linear-gradient(
-                to right,
-                rgba(85,96,159,1) ${decimal}%,
-                rgba(0,0,0,0.25) ${decimal}%
-            )`,
-            };
-        }
-        return {
-            backgroundImage: `linear-gradient(
-            to right bottom,
-            rgba(${BgColor1},0.8),
-            rgba(${BgColor2},0.8)
-        )`,
         };
     };
 
@@ -116,17 +97,11 @@ export default function PopCards() {
                                                     key={el}
                                                     id={el}
                                                     className="starbox__star"
-                                                    style={
-                                                        excursion.ratingsAverage >
+                                                    style={setStarRatingStyle(
+                                                        excursion.ratingsAverage,
                                                         el
-                                                            ? setReviewStarsBg()
-                                                            : setReviewStarsBg(
-                                                                  excursion.ratingsAverage
-                                                              )
-                                                    }
-                                                >
-                                                    {}
-                                                </span>
+                                                    )}
+                                                />
                                             );
                                         })}
                                     </ul>

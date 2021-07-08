@@ -2,11 +2,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-    StyledReview,
-    StyledStar,
-    setReviewStarsBg,
-} from "../style/AccountStyledComponents";
+import { StyledReview, StyledStar } from "../style/AccountStyledComponents";
+
+import { setStarRatingStyle } from "../../../componants/utils/StarFunctionStyle";
 
 export const ReviewBox = (props) => {
     // Props
@@ -20,6 +18,7 @@ export const ReviewBox = (props) => {
     const worldImage = require("../../../assets/img/users/world.jpg").default;
     const quoteSvg = require("../../../assets/svgs/quotes.svg").default;
     const starSvg = require("../../../assets/svgs/star-review.svg").default;
+
     return (
         <StyledReview img={worldImage} svg={quoteSvg}>
             <img src={userImage} alt="user" />
@@ -30,11 +29,7 @@ export const ReviewBox = (props) => {
                 {[1, 2, 3, 4, 5].map((el) => {
                     return (
                         <StyledStar
-                            style={
-                                rating >= el
-                                    ? setReviewStarsBg()
-                                    : setReviewStarsBg(rating)
-                            }
+                            style={setStarRatingStyle(rating, el)}
                             key={el}
                             id={el}
                             svg={starSvg}

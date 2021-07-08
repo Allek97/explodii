@@ -61,6 +61,7 @@ export default function AccountReview(props) {
     //Hooks
     const [reviews, setReviews] = useState([]);
     const [revIdx, setRevIdx] = useState(0);
+    const [isReviewEmpty, setIsReviewEmpty] = useState(null);
 
     useEffect(() => {
         async function fetchApi() {
@@ -71,7 +72,7 @@ export default function AccountReview(props) {
                 );
 
                 setReviews(res.data.data);
-                // console.log(res.data.data);
+                console.log(res);
             } catch (err) {
                 console.log(err.response.data);
                 setReviews([]);
@@ -109,9 +110,11 @@ export default function AccountReview(props) {
             <h1 style={{ marginBottom: "2rem", fontSize: "3rem" }}>
                 Your words matter to us
             </h1>
-            <p style={{ fontSize: "2.1rem", fontWeight: "900" }}>
-                You don't have any reviews yet !
-            </p>
+            {isReviewEmpty && (
+                <p style={{ fontSize: "2.1rem", fontWeight: "900" }}>
+                    You don't have any reviews yet !
+                </p>
+            )}
             <div className="accountReview__reviewBox">
                 <div
                     className="accountReview__rotativeBox"

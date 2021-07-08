@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import PropTypes from "prop-types";
 
+import { setStarRatingStyle } from "../../componants/utils/StarFunctionStyle";
+
 export const ProfileBtn = styled.a`
     &,
     &:link,
@@ -39,28 +41,6 @@ export const ProfileBtn = styled.a`
 `;
 
 // NOTE: TOUR COMPONANT
-
-const setReviewStarsBg = (reviewVal) => {
-    if (reviewVal) {
-        let decimal = reviewVal - Math.floor(reviewVal);
-        decimal *= 100;
-        return {
-            backgroundImage: `linear-gradient(
-            to right,
-            rgba(85,96,159,1) ${decimal}%,
-            rgba(0,0,0,0.25) ${decimal}%
-        )`,
-        };
-    }
-    // console.log(reviewVal);
-    return {
-        backgroundImage: `linear-gradient(
-        to right bottom,
-        rgba(var(--color-primary-light),0.9),
-        rgba(var(--color-primary-dark),0.9)
-    )`,
-    };
-};
 
 const tourAnimation = keyframes`
     0% {
@@ -299,11 +279,7 @@ export const TourBox = (props) => {
                     {[1, 2, 3, 4, 5].map((el) => {
                         return (
                             <StyledStar
-                                style={
-                                    ratingsAverage >= el
-                                        ? setReviewStarsBg()
-                                        : setReviewStarsBg(el)
-                                }
+                                style={setStarRatingStyle(ratingsAverage, el)}
                                 key={el}
                                 id={el}
                                 svg={starSvg}

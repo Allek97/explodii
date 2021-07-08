@@ -5,6 +5,8 @@ import axios from "axios";
 import "./_reviews.scss";
 import "../../base/_animations.scss";
 
+import { setStarRatingStyle } from "../utils/StarFunctionStyle";
+
 export default function Reviews() {
     // VARIABLES
 
@@ -50,26 +52,6 @@ export default function Reviews() {
 
     // https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_gradient-linear,
     // m'a fait comprendre en profondeur les linear-gradiants
-    const setReviewStarsBg = (reviewVal) => {
-        if (reviewVal) {
-            let decimal = reviewVal - Math.floor(reviewVal);
-            decimal *= 100;
-            return {
-                backgroundImage: `linear-gradient(
-                to right,
-                rgba(85,96,159,1) ${decimal}%,
-                rgba(0,0,0,0.25) ${decimal}%
-            )`,
-            };
-        }
-        return {
-            backgroundImage: `linear-gradient(
-            to right bottom,
-            rgba(${BgColor1},0.8),
-            rgba(${BgColor2},0.8)
-        )`,
-        };
-    };
 
     const setBackgroundUrlStyle = (tourBg) => {
         // eslint-disable-next-line global-require
@@ -86,8 +68,10 @@ export default function Reviews() {
     // LOGIC FUNCTIONS
     const switchReviewIdx = (flow) => {
         // console.log("Changing Idx");
+        const max = Math.floor(reviews.length / 2) * 2;
+
         if (flow === "right") {
-            if (revIdx === reviews.length - 2) {
+            if (revIdx === max) {
                 setRevIdx(0);
                 return;
             }
@@ -95,7 +79,7 @@ export default function Reviews() {
             return;
         }
         if (revIdx === 0) {
-            setRevIdx(reviews.length - 2);
+            setRevIdx(max);
         } else {
             setRevIdx(revIdx - 2);
         }
@@ -203,6 +187,8 @@ export default function Reviews() {
     // console.log(reviews);
     // console.log(revIdx);
 
+    console.log(revIdx);
+
     return (
         // eslint-disable-next-line react/jsx-no-comment-textnodes
         <>
@@ -243,7 +229,7 @@ export default function Reviews() {
                                         {}
                                     </div>
                                     <div className="review__text">
-                                        {review.review}
+                                        {review.review.substr(0, 120)}...
                                     </div>
                                     <div className="review__name">
                                         {review.user.name}
@@ -260,13 +246,10 @@ export default function Reviews() {
                                                         key={el}
                                                         id={el}
                                                         className="starbox__star"
-                                                        style={
-                                                            review.rating >= el
-                                                                ? setReviewStarsBg()
-                                                                : setReviewStarsBg(
-                                                                      review.rating
-                                                                  )
-                                                        }
+                                                        style={setStarRatingStyle(
+                                                            review.rating,
+                                                            el
+                                                        )}
                                                     >
                                                         {}
                                                     </span>

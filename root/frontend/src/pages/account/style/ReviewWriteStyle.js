@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import transitionImg from "../../../assets/img/home/transition.png";
 import warningSvg from "../../../assets/svgs/warning.svg";
+import checkSvg from "../../../assets/svgs/check-o.svg";
 
 export const ReviewBox = styled.div`
     position: fixed;
@@ -277,7 +278,7 @@ export const CloseReview = styled.span`
 export const ErrorBox = styled.div`
     position: relative;
 
-    max-width: 17rem;
+    max-width: 16rem;
 
     /* position: absolute;
 
@@ -286,6 +287,7 @@ export const ErrorBox = styled.div`
 
     font-size: 1.22rem;
     font-weight: bolder;
+    text-align: center;
     color: rgb(204, 20, 30);
 
     &::before {
@@ -303,4 +305,67 @@ export const ErrorBox = styled.div`
         mask-image: url(${warningSvg});
         mask-size: cover;
     }
+`;
+
+export const SuccessReview = styled.div`
+    position: relative;
+
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 30rem;
+    width: 45rem;
+    padding: 3rem;
+
+    animation: loginStatusEffect 0.7s cubic-bezier(0.64, 0.01, 1, 0.03) 1;
+
+    /* background-color: RGBA(68, 94, 182); */
+    background-color: RGBA(var(--color-main-2));
+
+    box-shadow: var(--shadow-dark);
+
+    border-radius: 2rem;
+
+    transition: all 3s;
+
+    color: white;
+
+    font-size: 5rem;
+
+    &::before {
+        content: "";
+
+        display: block;
+        height: 15rem;
+        width: 15rem;
+
+        position: absolute;
+        top: -7.5rem;
+        left: 15rem;
+
+        margin: 0 auto;
+
+        background-image: linear-gradient(
+            to right bottom,
+            RGBA(var(--color-green-special)),
+            RGBA(var(--color-green-special))
+        );
+
+        // background-image: url(../../assets/svgs/checked.svg);
+
+        mask-image: url(${checkSvg});
+        mask-size: cover;
+
+        animation: loginLogoEffect 0.9s cubic-bezier(0.64, 0.01, 1, 0.03) 1;
+    }
+
+    // animation: loginStatusEffect 1s ease-in 1;
 `;

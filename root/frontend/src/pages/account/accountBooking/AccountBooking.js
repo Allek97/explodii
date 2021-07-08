@@ -5,12 +5,13 @@ import axios from "axios";
 
 import "./_accountBooking.scss";
 
+import ReviewWrite from "../components/ReviewWrite";
 import { Disclaimer } from "../components/Disclaimer";
 import { BookBtn } from "../style/AccountStyledComponents";
-import ReviewWrite from "../components/ReviewWrite";
 
-import { Deco, UtilBtn } from "../style/ReviewWriteStyle";
+import { Deco, UtilBtn, SuccessReview } from "../style/ReviewWriteStyle";
 import useOuterClick from "../../../componants/utils/UseOuterClick";
+import { setStarRatingStyle } from "../../../componants/utils/StarFunctionStyle";
 
 export default function AccountBooking(props) {
     //Props
@@ -21,6 +22,7 @@ export default function AccountBooking(props) {
     const [tourIdReview, setTourIdReview] = useState("");
     const [tourName, setTourName] = useState("");
     const [isReviewOpen, setIsReviewOpen] = useState(false);
+    const [isReviewSuccess, setIsReviewSuccess] = useState(false);
     // Ref
     // Close when clicked outside (mauvaise idee ?)
     const reviewWrapperRef = useRef(null);
@@ -104,27 +106,6 @@ export default function AccountBooking(props) {
         };
     };
 
-    const setReviewStarsBg = (reviewVal) => {
-        if (reviewVal) {
-            let decimal = reviewVal - Math.floor(reviewVal);
-            decimal *= 100;
-            return {
-                backgroundImage: `linear-gradient(
-                to right,
-                rgba(85,96,159,1) ${decimal}%,
-                rgba(0,0,0,0.25) ${decimal}%
-            )`,
-            };
-        }
-        return {
-            backgroundImage: `linear-gradient(
-            to right bottom,
-            rgba(var(--color-primary-light),0.8),
-            rgba(var(--color-primary-dark),0.8)
-        )`,
-        };
-    };
-
     const shadowBox = { boxShadow: "0 2.5rem 4rem rgba(0, 0, 0, 0.5)" };
 
     // NOTE: for the cards to a top 3, the most popular in front with intense box shadow
@@ -138,12 +119,21 @@ export default function AccountBooking(props) {
                     tourIdReview={tourIdReview}
                     tourName={tourName}
                     setIsReviewOpen={setIsReviewOpen}
+                    setIsReviewSuccess={setIsReviewSuccess}
                 />
+            )}
+            {isReviewSuccess && (
+                <SuccessReview>
+                    <p style={{ fontSize: "5.5rem" }}>Success</p>
+                    <p style={{ fontSize: "3.5rem" }}>
+                        Your review has been submitted !
+                    </p>
+                </SuccessReview>
             )}
             <div
                 className="bookings"
                 style={
-                    isReviewOpen
+                    isReviewOpen || isReviewSuccess
                         ? { filter: "blur(2rem)", pointerEvents: "none" }
                         : null
                 }
@@ -221,14 +211,10 @@ export default function AccountBooking(props) {
                                                         key={el}
                                                         id={el}
                                                         className="starbox__star"
-                                                        style={
-                                                            excursion.ratingsAverage >
+                                                        style={setStarRatingStyle(
+                                                            excursion.ratingsAverage,
                                                             el
-                                                                ? setReviewStarsBg()
-                                                                : setReviewStarsBg(
-                                                                      excursion.ratingsAverage
-                                                                  )
-                                                        }
+                                                        )}
                                                     >
                                                         {}
                                                     </span>

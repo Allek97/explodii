@@ -3,27 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const setReviewStarsBg = (reviewVal) => {
-    if (reviewVal) {
-        let decimal = reviewVal - Math.floor(reviewVal);
-        decimal *= 100;
-        return {
-            backgroundImage: `linear-gradient(
-            to right,
-            rgba(85,96,159,1) ${decimal}%,
-            rgba(0,0,0,0.25) ${decimal}%
-        )`,
-        };
-    }
-
-    return {
-        backgroundImage: `linear-gradient(
-        to right bottom,
-        rgba(var(--color-primary-light),0.9),
-        rgba(var(--color-primary-dark),0.9)
-    )`,
-    };
-};
+import { setStarRatingStyle } from "../utils/StarFunctionStyle";
 
 const StyledStar = styled.span`
     display: block;
@@ -45,11 +25,7 @@ export default function Stars(props) {
             {[1, 2, 3, 4, 5].map((el) => {
                 return (
                     <StyledStar
-                        style={
-                            nbStar >= el
-                                ? setReviewStarsBg()
-                                : setReviewStarsBg(el)
-                        }
+                        style={setStarRatingStyle(nbStar, el)}
                         key={el}
                         id={el}
                         svg={starSvg}

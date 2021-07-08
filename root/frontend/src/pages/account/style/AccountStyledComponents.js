@@ -349,28 +349,6 @@ export const StyledDisclaminer = styled.div`
 // NOTE: Section Review
 ////////////////////////////////////////////////
 
-export const setReviewStarsBg = (reviewVal) => {
-    if (reviewVal) {
-        let decimal = reviewVal - Math.floor(reviewVal);
-        decimal *= 100;
-        return {
-            backgroundImage: `linear-gradient(
-            to right,
-            rgba(85,96,159,1) ${decimal}%,
-            rgba(0,0,0,0.25) ${decimal}%
-        )`,
-        };
-    }
-
-    return {
-        backgroundImage: `linear-gradient(
-        to right bottom,
-        rgba(var(--color-primary-light),0.9),
-        rgba(var(--color-primary-dark),0.9)
-    )`,
-    };
-};
-
 export const StyledStar = styled.span`
     display: block;
 
