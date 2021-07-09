@@ -5,7 +5,7 @@ const setReviewStarsBg = (rating) => {
         return {
             backgroundImage: `linear-gradient(
             to right,
-            rgba(85,96,159,1) ${decimal}%,
+            #434e8a ${decimal}%,
             rgba(0,0,0,0.25) ${decimal}%
         )`,
         };

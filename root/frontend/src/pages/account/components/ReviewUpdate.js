@@ -7,7 +7,6 @@ import HoverRating from "./HoverRating";
 
 import {
     ConfirmationBtn,
-    // ExcursionBg,
     ReviewBox,
     TextArea,
     UserNameStyled,
@@ -15,43 +14,45 @@ import {
     ErrorBox,
 } from "../style/ReviewWriteUpdateStyle";
 
-export default function ReviewWrite(props) {
+export default function ReviewUpdate(props) {
     // props
     const {
-        userId,
-        userName,
-        tourIdReview,
-        tourName,
-        setIsReviewOpen,
-        setIsReviewSuccess,
+        setIsUpdateReviewOpen,
+        setIsUpdateReviewSuccess,
+        userReviewObject,
     } = props;
+    const {
+        review: initialReview,
+        rating: initialRating,
+        user,
+        tour,
+        id: reviewId,
+    } = userReviewObject;
+    const { name: userName } = user;
+    const { name: excursionName } = tour;
     // hooks
-    const [review, setReview] = useState(null);
-    const [rating, setRating] = useState(2);
+    const [review, setReview] = useState(initialReview);
+    const [rating, setRating] = useState(initialRating);
     const [reviewSize, setReviewSize] = useState(0);
     const [reviewError, setReviewError] = useState(null);
     const [ratingError, setRatingError] = useState(null);
 
     //
 
-    // const excursionBg =
-    //     require("../../../assets/img/tours/tour-1-1.jpg").default;
     const closeBtnSvg = require("../../../assets/svgs/x.svg").default;
 
-    async function handleReviewSubmission() {
+    async function handleUpdateSubmission() {
         setRatingError("");
         setReviewError("");
         try {
             const body = {
                 review: review,
                 rating: rating,
-                tour: tourIdReview,
-                user: userId,
             };
             // NOTE: Mongo for some reasons allow null as number value
             if (rating) {
-                const res = await axios.post(
-                    `${process.env.REACT_APP_URL}/api/v1/tours/${tourIdReview}/reviews`,
+                const res = await axios.patch(
+                    `${process.env.REACT_APP_URL}/api/v1/reviews/${reviewId}`,
                     body,
                     {
                         withCredentials: true,
@@ -59,16 +60,14 @@ export default function ReviewWrite(props) {
                     }
                 );
 
-                // setIsReviewOpen(false);
+                // setIsUpdateReviewOpen(false);
                 if (res.data.status === "success") {
                     window.setTimeout(() => {
-                        // setLogStatus(true);
-                        setIsReviewOpen(false);
-                        setIsReviewSuccess(true);
+                        setIsUpdateReviewOpen(false);
+                        setIsUpdateReviewSuccess(true);
                     }, 50);
                     window.setTimeout(() => {
-                        // setLogStatus(true);
-                        setIsReviewSuccess(false);
+                        setIsUpdateReviewSuccess(false);
                     }, 2000);
                 }
             } else {
@@ -93,12 +92,12 @@ export default function ReviewWrite(props) {
 
     return (
         <>
-            <ReviewBox>
+            <ReviewBox style={{ position: "fixed !important" }}>
                 {/* <ExcursionBg excursionBg={excursionBg} /> */}
                 <CloseReview
                     svg={closeBtnSvg}
                     onClick={() => {
-                        setIsReviewOpen(false);
+                        setIsUpdateReviewOpen(false);
                     }}
                 />
                 <div
@@ -120,7 +119,7 @@ export default function ReviewWrite(props) {
                             textTransform: "uppercase",
                         }}
                     >
-                        Share your opinion with us{" "}
+                        Update Your Review{" "}
                         {/* {`TODO: SUCCESS MESSAGE AFTER SUCCESSFUL TRANSACTION && SUCCESSFUL REVIEW SUBMISSION`} */}
                     </h1>
                     <UserNameStyled style={{ textTransform: "capitalize" }}>
@@ -132,7 +131,7 @@ export default function ReviewWrite(props) {
                             textTransform: "capitalize",
                         }}
                     >
-                        {tourName} excursion
+                        {excursionName} excursion
                     </UserNameStyled>
                     <div
                         style={{
@@ -148,7 +147,7 @@ export default function ReviewWrite(props) {
                         }}
                     >
                         <span style={{ marginRight: "auto" }}>
-                            Overall rating*
+                            update overall rating*
                         </span>
                         {ratingError && <ErrorBox>{ratingError}</ErrorBox>}
                     </div>
@@ -169,7 +168,7 @@ export default function ReviewWrite(props) {
                         >
                             <div style={{ display: "flex", height: "2rem" }}>
                                 <span style={{ marginRight: "1rem" }}>
-                                    Write a review*
+                                    update your review*
                                 </span>
                                 <span style={{ marginRight: "auto" }}>
                                     ({`${reviewSize} / 200`})
@@ -194,10 +193,10 @@ export default function ReviewWrite(props) {
 
                     <ConfirmationBtn
                         onClick={() => {
-                            handleReviewSubmission();
+                            handleUpdateSubmission();
                         }}
                     >
-                        Submit
+                        Update
                     </ConfirmationBtn>
                 </div>
             </ReviewBox>
@@ -205,11 +204,19 @@ export default function ReviewWrite(props) {
     );
 }
 
-ReviewWrite.propTypes = {
-    userId: PropTypes.string.isRequired,
-    userName: PropTypes.string.isRequired,
-    tourIdReview: PropTypes.string.isRequired,
-    tourName: PropTypes.string.isRequired,
-    setIsReviewOpen: PropTypes.func.isRequired,
-    setIsReviewSuccess: PropTypes.func.isRequired,
+ReviewUpdate.propTypes = {
+    setIsUpdateReviewOpen: PropTypes.func.isRequired,
+    setIsUpdateReviewSuccess: PropTypes.func.isRequired,
+    userReviewObject: PropTypes.shape({
+        review: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+            photo: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+        }),
+        tour: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+        }),
+    }).isRequired,
 };

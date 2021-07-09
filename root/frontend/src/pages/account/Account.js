@@ -81,7 +81,6 @@ export default function Account(props) {
     useEffect(() => {
         async function fetchApi() {
             try {
-                console.log(search);
                 const { session_id } = queryString.parse(search);
 
                 const res = await axios.get(
@@ -90,9 +89,6 @@ export default function Account(props) {
                         withCredentials: true,
                     }
                 );
-
-                console.log(res);
-                console.log("order");
             } catch (err) {
                 console.log(err.response.data);
             }

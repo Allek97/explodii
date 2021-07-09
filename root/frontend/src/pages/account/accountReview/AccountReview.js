@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { ReviewBox } from "../components/ReviewBox";
+import ReviewUpdate from "../components/ReviewUpdate";
+import { ReviewDelete } from "../components/ReviewDelete";
+import { SuccessReview } from "../style/ReviewWriteUpdateStyle";
 
 import "./_accountReview.scss";
 
@@ -61,7 +64,12 @@ export default function AccountReview(props) {
     //Hooks
     const [reviews, setReviews] = useState([]);
     const [revIdx, setRevIdx] = useState(0);
-    const [isReviewEmpty, setIsReviewEmpty] = useState(null);
+    const [selectedReview, setSelectedReview] = useState(null);
+    const [isApiConsummed, setIsApiConsummed] = useState(false);
+    const [isUpdateReviewOpen, setIsUpdateReviewOpen] = useState(false);
+    const [isDeleteReviewOpen, setIsDeleteReviewOpen] = useState(false);
+    const [isUpdateReviewSuccess, setIsUpdateReviewSuccess] = useState(false);
+    const [isDeleteReviewSuccess, setIsDeleteReviewSuccess] = useState(false);
 
     useEffect(() => {
         async function fetchApi() {
@@ -72,14 +80,14 @@ export default function AccountReview(props) {
                 );
 
                 setReviews(res.data.data);
-                console.log(res);
+                setIsApiConsummed(true);
             } catch (err) {
                 console.log(err.response.data);
                 setReviews([]);
             }
         }
         fetchApi();
-    }, []);
+    }, [isUpdateReviewSuccess, isDeleteReviewSuccess]);
 
     const switchReviewIdx = () => {
         const maxIdx =
@@ -105,53 +113,118 @@ export default function AccountReview(props) {
     // console.log(revIdx);
 
     return (
-        <div className="accountReview">
-            <UserNameStyled>{userName}</UserNameStyled>
-            <h1 style={{ marginBottom: "2rem", fontSize: "3rem" }}>
-                Your words matter to us
-            </h1>
-            {isReviewEmpty && (
-                <p style={{ fontSize: "2.1rem", fontWeight: "900" }}>
-                    You don't have any reviews yet !
-                </p>
-            )}
-            <div className="accountReview__reviewBox">
-                <div
-                    className="accountReview__rotativeBox"
-                    style={{
-                        transform: `translateX(${-revIdx * 110 - 1}rem)`,
-                    }}
-                >
-                    {reviews.map((el) => {
-                        return (
-                            <ReviewBox
-                                key={el._id}
-                                userReview={el}
-                                isExcursion={false}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
-            <div style={{ display: "flex" }}>
-                {reviews.map((el, idx) => {
-                    if (!(idx % 2)) {
-                        const index = idx / 2;
-                        return (
-                            <Tracker
-                                key={el._id}
-                                id={el._id}
-                                isSelected={revIdx === index}
-                                onClick={() => {
-                                    setRevIdx(index);
+        <>
+            {isApiConsummed && (
+                <>
+                    {isUpdateReviewOpen && (
+                        <ReviewUpdate
+                            userReviewObject={selectedReview}
+                            setIsUpdateReviewOpen={setIsUpdateReviewOpen}
+                            setIsUpdateReviewSuccess={setIsUpdateReviewSuccess}
+                        />
+                    )}
+                    {isDeleteReviewOpen && (
+                        <ReviewDelete
+                            userReviewObject={selectedReview}
+                            setIsDeleteReviewOpen={setIsDeleteReviewOpen}
+                            setIsDeleteReviewSuccess={setIsDeleteReviewSuccess}
+                        />
+                    )}
+                    {isUpdateReviewSuccess && (
+                        <SuccessReview>
+                            <p style={{ fontSize: "5.5rem" }}>Success</p>
+                            <p style={{ fontSize: "3.5rem" }}>
+                                Your review has been updated !
+                            </p>
+                        </SuccessReview>
+                    )}
+                    {isDeleteReviewSuccess && (
+                        <SuccessReview>
+                            <p style={{ fontSize: "5.5rem" }}>Success</p>
+                            <p style={{ fontSize: "3.5rem" }}>
+                                Your review has been deleted !
+                            </p>
+                        </SuccessReview>
+                    )}
+                    <div
+                        className="accountReview"
+                        style={
+                            isUpdateReviewOpen ||
+                            isUpdateReviewSuccess ||
+                            isDeleteReviewOpen ||
+                            isDeleteReviewSuccess
+                                ? {
+                                      filter: "blur(1rem)",
+                                      pointerEvents: "none",
+                                  }
+                                : null
+                        }
+                    >
+                        <UserNameStyled>{userName}</UserNameStyled>
+                        <h1 style={{ marginBottom: "2rem", fontSize: "3rem" }}>
+                            Your words matter to us
+                        </h1>
+                        {reviews.length === 0 && (
+                            <p
+                                style={{
+                                    fontSize: "2.1rem",
+                                    fontWeight: "900",
                                 }}
-                            />
-                        );
-                    }
-                    return null;
-                })}
-            </div>
-        </div>
+                            >
+                                You don't have any reviews yet !
+                            </p>
+                        )}
+                        <div className="accountReview__reviewBox">
+                            <div
+                                className="accountReview__rotativeBox"
+                                style={{
+                                    transform: `translateX(${
+                                        -revIdx * 110 - 1
+                                    }rem)`,
+                                }}
+                            >
+                                {reviews.map((el) => {
+                                    return (
+                                        <ReviewBox
+                                            key={el._id}
+                                            userReview={el}
+                                            isExcursion={false}
+                                            setIsUpdateReviewOpen={
+                                                setIsUpdateReviewOpen
+                                            }
+                                            setSelectedReview={
+                                                setSelectedReview
+                                            }
+                                            setIsDeleteReviewOpen={
+                                                setIsDeleteReviewOpen
+                                            }
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <div style={{ display: "flex" }}>
+                            {reviews.map((el, idx) => {
+                                if (!(idx % 2)) {
+                                    const index = idx / 2;
+                                    return (
+                                        <Tracker
+                                            key={el._id}
+                                            id={el._id}
+                                            isSelected={revIdx === index}
+                                            onClick={() => {
+                                                setRevIdx(index);
+                                            }}
+                                        />
+                                    );
+                                }
+                                return null;
+                            })}
+                        </div>
+                    </div>
+                </>
+            )}
+        </>
     );
 }
 

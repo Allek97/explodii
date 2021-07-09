@@ -9,13 +9,13 @@ import ReviewWrite from "../components/ReviewWrite";
 import { Disclaimer } from "../components/Disclaimer";
 import { BookBtn } from "../style/AccountStyledComponents";
 
-import { Deco, UtilBtn, SuccessReview } from "../style/ReviewWriteStyle";
+import { Deco, UtilBtn, SuccessReview } from "../style/ReviewWriteUpdateStyle";
 import useOuterClick from "../../../componants/utils/UseOuterClick";
 import { setStarRatingStyle } from "../../../componants/utils/StarFunctionStyle";
 
 export default function AccountBooking(props) {
     //Props
-    const { userId, userName, userEmail, userPhoto } = props;
+    const { userId, userName } = props;
     // Hooks
     const [bookings, setBookings] = useState([]);
     const [suggestedBookings, setSuggestedBookings] = useState([]);
@@ -54,7 +54,7 @@ export default function AccountBooking(props) {
                         credentials: "include",
                     }
                 );
-                console.log(userBookingsRes);
+
                 if (userBookingsRes.data.status === "success")
                     setBookings(userBookingsRes.data.tours);
             } catch (err) {
@@ -198,6 +198,9 @@ export default function AccountBooking(props) {
                                         <li>{`Up to ${excursion.maxGroupSize} people`}</li>
                                         <li>{`${excursion.guides.length} tour guides`}</li>
                                         <li>{`Starting location: ${excursion.startLocation.description}`}</li>
+                                        <li>{`Purchased for: ${excursion.price.toFixed(
+                                            2
+                                        )}$CA`}</li>
                                         {/* <li>{`Ratings: ${excursion.ratingsAverage}/5`}</li> */}
                                         {/* <li>{`Ratings:`}</li> */}
                                         <ul className="starbox">
@@ -215,12 +218,13 @@ export default function AccountBooking(props) {
                                                             excursion.ratingsAverage,
                                                             el
                                                         )}
-                                                    >
-                                                        {}
-                                                    </span>
+                                                    />
                                                 );
                                             })}
                                         </ul>
+                                        {isBookings && (
+                                            <div className="bookings__reviewed" />
+                                        )}
                                     </ul>
                                 </div>
                             </div>
@@ -283,6 +287,4 @@ export default function AccountBooking(props) {
 AccountBooking.propTypes = {
     userId: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
-    userEmail: PropTypes.string.isRequired,
-    userPhoto: PropTypes.string.isRequired,
 };

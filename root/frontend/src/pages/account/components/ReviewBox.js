@@ -2,14 +2,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { StyledReview, StyledStar } from "../style/AccountStyledComponents";
+import ReviewUpdate from "./ReviewUpdate";
+
+import { StyledReview, StyledStar, UtilSvg } from "../style/ReviewBoxStyle";
 
 import { setStarRatingStyle } from "../../../componants/utils/StarFunctionStyle";
 
+import UpdateSvg from "../../../assets/svgs/chat.svg";
+import DeleteSvg from "../../../assets/svgs/bin2.svg";
+
 export const ReviewBox = (props) => {
     // Props
-    const { userReview, isExcursion } = props;
-    const { review, rating, user, tour } = userReview;
+    const {
+        userReview,
+        isExcursion,
+        setIsUpdateReviewOpen,
+        setSelectedReview,
+        setIsDeleteReviewOpen,
+    } = props;
+    const { review, rating, user, tour, id: reviewId } = userReview;
     const { photo: userPhoto, name: userName } = user;
     const { name: ExcursionName } = tour;
 
@@ -38,6 +49,25 @@ export const ReviewBox = (props) => {
                     );
                 })}
             </ul>
+            {!isExcursion && (
+                <div style={{ display: "flex", marginLeft: "auto" }}>
+                    <UtilSvg
+                        svg={UpdateSvg}
+                        style={{ marginRight: "1rem" }}
+                        onClick={() => {
+                            setIsUpdateReviewOpen(true);
+                            setSelectedReview(userReview);
+                        }}
+                    />
+                    <UtilSvg
+                        svg={DeleteSvg}
+                        onClick={() => {
+                            setIsDeleteReviewOpen(true);
+                            setSelectedReview(userReview);
+                        }}
+                    />
+                </div>
+            )}
         </StyledReview>
     );
 };
@@ -47,6 +77,7 @@ ReviewBox.propTypes = {
     userReview: PropTypes.shape({
         review: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         user: PropTypes.shape({
             photo: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
@@ -55,4 +86,7 @@ ReviewBox.propTypes = {
             name: PropTypes.string.isRequired,
         }),
     }).isRequired,
+    setIsUpdateReviewOpen: PropTypes.func.isRequired,
+    setSelectedReview: PropTypes.func.isRequired,
+    setIsDeleteReviewOpen: PropTypes.func.isRequired,
 };

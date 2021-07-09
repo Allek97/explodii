@@ -184,11 +184,6 @@ export default function Reviews() {
         };
     });
 
-    // console.log(reviews);
-    // console.log(revIdx);
-
-    console.log(revIdx);
-
     return (
         // eslint-disable-next-line react/jsx-no-comment-textnodes
         <>

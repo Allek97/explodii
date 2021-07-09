@@ -79,28 +79,21 @@ export default function ExcursionBooking(props) {
     const [inProcess, setInProcess] = useState(false);
 
     // variables
-    const Nat1 = require(`../../../../assets/img/tours/${excursionImages[0]}`)
-        .default;
-    const Nat2 = require(`../../../../assets/img/tours/${excursionImages[1]}`)
-        .default;
-    const Nat3 = require(`../../../../assets/img/tours/${excursionImages[2]}`)
-        .default;
+    const Nat1 =
+        require(`../../../../assets/img/tours/${excursionImages[0]}`).default;
+    const Nat2 =
+        require(`../../../../assets/img/tours/${excursionImages[1]}`).default;
+    const Nat3 =
+        require(`../../../../assets/img/tours/${excursionImages[2]}`).default;
 
-    const bookingSvg1 = require(`../../../../assets/svgs/booking-travel.svg`)
-        .default;
+    const bookingSvg1 =
+        require(`../../../../assets/svgs/booking-travel.svg`).default;
     const bookingSvg2 = require(`../../../../assets/svgs/dreamer.svg`).default;
-
-    // console.log(
-    //     excursionName,
-    //     excursionPrice,
-    //     excursionDuration,
-    //     excursionDate
-    // );
 
     const handleBookingCheckout = async () => {
         try {
             setInProcess(true);
-            console.log("hey");
+
             const session = await axios.get(
                 `${process.env.REACT_APP_URL}/api/v1/bookings/checkout-session/${excursionId}`,
                 {
@@ -111,8 +104,6 @@ export default function ExcursionBooking(props) {
             const result = await stripe.redirectToCheckout({
                 sessionId: session.data.session.id,
             });
-
-            console.log(result);
 
             setPaymentStatus(true);
         } catch (err) {

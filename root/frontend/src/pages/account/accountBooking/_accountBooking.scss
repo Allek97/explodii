@@ -234,3 +234,24 @@
         //     // fill: blue;
     }
 }
+
+.bookings__reviewed {
+    display: block;
+
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+
+    height: 2.5rem;
+    width: 2.5rem;
+
+    background-image: linear-gradient(
+        76deg,
+        RGBA(var(--color-primary-light)),
+        RGBA(var(--color-primary-dark))
+    );
+
+    mask-image: url("../../../assets/svgs/check-circle.svg");
+    mask-size: cover;
+    mask-position: center;
+}
