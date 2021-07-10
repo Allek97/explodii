@@ -27,9 +27,9 @@ export default function Reviews() {
     // Use this mutable hook to skip the first render voir: https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
     const initialRender = useRef(true);
     // colors
-    const rootColor = getComputedStyle(document.body);
-    const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
-    const BgColor2 = rootColor.getPropertyValue("--color-primary-dark");
+    // const rootColor = getComputedStyle(document.body);
+    // const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
+    // const BgColor2 = rootColor.getPropertyValue("--color-primary-dark");
 
     // Animations
     // Mount
@@ -68,7 +68,7 @@ export default function Reviews() {
     // LOGIC FUNCTIONS
     const switchReviewIdx = (flow) => {
         // console.log("Changing Idx");
-        const max = Math.floor(reviews.length / 2) * 2;
+        const max = (Math.ceil(reviews.length / 2) - 1) * 2;
 
         if (flow === "right") {
             if (revIdx === max) {
@@ -109,6 +109,16 @@ export default function Reviews() {
         // console.log(uniqueObj);
         return [...uniqueObj.values()];
     };
+    // TODO: Fonction to return randomly a limited number of reviews from an array of all reviews
+    // const getRandomObjs = (arrOfObjs, max) => {
+    //     const map = new Map();
+    //     let selectedObjs;
+    //     if (max > arrOfObjs.length) return arrOfObjs;
+
+    //     while (selectedObjs.length < max) {
+    //         arrOfObjs.filter((el) => {});
+    //     }
+    // };
 
     // Request the reviews from my RestAPI while server is running
     useEffect(() => {

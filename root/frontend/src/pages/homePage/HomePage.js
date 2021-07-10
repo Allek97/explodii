@@ -18,9 +18,9 @@ import Loading from "../../componants/loading/PageLoading";
 
 // IMAGES
 // import BirdLogo from "../../assets/img/home/bird-logo.png";
-import Nat1 from "../../assets/img/tours/tour-5-1.jpg";
-import Nat2 from "../../assets/img/tours/tour-3-2.jpg";
-import Nat3 from "../../assets/img/tours/tour-9-3.jpg";
+import Nat1 from "../../assets/img/tours/tour-5-1-450x300.jpg";
+import Nat2 from "../../assets/img/tours/tour-3-2-450x300.jpg";
+import Nat3 from "../../assets/img/tours/tour-9-3-450x300.jpg";
 // import HomeBg from "../../assets/img/home/joshua-oluwagbemiga-Z6HQ0EhoD6g-unsplash.jpg";
 
 // VIDEOS
@@ -94,13 +94,6 @@ export default function HomePage(props) {
             console.log(err.response.data.message);
         }
     };
-
-    // const handleLoading = (link) => {
-    //     setIsLoading(true);
-    //     setTimeout(() => {
-    //         // window.location.assign(`/${link}`);
-    //     }, 1000);
-    // };
 
     return (
         <>
@@ -193,7 +186,7 @@ export default function HomePage(props) {
                             elit. Nihil iure cum molestias animi magni quisquam
                             at voluptas sint, sunt, ut accusamus. Excepturi
                             saepe facilis porro laboriosam, reiciendis
-                            necessitatibus voluptates neque0
+                            necessitatibus voluptates neque
                         </p>
                         <h3 className="aboutbox__heading-2">
                             Deeply reconnect with nature

@@ -38,7 +38,9 @@ export default function PopCards() {
     const setBackgroundUrlStyle = (tourBg) => {
         // eslint-disable-next-line import/no-dynamic-require
         // eslint-disable-next-line global-require
-        const img = require(`../../assets/img/tours/${tourBg}`);
+        const compressedTourBg = `${tourBg.split(".")[0]}-450x300`;
+        // eslint-disable-next-line global-require
+        const img = require(`../../assets/img/tours/${compressedTourBg}.jpg`);
         return {
             backgroundImage: `linear-gradient(
                 to right bottom,

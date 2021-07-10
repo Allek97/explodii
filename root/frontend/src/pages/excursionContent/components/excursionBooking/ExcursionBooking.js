@@ -69,8 +69,6 @@ export default function ExcursionBooking(props) {
         excursionDuration,
         excursionPrice,
         excursionImages,
-        excursionName,
-        excursionDate,
         authStatus,
         setPaymentStatus,
     } = props;
@@ -101,7 +99,7 @@ export default function ExcursionBooking(props) {
                 }
             );
 
-            const result = await stripe.redirectToCheckout({
+            await stripe.redirectToCheckout({
                 sessionId: session.data.session.id,
             });
 
@@ -197,8 +195,6 @@ export default function ExcursionBooking(props) {
 
 ExcursionBooking.propTypes = {
     excursionId: PropTypes.string.isRequired,
-    excursionName: PropTypes.string.isRequired,
-    excursionDate: PropTypes.string.isRequired,
     excursionDuration: PropTypes.number.isRequired,
     excursionPrice: PropTypes.number.isRequired,
     excursionImages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,

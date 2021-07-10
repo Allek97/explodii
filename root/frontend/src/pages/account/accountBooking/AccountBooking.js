@@ -278,7 +278,7 @@ export default function AccountBooking(props) {
                         </div>
                     );
                 })}
-                <Deco bookingsRow={Math.ceil(bookings.length / 2) + 2} />
+                <Deco bookingsRow={Math.ceil(bookingsData().length / 2) + 2} />
             </div>
         </>
     );

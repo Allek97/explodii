@@ -295,9 +295,11 @@ export const StyledDisclaminer = styled.div`
 
     display: flex;
     justify-content: center;
+    align-items: center;
 
     width: 90%;
     margin-right: 8rem;
+    height: max-content;
 
     span {
         position: relative;
@@ -307,13 +309,6 @@ export const StyledDisclaminer = styled.div`
         font-size: 2.3rem;
         text-align: left;
         color: rgba(var(--color-primary-dark), 0.8);
-
-        animation: ${slideFromUp} 0.3s ease-in 1;
-    }
-
-    img {
-        height: 100%;
-        width: 30rem;
 
         animation: ${slideFromUp} 0.3s ease-in 1;
     }
@@ -343,4 +338,20 @@ export const StyledDisclaminer = styled.div`
 
         transform: rotate(180deg);
     }
+`;
+
+export const DisclaimerSvg = styled.div`
+    display: block;
+
+    height: 20rem;
+    width: 30.52rem;
+
+    /* background-image: linear-gradient(to right, transparent, transparent); */
+
+    background-image: url(${(props) => props.svg});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    animation: ${slideFromUp} 0.3s ease-in 1;
 `;

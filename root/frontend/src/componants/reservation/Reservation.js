@@ -103,22 +103,24 @@ function Search() {
         setValue(e.target.value);
     };
 
-    const handleSelect = ({ description }) => async () => {
-        try {
-            // When user selects a place, we can replace the keyword without request data from API
-            // by setting the second parameter to "false"
-            setValue(description, false);
-            clearSuggestions();
+    const handleSelect =
+        ({ description }) =>
+        async () => {
+            try {
+                // When user selects a place, we can replace the keyword without request data from API
+                // by setting the second parameter to "false"
+                setValue(description, false);
+                clearSuggestions();
 
-            // Get latitude and longitude via utility functions
+                // Get latitude and longitude via utility functions
 
-            const results = await getGeocode({ address: description });
-            const { lat, lng } = await getLatLng(results[0]);
-            // console.log("📍 Coordinates: ", { lat, lng });
-        } catch (error) {
-            console.log("😱 Error: ", error);
-        }
-    };
+                const results = await getGeocode({ address: description });
+                const { lat, lng } = await getLatLng(results[0]);
+                // console.log("📍 Coordinates: ", { lat, lng });
+            } catch (error) {
+                console.log("😱 Error: ", error);
+            }
+        };
 
     return (
         <div ref={ref}>
