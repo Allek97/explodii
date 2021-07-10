@@ -117,9 +117,6 @@ export default function PaymentSuccessBox(props) {
 
             <ConfirmationBtn
                 href="/account"
-                onClick={() => {
-                    setOrderStatus(false);
-                }}
                 style={{
                     fontSize: "1.45rem",
                     fontWeight: "700",
