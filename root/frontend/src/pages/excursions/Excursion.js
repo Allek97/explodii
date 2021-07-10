@@ -6,7 +6,6 @@ import axios from "axios";
 
 import Loading from "../../componants/loading/PageLoading";
 import ExcursionFilter from "./excursionFilter/ExcursionFilter";
-import PaymentStatusBox from "./PaymentSuccessBox";
 import ExcursionSort from "./ExcursionSort";
 import { ProfileBtn, TourBox } from "./ExcursionStyledComponants";
 import Decoration from "./ExcursionDecoration";
@@ -70,16 +69,6 @@ export default function Excursions(props) {
                 <>
                     <Loading loadingTime={500} />
                     <div>
-                        {/* {paymentStatus && (
-                            <PaymentStatusBox
-                                bookedExcursionName={bookedExcursionName}
-                                bookedExcursionPrice={bookedExcursionPrice}
-                                bookedExcursionDuration={
-                                    bookedExcursionDuration
-                                }
-                                bookedExcursionDate={bookedExcursionDate}
-                            />
-                        )} */}
                         <div
                             className="excursion"
                             style={

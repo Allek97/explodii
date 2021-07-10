@@ -97,6 +97,7 @@ export default function AccountBooking(props) {
         // eslint-disable-next-line import/no-dynamic-require
         // eslint-disable-next-line global-require
         const compressedTourBg = `${tourBg.split(".")[0]}-450x300`;
+        // eslint-disable-next-line global-require
         const img = require(`../../../assets/img/tours/${compressedTourBg}.jpg`);
         return {
             backgroundImage: `linear-gradient(

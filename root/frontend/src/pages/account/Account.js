@@ -21,6 +21,7 @@ import "../../base/_animations.scss";
 
 //Components
 import Loading from "../../componants/loading/PageLoading";
+import PaymentSuccessBox from "./components/PaymentSuccessBox";
 import AccountSettings from "./AccountSettings";
 import AccountBooking from "./accountBooking/AccountBooking";
 import AccountReview from "./accountReview/AccountReview";
@@ -57,6 +58,10 @@ export default function Account(props) {
         review: false,
         billing: false,
     });
+    const [orderStatus, setOrderStatus] = useState(false);
+    const [orderPrice, setOrderPrice] = useState(null);
+    const [orderExcursion, setOrderExcursion] = useState(null);
+    const [orderImageCover, setOrderImageCover] = useState(null);
     // VARIABLES
     // Profile photo in side navigation bar
     const profilePhoto = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
@@ -83,12 +88,28 @@ export default function Account(props) {
             try {
                 const { session_id } = queryString.parse(search);
 
-                const res = await axios.get(
+                const orderRes = await axios.get(
                     `${process.env.REACT_APP_URL}/api/v1/bookings/order/${session_id}`,
                     {
                         withCredentials: true,
                     }
                 );
+                const { tour: tourId, price, status } = orderRes.data;
+
+                if (status === "successful purchase") {
+                    const excursionRes = await axios.get(
+                        `${process.env.REACT_APP_URL}/api/v1/tours/${tourId}`,
+                        {
+                            withCredentials: true,
+                        }
+                    );
+
+                    const { imageCover, name } = excursionRes.data.data.data;
+                    setOrderExcursion(name);
+                    setOrderImageCover(imageCover);
+                    setOrderPrice(price);
+                    setOrderStatus(true);
+                }
             } catch (err) {
                 console.log(err.response.data);
             }
@@ -100,7 +121,22 @@ export default function Account(props) {
     return (
         <>
             <Loading />
-            <div className="account">
+            {orderStatus && (
+                <PaymentSuccessBox
+                    setOrderStatus={setOrderStatus}
+                    orderExcursion={orderExcursion}
+                    orderPrice={orderPrice}
+                    orderImageCover={orderImageCover}
+                />
+            )}
+            <div
+                className="account"
+                style={
+                    orderStatus
+                        ? { filter: "blur(2rem)", pointerEvents: "none" }
+                        : null
+                }
+            >
                 <div className="navBar navBar--account">
                     <div className="navBar__logo-box">
                         <div className="navBar__logo navBar__logo--account">

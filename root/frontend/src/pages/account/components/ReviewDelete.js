@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -19,11 +19,7 @@ export const ReviewDelete = (props) => {
 
     const { id: reviewId, tour } = userReviewObject;
     const { name: excursionName } = tour;
-    const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
-    function reRender() {
-        forceUpdate();
-    }
     async function handleDeleteSubmission() {
         try {
             const res = await axios.delete(

@@ -136,7 +136,7 @@ export default function SignUp() {
                         >
                             An email has been sent to you with all the details !
                         </p>
-                        <a href="/login" className="success-signup__btn">
+                        <a href="/" className="success-signup__btn">
                             Continue
                         </a>
                     </div>
