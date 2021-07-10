@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import "./_rotatingText.scss";
 import "../../base/_animations.scss";
@@ -6,7 +7,7 @@ import "../../base/_animations.scss";
 // Animations
 
 const rotationAnimation = {
-    animation: "rotationAnimation 4s ease-in-out 1",
+    animation: "rotationAnimation 4.1s ease-in-out 1",
 };
 
 export default function RotatingText() {
@@ -43,7 +44,11 @@ export default function RotatingText() {
     return (
         <div className="rotate">
             <span className="rotate__side">{}</span>
-            <p className="rotate__text" style={rotationAnimation}>
+            <p
+                key={uuidv4()}
+                className="rotate__text"
+                style={rotationAnimation}
+            >
                 {sentence}
             </p>
             )

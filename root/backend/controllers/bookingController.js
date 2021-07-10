@@ -23,7 +23,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
                 name: `${tour.name} Excursion`,
                 description: tour.summary,
                 images: [
-                    `https://explodii.s3.us-east-2.amazonaws.com/img/tours/${tour.imageCover}`,
+                    `https://explodii.s3.us-east-2.amazonaws.com/img/tours/${
+                        tour.imageCover.split(".")[0]
+                    }-450x300.jpg`,
                 ],
                 amount: tour.price * 100,
                 currency: "cad",

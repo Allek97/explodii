@@ -225,7 +225,8 @@ export default function ExcursionContent(props) {
         return `${process.env.REACT_APP_URL}/api/v1/users/images/${photo}`;
     };
     const excursionPhoto = (photo = "tour-1-1.jpg") => {
-        return `https://explodii.s3.us-east-2.amazonaws.com/img/tours/${photo}`;
+        const compressedPhoto = `${photo.split(".")[0]}-900x600.jpg`;
+        return require(`../../assets/img/tours/${compressedPhoto}`).default;
     };
 
     const clockSvg = require("../../assets/svgs/clock.svg").default;

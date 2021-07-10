@@ -77,12 +77,17 @@ export default function ExcursionBooking(props) {
     const [inProcess, setInProcess] = useState(false);
 
     // variables
+    const compressedNat1 = `${excursionImages[0].split(".")[0]}-450x300.jpg`;
     const Nat1 =
-        require(`../../../../assets/img/tours/${excursionImages[0]}`).default;
+        require(`../../../../assets/img/tours/${compressedNat1}`).default;
+
+    const compressedNat2 = `${excursionImages[1].split(".")[0]}-450x300.jpg`;
     const Nat2 =
-        require(`../../../../assets/img/tours/${excursionImages[1]}`).default;
+        require(`../../../../assets/img/tours/${compressedNat2}`).default;
+
+    const compressedNat3 = `${excursionImages[2].split(".")[0]}-450x300.jpg`;
     const Nat3 =
-        require(`../../../../assets/img/tours/${excursionImages[2]}`).default;
+        require(`../../../../assets/img/tours/${compressedNat3}`).default;
 
     const bookingSvg1 =
         require(`../../../../assets/svgs/booking-travel.svg`).default;

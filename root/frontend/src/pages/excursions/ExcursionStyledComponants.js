@@ -247,7 +247,9 @@ export const TourBox = (props) => {
     // hooks
 
     // variables
-    const tourImg = require(`../../assets/img/tours/${imageCover}`).default;
+    const compressedImageCover = `${imageCover.split(".")[0]}-900x600.jpg`;
+    const tourImg =
+        require(`../../assets/img/tours/${compressedImageCover}`).default;
 
     const roundedPrice = price.toFixed(2);
     const shortDescription = description.slice(0, 200);
