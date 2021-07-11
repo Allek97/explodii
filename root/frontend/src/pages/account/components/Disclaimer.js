@@ -24,7 +24,7 @@ export const Disclaimer = ({ isBookings, isBookingsEmpty }) => {
                 We put in place a recommendation section above for our most cost-effective excursions.`;
             }
             return `Take a look on your bookings ! We hope that we offered you the best service possible,
-            don't forget to share your excursion's exprience though a review !`;
+            don't forget to share your excursion's experience with a review !`;
         }
 
         return `We have
