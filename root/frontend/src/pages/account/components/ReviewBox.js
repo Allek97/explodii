@@ -2,8 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ReviewUpdate from "./ReviewUpdate";
-
 import { StyledReview, StyledStar, UtilSvg } from "../style/ReviewBoxStyle";
 
 import { setStarRatingStyle } from "../../../componants/utils/StarFunctionStyle";
@@ -20,7 +18,7 @@ export const ReviewBox = (props) => {
         setSelectedReview,
         setIsDeleteReviewOpen,
     } = props;
-    const { review, rating, user, tour, id: reviewId } = userReview;
+    const { review, rating, user, tour } = userReview;
     const { photo: userPhoto, name: userName } = user;
     const { name: ExcursionName } = tour;
 
@@ -77,7 +75,6 @@ ReviewBox.propTypes = {
     userReview: PropTypes.shape({
         review: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
-        id: PropTypes.string.isRequired,
         user: PropTypes.shape({
             photo: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,

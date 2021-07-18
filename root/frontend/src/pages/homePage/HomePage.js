@@ -21,8 +21,8 @@ import Loading from "../../componants/loading/PageLoading";
 import Nat1 from "../../assets/img/tours/tour-5-1-450x300.jpg";
 import Nat2 from "../../assets/img/tours/tour-3-2-450x300.jpg";
 import Nat3 from "../../assets/img/tours/tour-9-3-450x300.jpg";
-// import HomeBg from "../../assets/img/home/joshua-oluwagbemiga-Z6HQ0EhoD6g-unsplash.jpg";
-
+// SVGS
+import { ReactComponent as HeroSvg } from "../../assets/svgs/adventure-homepage-3.svg";
 // VIDEOS
 // import BgVideo from "../../assets/videos/cosmos.mp4";
 // SCSS
@@ -69,6 +69,13 @@ export const ProfileBtn = styled.a`
     &:hover {
         filter: brightness(1.1);
     }
+`;
+
+const HeroSection = styled.section`
+    /* height: 100%; */
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(12, 1fr);
 `;
 
 export default function HomePage(props) {
@@ -150,7 +157,8 @@ export default function HomePage(props) {
 
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 {/* <svg>{Earth()}</svg> */}
-                <div style={{ display: "flex" }}>
+
+                <HeroSection>
                     <div className="header__headings">
                         <h1 className="header__heading-primary">
                             Discover New Places,Meet New People and Travel.
@@ -163,8 +171,8 @@ export default function HomePage(props) {
                         </a>
                     </div>
 
-                    <div className="header__bgimg" />
-                </div>
+                    <HeroSvg className="header__bgimg" />
+                </HeroSection>
 
                 {/* <Globe className="header__globe" /> */}
             </header>
