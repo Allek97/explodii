@@ -1,4 +1,5 @@
 @import "../../abstracts/_variables.scss";
+@import "../../abstracts/_mixins";
 
 @font-face {
     font-family: Lato;
@@ -12,12 +13,19 @@
 
     // grid-auto-flow: row dense;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(3, 41rem);
-    gap: 10rem;
+    grid-template-columns: repeat(3, minmax(20rem, 41rem));
+    gap: 7.5rem;
 
     height: 62rem;
     margin-top: 10rem;
-    // background-color: red;
+
+    @include respond(tab-land) {
+        gap: 4rem;
+    }
+
+    @include respond(tab-port) {
+        grid-template-columns: minmax(20rem, 40rem);
+    }
 
     &__container {
         position: relative;
@@ -85,7 +93,7 @@
     }
 
     &__heading {
-        font-size: 4rem;
+        font-size: 3.2rem;
         font-weight: 300;
         text-transform: uppercase;
         text-align: right;
@@ -93,7 +101,7 @@
         position: absolute;
         top: 15rem;
         right: 2rem;
-        width: 75%;
+        width: 60%;
     }
 
     &__heading-span {
@@ -116,12 +124,12 @@
 
     &__list {
         list-style: none;
-        width: 80%;
+        // width: 80%;
         margin: 0 auto;
 
         li {
             text-align: center;
-            font-size: 2rem;
+            font-size: 1.82rem;
             font-weight: 400;
             padding: 1rem;
 
@@ -141,7 +149,7 @@
 
         &__review {
             text-align: center;
-            font-size: 2rem;
+            font-size: 1.82rem;
             font-weight: 400;
             padding: 1rem;
 
@@ -194,5 +202,53 @@
     &__btn {
         font-size: 1.4rem !important;
         padding: 2.5rem 3.5rem !important;
+    }
+
+    @media only screen and (max-width: 56.25em), only screen and (hover: none) {
+        height: auto;
+        border-radius: 3px;
+        background-color: $color-white;
+        // box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+
+        &__side {
+            height: auto;
+            position: relative;
+            box-shadow: none !important;
+
+            &--back {
+                transform: rotateY(0);
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+            }
+        }
+
+        &:hover &__side--front {
+            transform: rotateY(0);
+        }
+
+        &__details {
+            padding: 1rem 3rem;
+        }
+
+        &__container {
+            box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.5) !important;
+        }
+
+        // FRONT SIDE STYLING
+        &__cta {
+            position: relative;
+            top: 0%;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__price-box {
+            margin-bottom: 3rem;
+        }
+
+        &__price-value {
+            font-size: 4rem;
+        }
     }
 }

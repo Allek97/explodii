@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
 
 import "./_reviews.scss";
 import "../../base/_animations.scss";
@@ -8,8 +9,6 @@ import "../../base/_animations.scss";
 import { setStarRatingStyle } from "../utils/StarFunctionStyle";
 
 export default function Reviews() {
-    // VARIABLES
-
     const [reviews, setReviews] = useState([]);
 
     // This hook state will track which review should be displayed
@@ -26,10 +25,9 @@ export default function Reviews() {
 
     // Use this mutable hook to skip the first render voir: https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
     const initialRender = useRef(true);
-    // colors
-    // const rootColor = getComputedStyle(document.body);
-    // const BgColor1 = rootColor.getPropertyValue("--color-primary-light");
-    // const BgColor2 = rootColor.getPropertyValue("--color-primary-dark");
+
+    // Query variable
+    const isPhone = useMediaQuery({ query: "(min-width: 37.5em)" });
 
     // Animations
     // Mount
@@ -124,28 +122,6 @@ export default function Reviews() {
     useEffect(() => {
         async function fetchApi() {
             try {
-                // BUG: https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app
-                // NOTE: I need to make requests to backend that will store my sensitive variables so I can get the data I need, react .env file is not secure
-
-                // TODO: FIND A WAY TO GET RESTRICTED DATA FREOM BACKEND WITHOUT JWT / LOGIN // FAIT
-
-                // const body = {
-                //     email: "admin@natours.io",
-                //     password: process.env.REACT_APP_ADMIN_PASSWORD,
-                //     adminCode: process.env.REACT_APP_ADMIN_SPECIAL_CODE, // NOTE: Not secure everyone can view it in dev tools
-                // };
-                // // On doit login first pour recevoir le token
-                // const loginRes = await axios.post(
-                //     "http://localhost:5001/api/v1/users/login",
-                //     body,
-                //     { withCredentials: true, credentials: "include" } // For allowing cookie stooring
-                // );
-                // const { token } = loginRes.data;
-                // const config = {
-                //     headers: {
-                //         Authorization: `Bearer ${token}`,
-                //     },
-                // };
                 const reviewsRes = await axios.get(
                     `${process.env.REACT_APP_URL}/api/v1/reviews/`
                 );
@@ -198,20 +174,22 @@ export default function Reviews() {
         // eslint-disable-next-line react/jsx-no-comment-textnodes
         <>
             <div className="reviews-container">
-                <span
-                    className="arrow-left"
-                    role="button"
-                    aria-label="Change review"
-                    tabIndex={0}
-                    onClick={() => {
-                        setAnimation(false);
-                        setDirection("left");
-                        setMount(!isMount);
-                    }}
-                    onKeyDown={() => {
-                        // switchReviewIdx("left");
-                    }}
-                />
+                {isPhone && (
+                    <span
+                        className="arrow-left"
+                        role="button"
+                        aria-label="Change review"
+                        tabIndex={0}
+                        onClick={() => {
+                            setAnimation(false);
+                            setDirection("left");
+                            setMount(!isMount);
+                        }}
+                        onKeyDown={() => {
+                            // switchReviewIdx("left");
+                        }}
+                    />
+                )}
                 <div className="reviewBox">
                     {reviews.map((review, idx) => {
                         return (
@@ -267,19 +245,20 @@ export default function Reviews() {
                         );
                     })}
                 </div>
-
-                <span
-                    className="arrow-right"
-                    role="button"
-                    aria-label="Change review"
-                    tabIndex={0}
-                    onClick={() => {
-                        setAnimation(false);
-                        setDirection("right");
-                        setMount(!isMount);
-                    }}
-                    onKeyDown={() => {}}
-                />
+                {isPhone && (
+                    <span
+                        className="arrow-right"
+                        role="button"
+                        aria-label="Change review"
+                        tabIndex={0}
+                        onClick={() => {
+                            setAnimation(false);
+                            setDirection("right");
+                            setMount(!isMount);
+                        }}
+                        onKeyDown={() => {}}
+                    />
+                )}
             </div>
             <div className="review-tracker">
                 {/* TODO: Add setTimout to rotate reviews */}

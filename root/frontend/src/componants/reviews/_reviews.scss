@@ -1,4 +1,5 @@
 @import "../../abstracts/variables";
+@import "../../abstracts/mixins";
 
 @font-face {
     font-family: Merriweather;
@@ -11,46 +12,70 @@
 .reviews-container {
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    height: 50rem;
-    margin-top: 7rem;
+    // height: 50rem;
+    margin: 10rem 0 10rem;
+    // max-width: 90%;
     // margin-bottom: 3rem;
 
     .arrow-left,
     .arrow-right {
-        height: 4rem;
-        width: 4rem;
+        &::before {
+            content: "";
 
-        background-image: linear-gradient(to bottom right, #6981d1, #12107a);
-        mask-image: url("../../assets/svgs/big-arrow.svg");
-        mask-size: cover;
+            display: block;
 
-        cursor: pointer;
-        &:hover {
+            height: 4rem;
+            width: 4rem;
+
             background-image: linear-gradient(
                 to bottom right,
-                #273e88,
+                #6981d1,
                 #12107a
             );
+            mask-image: url("../../assets/svgs/big-arrow.svg");
+            mask-size: cover;
+
+            cursor: pointer;
+            &:hover {
+                background-image: linear-gradient(
+                    to bottom right,
+                    #273e88,
+                    #12107a
+                );
+            }
         }
     }
 
     .arrow-left {
-        margin-right: 15rem;
         transform: rotate(90deg);
     }
 
     .arrow-right {
-        margin-left: 15rem;
         transform: rotate(-90deg);
     }
 }
 
 .reviewBox {
-    display: flex;
-    justify-content: space-around;
-    width: 80rem;
+    display: grid;
+    // justify-content: space-around;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 5rem;
+    max-width: 80rem;
+    margin: 0 14rem;
+
+    @include respond(tab-port) {
+        margin: 0 10rem;
+    }
+
+    @include respond(phone) {
+        margin: 0;
+    }
+
+    @media only screen and (max-width: 47em) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .review {
@@ -61,7 +86,7 @@
 
     transition: all 0.4s;
 
-    width: 30rem;
+    max-width: 30rem;
     background-color: RGBA(255, 255, 255, 0.322);
 
     box-shadow: var(--shadow-light);

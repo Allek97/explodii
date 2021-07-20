@@ -3,26 +3,26 @@
 import React from "react";
 // import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import styled from "styled-components";
 
 // Componants
 import PopCards from "../../componants/cards/Card";
 import Reviews from "../../componants/reviews/Reviews";
 import Reservation from "../../componants/reservation/Reservation";
 import Footer from "../../componants/footer/Footer";
+import NavBar from "./NavBar";
 // import Globe from "../globe/Globe";
 import RotatingText from "../../componants/rotatingText/RotatingText";
 import Loading from "../../componants/loading/PageLoading";
+import { HeroSection } from "./HomePageStyles";
 // import Earth from "../earth/Earth";
 
 // IMAGES
 // import BirdLogo from "../../assets/img/home/bird-logo.png";
-import Nat1 from "../../assets/img/tours/tour-5-1-450x300.jpg";
-import Nat2 from "../../assets/img/tours/tour-3-2-450x300.jpg";
-import Nat3 from "../../assets/img/tours/tour-9-3-450x300.jpg";
+import Nat1 from "../../assets/img/tours/tour-5-1-900x600.jpg";
+import Nat2 from "../../assets/img/tours/tour-3-2-900x600.jpg";
+import Nat3 from "../../assets/img/tours/tour-9-3-900x600.jpg";
 // SVGS
-import { ReactComponent as HeroSvg } from "../../assets/svgs/adventure-homepage-3.svg";
+import { ReactComponent as HeroSvg } from "../../assets/svgs/hero-globe.svg";
 // VIDEOS
 // import BgVideo from "../../assets/videos/cosmos.mp4";
 // SCSS
@@ -31,145 +31,35 @@ import "../../componants/reusable/_button.scss";
 import "../../base/_typography.scss";
 import "../../componants/reusable/_navBar.scss";
 
-// Styling
-const photoStyle = {
-    width: "3.8rem",
-    borderRadius: "18px",
-};
-
-export const ProfileBtn = styled.a`
-    &,
-    &:link,
-    &:visited {
-        display: flex;
-        align-items: center;
-
-        transition: all 0.2s;
-        box-shadow: 1px 1px 32px 0 rgb(41 99 221 / 50%);
-
-        height: 3.8rem;
-        /* width: 3.8rem; */
-
-        border-radius: 18px;
-
-        background-color: #1a5ef3;
-        overflow: hidden;
-
-        text-decoration: none;
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    img {
-        background-color: #3be5dd;
-    }
-
-    &:hover {
-        filter: brightness(1.1);
-    }
-`;
-
-const HeroSection = styled.section`
-    /* height: 100%; */
-    display: grid;
-    align-items: center;
-    grid-template-columns: repeat(12, 1fr);
-`;
-
 export default function HomePage(props) {
     // Props
     const { authStatus, userName, userPhoto } = props;
-
-    // Styling
-    const userImg = (photo) => {
-        return `${process.env.REACT_APP_URL}/api/v1/users/images/${photo}`;
-    };
-
-    const handleLogOut = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.get(
-                `${process.env.REACT_APP_URL}/api/v1/users/logout`,
-                {
-                    withCredentials: true,
-                }
-            );
-            window.location.assign("/");
-        } catch (err) {
-            console.log(err.response.data.message);
-        }
-    };
 
     return (
         <>
             <Loading />
             <header className="header">
-                <div className="navBar navBar--homepage">
-                    <div className="navBar__logo-box">
-                        <div className="navBar__logo navBar__logo--homepage">
-                            {}
-                        </div>
-                        <div className="navBar__logo-text navBar__logo-text--homepage">
-                            explodii
-                        </div>
-                    </div>
-                    {!authStatus ? (
-                        <a href="/login" className="navBar__btn">
-                            Log In
-                        </a>
-                    ) : (
-                        <a
-                            href="/"
-                            className="navBar__btn navBar__btn--log-out"
-                            onClick={handleLogOut}
-                            style={{
-                                padding: "0.8rem 4rem",
-                                paddingRight: "2.6rem",
-                            }}
-                        >
-                            Log Out
-                        </a>
-                    )}
-                    {!authStatus ? (
-                        <a href="/signup" className="navBar__btn">
-                            Sign Up
-                        </a>
-                    ) : (
-                        <ProfileBtn href="/account">
-                            {/* <div style={profileStyle(userPhoto)}>{}</div> */}
-                            <img
-                                src={userImg(userPhoto)}
-                                alt="profile"
-                                style={photoStyle}
-                            />
-                            <span
-                                style={{
-                                    padding: "0 2rem",
-                                    paddingLeft: "1.2rem",
-                                    minWidth: "6rem",
-                                }}
-                            >{`${userName}`}</span>
-                        </ProfileBtn>
-                    )}
-                </div>
+                <NavBar
+                    authStatus={authStatus}
+                    userName={userName}
+                    userPhoto={userPhoto}
+                />
 
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 {/* <svg>{Earth()}</svg> */}
 
                 <HeroSection>
-                    <div className="header__headings">
+                    <article className="header__headings">
                         <h1 className="header__heading-primary">
                             Discover New Places,Meet New People and Travel.
                         </h1>
 
-                        <RotatingText className="header__heading-secondary" />
+                        <RotatingText />
 
                         <a href="/excursions" className="header__btn">
                             See our excursions
                         </a>
-                    </div>
+                    </article>
 
                     <HeroSvg className="header__bgimg" />
                 </HeroSection>
@@ -180,7 +70,7 @@ export default function HomePage(props) {
             <main>
                 <section className="section-about">
                     <h2 className=" heading-primary heading-about">
-                        Profound experciences are awaiting you
+                        Profound experiences are awaiting you
                         {/* , reconnect with
                         nature */}
                     </h2>
@@ -194,7 +84,7 @@ export default function HomePage(props) {
                             elit. Nihil iure cum molestias animi magni quisquam
                             at voluptas sint, sunt, ut accusamus. Excepturi
                             saepe facilis porro laboriosam, reiciendis
-                            necessitatibus voluptates neque
+                            necessitatibus voluptates neque.
                         </p>
                         <h3 className="aboutbox__heading-2">
                             Deeply reconnect with nature
@@ -234,59 +124,73 @@ export default function HomePage(props) {
                 </section>
 
                 <section className="section-features">
-                    <div className="features">
-                        {/* <svg>
+                    <div className="feature-box">
+                        <div className="features">
+                            {/* <svg>
                                 <use
                                     href={`${Sprite}#icon-world`}
                                     className="features__icon features__icon--1"
                                 />
                             </svg> using svg sprite in jsx*/}
-                        <i className="features__icon features__icon--1">{}</i>
-                        <h1 className="features__heading">
-                            Travel in the wilderness
-                        </h1>
-                        <p className="features__text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Dicta maiores ducimus consequatur delectus
-                            alias voluptatibus. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit.
-                        </p>
-                    </div>
-                    <div className="features">
-                        <i className="features__icon features__icon--2">{}</i>
-                        <h1 className="features__heading">
-                            Discover the world
-                        </h1>
-                        <p className="features__text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Dicta maiores ducimus consequatur delectus
-                            alias voluptatibus. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit.
-                        </p>
-                    </div>
-                    <div className="features">
-                        <i className="features__icon features__icon--3">{}</i>
-                        <h1 className="features__heading">
-                            Travel to new places
-                        </h1>
-                        <p className="features__text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Dicta maiores ducimus consequatur delectus
-                            alias voluptatibus. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit.
-                        </p>
-                    </div>
-                    <div className="features">
-                        <i className="features__icon features__icon--4">{}</i>
-                        <h1 className="features__heading">
-                            Reconnect with nature
-                        </h1>
-                        <p className="features__text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Dicta maiores ducimus consequatur delectus
-                            alias voluptatibus. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit.
-                        </p>
+                            <i className="features__icon features__icon--1">
+                                {}
+                            </i>
+                            <h1 className="features__heading">
+                                Travel in the wilderness
+                            </h1>
+                            <p className="features__text">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Dicta maiores ducimus
+                                consequatur delectus alias voluptatibus. Lorem
+                                ipsum dolor sit amet consectetur adipisicing
+                                elit.
+                            </p>
+                        </div>
+                        <div className="features">
+                            <i className="features__icon features__icon--2">
+                                {}
+                            </i>
+                            <h1 className="features__heading">
+                                Discover the world
+                            </h1>
+                            <p className="features__text">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Dicta maiores ducimus
+                                consequatur delectus alias voluptatibus. Lorem
+                                ipsum dolor sit amet consectetur adipisicing
+                                elit.
+                            </p>
+                        </div>
+                        <div className="features">
+                            <i className="features__icon features__icon--3">
+                                {}
+                            </i>
+                            <h1 className="features__heading">
+                                Travel to new places
+                            </h1>
+                            <p className="features__text">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Dicta maiores ducimus
+                                consequatur delectus alias voluptatibus. Lorem
+                                ipsum dolor sit amet consectetur adipisicing
+                                elit.
+                            </p>
+                        </div>
+                        <div className="features">
+                            <i className="features__icon features__icon--4">
+                                {}
+                            </i>
+                            <h1 className="features__heading">
+                                Reconnect with nature
+                            </h1>
+                            <p className="features__text">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Dicta maiores ducimus
+                                consequatur delectus alias voluptatibus. Lorem
+                                ipsum dolor sit amet consectetur adipisicing
+                                elit.
+                            </p>
+                        </div>
                     </div>
                 </section>
 

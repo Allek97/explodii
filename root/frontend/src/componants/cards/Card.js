@@ -50,7 +50,8 @@ export default function PopCards() {
         };
     };
 
-    const shadowBox = { boxShadow: "0 2.5rem 4rem rgba(0, 0, 0, 0.5)" };
+    const shadowBoxStrong = { boxShadow: "0 2rem 8rem rgba(0, 0, 0, 1)" };
+    const shadowBoxLight = { boxShadow: "0 2rem 4rem rgba(0, 0, 0, 0.5)" };
 
     // NOTE: for the cards to a top 3, the most popular in front with intense box shadow
 
@@ -64,8 +65,8 @@ export default function PopCards() {
                         className="cardbox__container"
                     >
                         <div
-                            style={idx === 1 ? shadowBox : null}
                             className="cardbox__side cardbox__side--front"
+                            style={idx === 1 ? shadowBoxStrong : shadowBoxLight}
                         >
                             <div
                                 className="cardbox__picture"
@@ -85,7 +86,10 @@ export default function PopCards() {
                                     <li>{`${excursion.duration} day excursion`}</li>
                                     <li>{`Up to ${excursion.maxGroupSize} people`}</li>
                                     <li>{`${excursion.guides.length} tour guides`}</li>
-                                    <li>{`Starting location: ${excursion.startLocation.description}`}</li>
+                                    <li style={{ whiteSpace: "pre-line" }}>
+                                        {`Starting location : \n`}
+                                        {excursion.startLocation.description}
+                                    </li>
                                     {/* <li>{`Ratings: ${excursion.ratingsAverage}/5`}</li> */}
                                     {/* <li>{`Ratings:`}</li> */}
                                     <ul className="starbox">
@@ -110,7 +114,10 @@ export default function PopCards() {
                                 </ul>
                             </div>
                         </div>
-                        <div className="cardbox__side cardbox__side--back cardbox__side--back">
+                        <div
+                            className="cardbox__side cardbox__side--back cardbox__side--back "
+                            style={idx === 1 ? shadowBoxStrong : shadowBoxLight}
+                        >
                             <div className="cardbox__cta">
                                 <div className="cardbox__price-box">
                                     <p className="cardbox__price-only">Only</p>
