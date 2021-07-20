@@ -559,17 +559,17 @@
 // SECTION RESERVATION
 
 .section-reservation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 15rem 0;
+    padding: 15rem 5rem;
 
     background-image: linear-gradient(
         to right bottom,
         RGBA(var(--color-primary-light), 0.95),
         RGBA(var(--color-primary-dark), 0.95)
     );
+
+    @include respond(tab-port) {
+        padding: 15rem 3rem;
+    }
 }
 
 // .globe {

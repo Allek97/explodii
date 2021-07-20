@@ -9,6 +9,7 @@ import ExcursionFilter from "./excursionFilter/ExcursionFilter";
 import ExcursionSort from "./ExcursionSort";
 import { ProfileBtn, TourBox } from "./ExcursionStyledComponants";
 import Decoration from "./ExcursionDecoration";
+import Footer from "../../componants/footer/Footer";
 
 import "./_excursion.scss";
 import "../../componants/reusable/_navBar.scss";
@@ -183,91 +184,8 @@ export default function Excursions(props) {
                                     <Decoration />
                                 </div>
                             </main>
-
-                            <footer
-                                className="footer"
-                                style={{
-                                    position: "absolute",
-                                    left: "0",
-                                    marginTop: "5rem",
-                                    width: "100%",
-                                }}
-                            >
-                                <div className="footer__logobox">
-                                    <div className="footer__logo">{}</div>
-                                    <h1 className="footer__logo-heading">
-                                        Explodii
-                                    </h1>
-                                </div>
-                                <div className="footer__content">
-                                    <div className="footer__navigation">
-                                        <a href="/" className="footer__btn">
-                                            About Us
-                                        </a>
-                                        <a href="/" className="footer__btn">
-                                            Careers
-                                        </a>
-                                        <a href="/" className="footer__btn">
-                                            Events
-                                        </a>
-                                        <a href="/" className="footer__btn">
-                                            Contact Us
-                                        </a>
-                                        <a href="/" className="footer__btn">
-                                            Privacy Policy
-                                        </a>
-                                        <a href="/" className="footer__btn">
-                                            Terms Of Use
-                                        </a>
-                                    </div>
-                                    <div className="footer__copyright">
-                                        &copy; 2021 by{" "}
-                                        <a
-                                            href="/"
-                                            className="footer__btn"
-                                            style={{
-                                                textTransform: "none",
-                                            }}
-                                        >
-                                            Ilias Allek
-                                        </a>
-                                        . All rights reserved.
-                                    </div>
-                                    <div className="footer__media">
-                                        <a
-                                            href="/"
-                                            className="footer__media--1"
-                                        >
-                                            {}
-                                        </a>
-                                        <a
-                                            href="/"
-                                            className="footer__media--2"
-                                        >
-                                            {}
-                                        </a>
-                                        <a
-                                            href="/"
-                                            className="footer__media--3"
-                                        >
-                                            {}
-                                        </a>
-                                        <a
-                                            href="/"
-                                            className="footer__media--4"
-                                        >
-                                            {}
-                                        </a>
-                                        <a
-                                            href="/"
-                                            className="footer__media--5"
-                                        >
-                                            {}
-                                        </a>
-                                    </div>
-                                </div>
-                            </footer>
                         </div>
+                        <Footer />
                     </div>
                 </>
             )}

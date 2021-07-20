@@ -1,3 +1,5 @@
+@import "../../abstracts/mixins";
+
 @font-face {
     font-family: Lato;
     src: url("../../assets/fonts/Lato-Regular.ttf");
@@ -5,7 +7,8 @@
 
 .reservation {
     align-self: flex-start;
-    width: 75%;
+    max-width: 142rem;
+    margin: 0 auto;
     box-shadow: var(--shadow-dark);
 
     background-image: linear-gradient(
@@ -17,24 +20,58 @@
         url(../../assets/img/home/reservation-cover-1500x750.jpg);
     background-size: cover;
     background-position: 0% 50%;
+
+    @include respond(tab-land) {
+        background-image: linear-gradient(
+                105deg,
+                RGBA(255, 255, 255, 0.9) 0%,
+                RGBA(255, 255, 255, 0.9) 57%,
+                transparent 57%
+            ),
+            url(../../assets/img/home/reservation-cover-1500x750.jpg);
+    }
+
+    @include respond(tab-port) {
+        max-width: 50rem;
+
+        background-image: linear-gradient(
+                105deg,
+                RGBA(255, 255, 255, 0.9) 0%,
+                RGBA(255, 255, 255, 0.9) 100%,
+                transparent 100%
+            ),
+            url(../../assets/img/home/reservation-cover-1500x750.jpg);
+    }
 }
 
 .form {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
 
     padding: 7.2rem;
-    width: max-content;
+    width: 50%;
+
+    @include respond(tab-land) {
+        width: 60%;
+    }
+
+    @include respond(tab-port) {
+        padding: 5rem;
+        width: 100%;
+    }
+
+    @include respond(phone) {
+        padding: 4rem;
+    }
 
     &__input {
         display: block;
         transition: all 0.3s;
 
-        width: 50rem;
         padding: 1.8rem 2rem;
         margin-bottom: 5rem;
+        width: 100%;
 
         background-color: RGBA(white, 0.75);
 
@@ -64,6 +101,15 @@
 
     &__label {
         position: relative;
+        width: 90%;
+
+        @include respond(tab-land) {
+            width: 95%;
+        }
+
+        @include respond(tab-port) {
+            width: 100%;
+        }
     }
 
     &__label-text {
@@ -89,10 +135,17 @@
     }
 
     &__heading {
-        font-size: 2.7rem !important;
-        letter-spacing: 5px !important;
-
+        // align-self: flex-start;
         margin-bottom: 5rem;
+        width: auto;
+        height: auto;
+
+        font-size: 2.7rem !important;
+        letter-spacing: 4px !important;
+
+        @include respond(phone) {
+            font-size: 2.2rem !important;
+        }
     }
 
     &__btn {
@@ -109,6 +162,14 @@
 
         &::after {
             border-radius: 10rem !important;
+        }
+
+        @include respond(tab-port) {
+            font-size: 1.8rem !important;
+        }
+
+        @include respond(phone) {
+            font-size: 1.5rem !important;
         }
     }
 

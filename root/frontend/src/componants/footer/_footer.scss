@@ -1,10 +1,16 @@
-.footer {
-    display: flex;
-    flex-direction: column;
+@import "../../abstracts/_mixins";
 
+.footer {
+    display: block;
     background-image: linear-gradient(76deg, #020f1f, #0f0d2e);
 
-    height: 50rem;
+    padding: 0 5rem;
+
+    @include respond(tab-port) {
+        padding: 0 3rem;
+    }
+
+    // height: 50rem;
 
     &__logobox {
         position: relative;
@@ -13,57 +19,80 @@
         flex-direction: column;
         align-items: center;
 
-        margin-top: 10rem;
-        margin-bottom: -5rem;
+        padding: 10rem 0;
     }
     &__logo {
         height: 15rem;
         width: 15rem;
 
-        background-image: linear-gradient(
-            to bottom right,
-            RGBA(var(--color-primary-dark)),
-            RGBA(var(--color-primary-light))
-        );
+        // background-image: linear-gradient(
+        //     to bottom left,
+        //     RGBA(var(--color-primary-light)) 10%,
+        //     RGBA(var(--color-primary-dark)) 90%
+        // );
+        background-color: white;
         mask-image: url("../../assets/img/home/mountain.png");
         mask-size: cover;
     }
 
     &__logo-heading {
-        // position: absolute;
-        // top: 9rem;
-        // left: 2rem;
+        // background-image: linear-gradient(
+        //     to bottom left,
+        //     RGBA(var(--color-primary-light)),
+        //     RGBA(var(--color-primary-light))
+        // );
 
-        // margin-top: -8rem;
+        margin-top: -2rem;
 
-        background-image: linear-gradient(
-            to bottom right,
-            RGBA(var(--color-primary-light)),
-            RGBA(var(--color-primary-dark))
-        );
+        background-color: white;
         -webkit-background-clip: text;
         color: transparent;
 
-        font-size: 2.8rem;
+        font-size: 3rem;
         letter-spacing: 0.2rem;
     }
 
     &__content {
         display: flex;
         // justify-content: space-around;
-        align-items: center;
-        margin-top: 15rem;
+
+        padding-bottom: 8rem;
+
+        color: white;
+        font-size: 1.6rem;
+
+        @include respond(tab-port) {
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+
+            justify-items: center;
+            gap: 5rem;
+
+            max-width: 50rem;
+            margin: 0 auto;
+        }
     }
 
     &__navigation {
         display: inline-block;
-        border-top: 1px solid RGBA(var(--color-grey-dark));
-        margin-right: 30rem;
-        margin-left: 10rem;
+
+        margin-right: 21rem;
         padding-top: 2rem;
+
+        border-top: 1px solid RGBA(var(--color-grey-dark));
+        text-align: center;
+
+        @include respond(tab-land) {
+            margin-right: 10rem;
+        }
+
+        @include respond(tab-port) {
+            margin-right: 0;
+        }
     }
 
     &__btn {
+        &,
         &:link,
         &:visited {
             display: inline-block;
@@ -79,7 +108,6 @@
             // background-color: #020f1f;
 
             text-decoration: none;
-            font-size: 1.7rem;
             text-transform: uppercase;
         }
 
@@ -94,10 +122,12 @@
     &__copyright {
         border-top: 1px solid RGBA(var(--color-grey-dark));
         padding-top: 2rem;
-        margin-right: 12rem;
+        margin-right: 10rem;
+        text-align: center;
 
-        color: white;
-        font-size: 1.7rem;
+        @include respond(tab-port) {
+            margin-right: 0;
+        }
     }
 
     &__media {
@@ -115,8 +145,8 @@
             &:visited {
                 transition: all 0.2s;
 
-                height: 2.5rem;
-                width: 2.5rem;
+                height: 2.2rem;
+                width: 2.2rem;
                 &:not(:last-child) {
                     margin-right: 2rem;
                 }
