@@ -9,7 +9,7 @@ import PopCards from "../../componants/cards/Card";
 import Reviews from "../../componants/reviews/Reviews";
 import Reservation from "../../componants/reservation/Reservation";
 import Footer from "../../componants/footer/Footer";
-import NavBar from "./NavBar";
+import NavBar from "./HomeNavBar";
 // import Globe from "../globe/Globe";
 import RotatingText from "../../componants/rotatingText/RotatingText";
 import Loading from "../../componants/loading/PageLoading";

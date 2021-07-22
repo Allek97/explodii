@@ -3,22 +3,20 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+import { IoColorFilterOutline } from "react-icons/io5";
 
 import Loading from "../../componants/loading/PageLoading";
 import ExcursionFilter from "./excursionFilter/ExcursionFilter";
-import ExcursionSort from "./ExcursionSort";
-import { ProfileBtn, TourBox } from "./ExcursionStyledComponants";
-import Decoration from "./ExcursionDecoration";
+import ExcursionSort from "./excursionSort/ExcursionSort";
+import TourBox from "./tourBox/TourBox";
+import Decoration from "./otherComponents/ExcursionDecoration";
 import Footer from "../../componants/footer/Footer";
+import NavBar from "./otherComponents/ExcursionNavBar";
+import { ExcursionInfoSort, FilterBtn } from "./ExcursionStyles";
 
 import "./_excursion.scss";
 import "../../componants/reusable/_navBar.scss";
-import "../../assets/fonts/_global-fonts.scss";
-
-const photoStyle = {
-    width: "3.8rem",
-    borderRadius: "18px",
-};
 
 export default function Excursions(props) {
     // props
@@ -29,11 +27,9 @@ export default function Excursions(props) {
     const [sortField, setSortField] = useState("");
     const [isApiConsumed, setIsApiConsumed] = useState(false);
     const [animationLoad, setAnimationLoad] = useState(false);
-
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     // variables
-    const userImg = (photo) => {
-        return `${process.env.REACT_APP_URL}/api/v1/users/images/${photo}`;
-    };
+    const isTablet = useMediaQuery({ query: "(max-width: 75em )" });
 
     useEffect(() => {
         async function fetchApi() {
@@ -77,56 +73,18 @@ export default function Excursions(props) {
                                     ? {
                                           filter: "blur(5px)",
                                           pointerEvents: "none",
-                                          overflow: "hidden",
                                       }
-                                    : { overflow: "hidden" }
+                                    : null
                             }
                         >
-                            <div className="navBar">
-                                <div className="navBar__logo-box">
-                                    <div className="navBar__logo">{}</div>
-                                    <div className="navBar__logo-text">
-                                        explodii
-                                    </div>
-                                </div>
-                                <a href="/" className="navBar__btn">
-                                    HomePage
-                                </a>
-                                {!authStatus && (
-                                    <a href="/login" className="navBar__btn">
-                                        Log In
-                                    </a>
-                                )}
-                                {!authStatus ? (
-                                    <a href="/signup" className="navBar__btn">
-                                        Sign Up
-                                    </a>
-                                ) : (
-                                    <ProfileBtn href="/account">
-                                        {/* <div style={profileStyle(userPhoto)}>{}</div> */}
-                                        <img
-                                            src={userImg(userPhoto)}
-                                            alt="profile"
-                                            style={photoStyle}
-                                        />
-                                        <span
-                                            style={{
-                                                padding: "0 2rem",
-                                                paddingLeft: "1.2rem",
-                                                minWidth: "6rem",
-                                            }}
-                                        >{`${userName}`}</span>
-                                    </ProfileBtn>
-                                )}
-                            </div>
+                            <NavBar
+                                authStatus={authStatus}
+                                userName={userName}
+                                userPhoto={userPhoto}
+                            />
 
-                            <main
-                                style={{
-                                    display: "flex",
-                                    marginTop: "8rem",
-                                }}
-                            >
-                                <div style={{ marginRight: "5rem" }}>
+                            <main className="excursion-main">
+                                <div className="excursion-main__filter">
                                     <ExcursionFilter
                                         setExcursions={setExcursions}
                                         setNbResults={setNbResults}
@@ -135,31 +93,30 @@ export default function Excursions(props) {
                                     />
                                 </div>
 
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        width: "99rem",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            margin: "1rem 2rem 2rem 1rem",
-                                            color: "#55575b",
-                                            fontSize: "1.4rem",
-                                            fontFamily: "Poppins, sans-serif",
-                                            fontWeight: "300",
-                                        }}
-                                    >
-                                        <span style={{ marginRight: "auto" }}>
-                                            {nbResults} results
-                                        </span>
+                                <div className="excursion-main__content">
+                                    <ExcursionInfoSort>
+                                        <span>{nbResults} results</span>
+                                        {isTablet && (
+                                            <FilterBtn
+                                                onClick={() => {
+                                                    setIsFilterOpen(true);
+                                                }}
+                                            >
+                                                <IoColorFilterOutline
+                                                    style={{
+                                                        width: "1.7rem",
+                                                        height: "1.7rem",
+                                                        marginRight: "3px",
+                                                    }}
+                                                />
+                                                <span>Filters</span>
+                                            </FilterBtn>
+                                        )}
                                         <ExcursionSort
                                             setExcursions={setExcursions}
                                             setSortField={setSortField}
                                         />
-                                    </div>
+                                    </ExcursionInfoSort>
                                     {excursions.map((el) => {
                                         return (
                                             <TourBox
@@ -171,18 +128,8 @@ export default function Excursions(props) {
                                         );
                                     })}
                                 </div>
-                                <div
-                                    style={{
-                                        position: "absolute",
-                                        left: "0",
-                                        top: "45rem",
-                                        zIndex: "-1",
-                                        width: "100%",
-                                        height: "35rem",
-                                    }}
-                                >
-                                    <Decoration />
-                                </div>
+
+                                <Decoration />
                             </main>
                         </div>
                         <Footer />

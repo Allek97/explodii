@@ -1,8 +1,24 @@
+@import "../../abstracts/_mixins";
+
 .excursion {
-    padding: 0 30rem;
+    padding: 0 2rem;
+    overflow: "hidden";
 }
 
-/// navBar
-.navBar {
-    // padding: 0 20rem;
+.excursion-main {
+    display: flex;
+    justify-content: center;
+
+    max-width: 140rem;
+    margin: 0 auto;
+    margin-top: 8rem;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @include respond(tab-land) {
+        max-width: 100rem;
+    }
 }

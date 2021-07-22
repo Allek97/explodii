@@ -224,24 +224,16 @@ export default function ExcursionFilter(props) {
     ]);
 
     return (
-        <div
-            style={{
-                display: "block",
-                color: " rgb(41, 43, 46)",
-                border: "1px solid rgb(229, 229, 229)",
-                borderRadius: "4px",
-                boxShadow: "0px 0px 2rem rgb(0 0 0 / 20%)",
-            }}
-        >
+        <div className="excursion-filter">
             {/*TODO: add another filter field like difficulty or location  */}
-            {/* <FilterSection
-                style={{ paddingBottom: "4rem", backgroundColor: "green" }}
+
+            <FilterSection
+                style={{
+                    paddingBottom: "4rem",
+                    marginTop: "0",
+                    paddingTop: "2.5rem",
+                }}
             >
-                <span style={{ ...filterHeadingStyle, marginBottom: "5rem" }}>
-                    Choose your difficulty
-                </span>
-            </FilterSection> */}
-            <FilterSection style={{ paddingBottom: "4rem" }}>
                 <span style={{ ...filterHeadingStyle, marginBottom: "5rem" }}>
                     Price
                 </span>
@@ -350,7 +342,7 @@ export default function ExcursionFilter(props) {
                 ))}
             </FilterSection>
             {authStatus && (
-                <div style={{ margin: "2.5rem" }}>
+                <div style={{ padding: "0 2.5rem 2.5rem 2.5rem" }}>
                     <a
                         href="/"
                         className="navBar__btn navBar__btn--log-out brightness"
