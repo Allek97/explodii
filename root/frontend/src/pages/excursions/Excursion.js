@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
 import { IoColorFilterOutline } from "react-icons/io5";
+import { BsFilterRight } from "react-icons/bs";
 
 import Loading from "../../componants/loading/PageLoading";
 import ExcursionFilter from "./excursionFilter/ExcursionFilter";
@@ -14,6 +15,8 @@ import Decoration from "./otherComponents/ExcursionDecoration";
 import Footer from "../../componants/footer/Footer";
 import NavBar from "./otherComponents/ExcursionNavBar";
 import { ExcursionInfoSort, FilterBtn } from "./ExcursionStyles";
+
+import { ReactComponent as FilterSvg } from "../../assets/svgs/filter.svg";
 
 import "./_excursion.scss";
 import "../../componants/reusable/_navBar.scss";
@@ -28,8 +31,9 @@ export default function Excursions(props) {
     const [isApiConsumed, setIsApiConsumed] = useState(false);
     const [animationLoad, setAnimationLoad] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [isFilterApplied, setIsFilterApplied] = useState(false);
     // variables
-    const isTablet = useMediaQuery({ query: "(max-width: 75em )" });
+    const isTabLand = useMediaQuery({ query: "(max-width: 75em )" });
 
     useEffect(() => {
         async function fetchApi() {
@@ -60,23 +64,29 @@ export default function Excursions(props) {
         };
     }, []);
 
+    useEffect(() => {
+        if (!isTabLand) {
+            setIsFilterOpen(false);
+        }
+    }, [isTabLand]);
+
     return (
         <>
             {isApiConsumed && (
                 <>
                     <Loading loadingTime={500} />
+                    {/* {isTabLand && (
+                        <ExcursionFilter
+                            setExcursions={setExcursions}
+                            setNbResults={setNbResults}
+                            sortField={sortField}
+                            authStatus={authStatus}
+                            isFilterOpen={isFilterOpen}
+                            setIsFilterOpen={setIsFilterOpen}
+                        />
+                    )} */}
                     <div>
-                        <div
-                            className="excursion"
-                            style={
-                                paymentStatus
-                                    ? {
-                                          filter: "blur(5px)",
-                                          pointerEvents: "none",
-                                      }
-                                    : null
-                            }
-                        >
+                        <div className="excursion">
                             <NavBar
                                 authStatus={authStatus}
                                 userName={userName}
@@ -84,29 +94,49 @@ export default function Excursions(props) {
                             />
 
                             <main className="excursion-main">
-                                <div className="excursion-main__filter">
-                                    <ExcursionFilter
-                                        setExcursions={setExcursions}
-                                        setNbResults={setNbResults}
-                                        sortField={sortField}
-                                        authStatus={authStatus}
-                                    />
-                                </div>
+                                <ExcursionFilter
+                                    setExcursions={setExcursions}
+                                    setNbResults={setNbResults}
+                                    sortField={sortField}
+                                    authStatus={authStatus}
+                                    isFilterOpen={isFilterOpen}
+                                    setIsFilterOpen={setIsFilterOpen}
+                                    setIsFilterApplied={setIsFilterApplied}
+                                />
 
-                                <div className="excursion-main__content">
+                                <div
+                                    className="excursion-main__content"
+                                    style={
+                                        isFilterOpen
+                                            ? {
+                                                  filter: "grayscale(1)",
+                                                  pointerEvents: "none",
+                                              }
+                                            : null
+                                    }
+                                >
                                     <ExcursionInfoSort>
                                         <span>{nbResults} results</span>
-                                        {isTablet && (
+                                        {isTabLand && (
                                             <FilterBtn
                                                 onClick={() => {
                                                     setIsFilterOpen(true);
                                                 }}
+                                                style={
+                                                    isFilterApplied
+                                                        ? {
+                                                              backgroundColor:
+                                                                  "#7b7e84",
+                                                              color: "white",
+                                                          }
+                                                        : null
+                                                }
                                             >
-                                                <IoColorFilterOutline
+                                                <BsFilterRight
                                                     style={{
-                                                        width: "1.7rem",
-                                                        height: "1.7rem",
-                                                        marginRight: "3px",
+                                                        width: "1.6rem",
+                                                        height: "1.6rem",
+                                                        marginRight: "4px",
                                                     }}
                                                 />
                                                 <span>Filters</span>
@@ -128,7 +158,6 @@ export default function Excursions(props) {
                                         );
                                     })}
                                 </div>
-
                                 <Decoration />
                             </main>
                         </div>

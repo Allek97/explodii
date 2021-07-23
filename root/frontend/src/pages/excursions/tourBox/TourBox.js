@@ -44,7 +44,6 @@ const TourBox = (props) => {
     // eslint-disable-next-line no-nested-ternary
 
     const textLength = () => {
-        console.log(isBroken1, isBroken2, isBroken3);
         if (isBroken3) {
             return 250;
         }

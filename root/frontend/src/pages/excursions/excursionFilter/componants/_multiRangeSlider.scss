@@ -6,16 +6,20 @@
     'embedded-opentype', and 'svg' */
 }
 
-.container {
+.range-container {
     // height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    cursor: pointer;
 }
 
 .slider {
     position: relative;
     width: 25rem;
+
+    cursor: pointer;
 }
 
 .slider__track,

@@ -39,6 +39,7 @@ export const FilterBtn = styled.a`
         text-decoration: none;
         text-align: center;
         font-weight: 400;
+
         color: #2a2d32;
         cursor: pointer;
     }

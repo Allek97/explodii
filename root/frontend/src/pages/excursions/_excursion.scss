@@ -7,15 +7,15 @@
 
 .excursion-main {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
 
     max-width: 140rem;
-    margin: 0 auto;
-    margin-top: 8rem;
+    margin: 8rem auto;
 
     &__content {
         display: flex;
         flex-direction: column;
+        flex: 1;
     }
 
     @include respond(tab-land) {

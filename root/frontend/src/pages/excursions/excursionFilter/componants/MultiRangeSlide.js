@@ -7,6 +7,7 @@ const MultiRangeSlider = ({
     max,
     setPriceRangeLeft,
     setPriceRangeRight,
+    resetRange,
 }) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
@@ -19,6 +20,13 @@ const MultiRangeSlider = ({
         (value) => Math.round(((value - min) / (max - min)) * 100),
         [min, max]
     );
+
+    useEffect(() => {
+        minValRef.current = 300;
+        maxValRef.current = 3000;
+        setMinVal(300);
+        setMaxVal(3000);
+    }, [resetRange]);
 
     // Set width of the range to decrease from the left side
     useEffect(() => {
@@ -41,8 +49,31 @@ const MultiRangeSlider = ({
         }
     }, [maxVal, getPercent]);
 
+    // useEffect(() => {
+    //     const minPercent = getPercent(minValRef.current);
+    //     const maxPercent = getPercent(maxVal);
+
+    //     if (range.current) {
+    //         range.current.style.width = `${maxPercent - minPercent}%`;
+    //     }
+    // }, [priceRangeLeft, priceRangeRight]);
+
+    const updatePrice = (event, position) => {
+        event.preventDefault();
+        if (position === "left") {
+            const value = Math.min(Number(event.target.value), maxVal - 1);
+
+            setPriceRangeLeft(value);
+        }
+
+        if (position === "right") {
+            const value = Math.max(Number(event.target.value), minVal + 1);
+            setPriceRangeRight(value);
+        }
+    };
+
     return (
-        <div className="container">
+        <div className="range-container">
             <input
                 type="range"
                 min={min}
@@ -57,11 +88,10 @@ const MultiRangeSlider = ({
                     minValRef.current = value;
                 }}
                 onMouseUp={(event) => {
-                    const value = Math.min(
-                        Number(event.target.value),
-                        maxVal - 1
-                    );
-                    setPriceRangeLeft(value);
+                    updatePrice(event, "left");
+                }}
+                onTouchEnd={(event) => {
+                    updatePrice(event, "left");
                 }}
                 className="thumb thumb--left"
                 style={{ zIndex: minVal > max - 100 && "5" }}
@@ -80,11 +110,10 @@ const MultiRangeSlider = ({
                     maxValRef.current = value;
                 }}
                 onMouseUp={(event) => {
-                    const value = Math.max(
-                        Number(event.target.value),
-                        minVal + 1
-                    );
-                    setPriceRangeRight(value);
+                    updatePrice(event, "right");
+                }}
+                onTouchEnd={(event) => {
+                    updatePrice(event, "right");
                 }}
                 className="thumb thumb--right"
             />
@@ -104,6 +133,7 @@ MultiRangeSlider.propTypes = {
     max: PropTypes.number.isRequired,
     setPriceRangeLeft: PropTypes.func.isRequired,
     setPriceRangeRight: PropTypes.func.isRequired,
+    resetRange: PropTypes.bool.isRequired,
 };
 
 export default MultiRangeSlider;

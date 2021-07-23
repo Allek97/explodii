@@ -1,13 +1,18 @@
+//NOTE: component hell needs cleaning/re-organizing
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+import { AiOutlineClose } from "react-icons/ai";
 
 import "./_excursionFilter.scss";
 
 import Stars from "../../../componants/reusable/Stars";
 import MultiRangeSlide from "./componants/MultiRangeSlide";
 import Checkbox from "./componants/Checkbox";
+import { BtnLO, Btn } from "../../../globalStyles/NavBarStyles";
 
 const FilterSection = styled.div`
     display: flex;
@@ -35,7 +40,15 @@ const handleLogOut = async (e) => {
 
 export default function ExcursionFilter(props) {
     // props
-    const { setExcursions, setNbResults, authStatus, sortField } = props;
+    const {
+        setExcursions,
+        setNbResults,
+        authStatus,
+        sortField,
+        isFilterOpen,
+        setIsFilterOpen,
+        setIsFilterApplied,
+    } = props;
     // Hooks
     const [durationChecked, setDurationChecked] = useState(
         new Array(5).fill(false)
@@ -51,14 +64,15 @@ export default function ExcursionFilter(props) {
     const [priceRangeLeft, setPriceRangeLeft] = useState(300);
     const [priceRangeRight, setPriceRangeRight] = useState(3000);
 
+    const [resetRange, setResetRange] = useState(false);
+
     // NOTE: filter hooks
     const [durationQueryObject, setDurationQueryObject] = useState([{}]);
     const [participantQueryObject, setParticipantQueryObject] = useState([{}]);
     const [ratingQueryObject, setRatingQueryObject] = useState([{}]);
     const [priceQueryObject, setPriceQueryObject] = useState([{}]);
-    // NOTE: Price hooks
-
-    // let queryObject = [];
+    // responsive hook
+    const isTabLand = useMediaQuery({ query: "(max-width: 75em)" });
 
     // Variables
 
@@ -199,7 +213,7 @@ export default function ExcursionFilter(props) {
 
                 const queryStr = JSON.stringify(query);
 
-                // console.log(queryStr);
+                // console.log(priceQueryObject);
 
                 const res = await axios.get(
                     `${process.env.REACT_APP_URL}/api/v1/tours?q=${queryStr}&sort=${sortField}`,
@@ -223,143 +237,261 @@ export default function ExcursionFilter(props) {
         sortField,
     ]);
 
+    useEffect(() => {
+        if (
+            JSON.stringify(durationQueryObject) === `[{}]` &&
+            JSON.stringify(participantQueryObject) === `[{}]` &&
+            JSON.stringify(ratingQueryObject) === `[{}]` &&
+            (JSON.stringify(priceQueryObject) === `[{}]` ||
+                JSON.stringify(priceQueryObject) ===
+                    JSON.stringify([{ price: { lte: 3000, gte: 300 } }]))
+        ) {
+            setIsFilterApplied(false);
+        } else {
+            setIsFilterApplied(true);
+        }
+    }, [
+        durationQueryObject,
+        participantQueryObject,
+        ratingQueryObject,
+        priceQueryObject,
+        sortField,
+    ]);
+
+    const resetQuery = () => {
+        setDurationChecked(new Array(5).fill(false));
+        setParticipantChecked(new Array(5).fill(false));
+        setRatingChecked(new Array(5).fill(false));
+        setResetRange(!resetRange);
+        setPriceRangeLeft(300);
+        setPriceRangeRight(3000);
+    };
+
     return (
-        <div className="excursion-filter">
-            {/*TODO: add another filter field like difficulty or location  */}
-
-            <FilterSection
-                style={{
-                    paddingBottom: "4rem",
-                    marginTop: "0",
-                    paddingTop: "2.5rem",
-                }}
+        <>
+            <div
+                className="excursion-filter"
+                style={!isTabLand || isFilterOpen ? null : { display: "none" }}
             >
-                <span style={{ ...filterHeadingStyle, marginBottom: "5rem" }}>
-                    Price
-                </span>
-                <MultiRangeSlide
-                    min={300}
-                    max={3000}
-                    setPriceRangeLeft={setPriceRangeLeft}
-                    setPriceRangeRight={setPriceRangeRight}
-                />
-            </FilterSection>
-
-            <FilterSection style={{ paddingBottom: "2rem" }}>
-                <span style={{ ...filterHeadingStyle, marginBottom: "2rem" }}>
-                    Duration
-                </span>
-                {durationFields.map(({ filterContent }, idx) => (
+                {/*TODO: add another filter field like difficulty or location  */}
+                {isTabLand && (
                     <div
-                        key={filterContent}
-                        style={{ display: "flex", marginBottom: "1rem" }}
-                    >
-                        <Checkbox
-                            checked={durationChecked[idx]}
-                            handleCheckboxChange={() =>
-                                handleCheckboxChange(idx, "duration")
-                            }
-                        />
-                        <span
-                            style={{
-                                marginLeft: "1rem",
-                                fontSize: "1.45rem",
-                                color: "#55575b",
-                                fontFamily: "Poppins",
-                                fontWeight: "400",
-                            }}
-                        >
-                            {filterContent}
-                        </span>
-                    </div>
-                ))}
-            </FilterSection>
-
-            <FilterSection style={{ paddingBottom: "2rem" }}>
-                <span style={{ ...filterHeadingStyle, marginBottom: "2rem" }}>
-                    Participants / Max Group Size
-                </span>
-                {participantFields.map(({ filterContent }, idx) => (
-                    <div
-                        key={filterContent}
-                        style={{ display: "flex", marginBottom: "1rem" }}
-                    >
-                        <Checkbox
-                            checked={participantChecked[idx]}
-                            handleCheckboxChange={() =>
-                                handleCheckboxChange(idx, "participant")
-                            }
-                        />
-                        <span
-                            style={{
-                                marginLeft: "1rem",
-                                fontSize: "1.45rem",
-                                color: "#55575b",
-                                fontFamily: "Poppins",
-                                fontWeight: "400",
-                            }}
-                        >
-                            {filterContent}
-                        </span>
-                    </div>
-                ))}
-            </FilterSection>
-
-            <FilterSection style={{ paddingBottom: "2rem" }}>
-                <span style={{ ...filterHeadingStyle, marginBottom: "2rem" }}>
-                    Rating
-                </span>
-                {[5, 4, 3, 2, 1].map((nbStars, idx) => (
-                    <div
-                        key={nbStars}
                         style={{
-                            display: "flex",
-                            marginBottom: "1rem",
-                            alignItems: "center",
+                            padding: "2.5rem",
+                            borderBottom: "1px solid rgb(206, 203, 203)",
                         }}
                     >
-                        <Checkbox
-                            checked={ratingChecked[4 - idx]}
-                            handleCheckboxChange={() =>
-                                handleCheckboxChange(4 - idx, "rating")
-                            }
-                            borderRadius={50}
-                        />
-
-                        <span style={{ margin: "0 5px" }}>
-                            <Stars nbStar={nbStars} starSize={1.9} />
-                        </span>
-                        <span
+                        <div
                             style={{
-                                color: "#55575b",
-                                fontSize: "1.4rem",
-                                fontWeight: "300",
+                                display: "flex",
+                                alignItems: "center",
                             }}
                         >
-                            {nbStars !== 5 && `& up`}
-                        </span>
+                            <span className="excursion-filter__title">
+                                Filters
+                            </span>
+                            <AiOutlineClose
+                                className="excursion-filter__close"
+                                onClick={() => {
+                                    setIsFilterOpen(false);
+                                }}
+                            />
+                        </div>
                     </div>
-                ))}
-            </FilterSection>
-            {authStatus && (
-                <div style={{ padding: "0 2.5rem 2.5rem 2.5rem" }}>
-                    <a
-                        href="/"
-                        className="navBar__btn navBar__btn--log-out brightness"
-                        onClick={handleLogOut}
+                )}
+                <div className="excursion-filter__content">
+                    <FilterSection
                         style={{
-                            padding: "0.8rem 4rem",
-                            paddingRight: "2.6rem",
-                            boxShadow: "none",
-                            backgroundColor:
-                                "rgba(var(--color-primary-dark),1)",
+                            paddingBottom: "4rem",
+                            marginTop: "0",
+                            paddingTop: "2.5rem",
                         }}
                     >
-                        Log Out
-                    </a>
+                        <span
+                            style={{
+                                ...filterHeadingStyle,
+                                marginBottom: "5rem",
+                            }}
+                        >
+                            Price
+                        </span>
+                        <MultiRangeSlide
+                            min={300}
+                            max={3000}
+                            setPriceRangeLeft={setPriceRangeLeft}
+                            setPriceRangeRight={setPriceRangeRight}
+                            resetRange={resetRange}
+                        />
+                    </FilterSection>
+
+                    <FilterSection style={{ paddingBottom: "2rem" }}>
+                        <span
+                            style={{
+                                ...filterHeadingStyle,
+                                marginBottom: "2rem",
+                            }}
+                        >
+                            Duration
+                        </span>
+                        {durationFields.map(({ filterContent }, idx) => (
+                            <div
+                                key={filterContent}
+                                style={{
+                                    display: "flex",
+                                    marginBottom: "1rem",
+                                }}
+                            >
+                                <Checkbox
+                                    checked={durationChecked[idx]}
+                                    handleCheckboxChange={() =>
+                                        handleCheckboxChange(idx, "duration")
+                                    }
+                                />
+                                <span
+                                    style={{
+                                        marginLeft: "1rem",
+                                        fontSize: "1.45rem",
+                                        color: "#55575b",
+                                        fontFamily: "Poppins",
+                                        fontWeight: "400",
+                                    }}
+                                >
+                                    {filterContent}
+                                </span>
+                            </div>
+                        ))}
+                    </FilterSection>
+
+                    <FilterSection style={{ paddingBottom: "2rem" }}>
+                        <span
+                            style={{
+                                ...filterHeadingStyle,
+                                marginBottom: "2rem",
+                            }}
+                        >
+                            Participants / Max Group Size
+                        </span>
+                        {participantFields.map(({ filterContent }, idx) => (
+                            <div
+                                key={filterContent}
+                                style={{
+                                    display: "flex",
+                                    marginBottom: "1rem",
+                                }}
+                            >
+                                <Checkbox
+                                    checked={participantChecked[idx]}
+                                    handleCheckboxChange={() =>
+                                        handleCheckboxChange(idx, "participant")
+                                    }
+                                />
+                                <span
+                                    style={{
+                                        marginLeft: "1rem",
+                                        fontSize: "1.45rem",
+                                        color: "#55575b",
+                                        fontFamily: "Poppins",
+                                        fontWeight: "400",
+                                    }}
+                                >
+                                    {filterContent}
+                                </span>
+                            </div>
+                        ))}
+                    </FilterSection>
+
+                    <FilterSection style={{ paddingBottom: "2rem" }}>
+                        <span
+                            style={{
+                                ...filterHeadingStyle,
+                                marginBottom: "2rem",
+                            }}
+                        >
+                            Rating
+                        </span>
+                        {[5, 4, 3, 2, 1].map((nbStars, idx) => (
+                            <div
+                                key={nbStars}
+                                style={{
+                                    display: "flex",
+                                    marginBottom: "1rem",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Checkbox
+                                    checked={ratingChecked[4 - idx]}
+                                    handleCheckboxChange={() =>
+                                        handleCheckboxChange(4 - idx, "rating")
+                                    }
+                                    borderRadius={50}
+                                />
+
+                                <span style={{ margin: "0 5px" }}>
+                                    <Stars nbStar={nbStars} starSize={1.9} />
+                                </span>
+                                <span
+                                    style={{
+                                        color: "#55575b",
+                                        fontSize: "1.4rem",
+                                        fontWeight: "300",
+                                    }}
+                                >
+                                    {nbStars !== 5 && `& up`}
+                                </span>
+                            </div>
+                        ))}
+                    </FilterSection>
+                    {authStatus && !isTabLand && (
+                        <div style={{ padding: "0 2.5rem 2.5rem 2.5rem" }}>
+                            <BtnLO
+                                href="/"
+                                onClick={handleLogOut}
+                                style={{
+                                    backgroundColor:
+                                        "rgba(var(--color-primary-dark),1)",
+                                }}
+                            >
+                                Log Out
+                            </BtnLO>
+                            <Btn
+                                onClick={() => {
+                                    resetQuery();
+                                }}
+                                style={{
+                                    backgroundColor: "white",
+                                    color: "black",
+                                    border: "1px solid rgba(var(--color-primary-dark), 1)",
+                                    boxShadow: "none",
+                                }}
+                            >
+                                Clear All
+                            </Btn>
+                        </div>
+                    )}
                 </div>
-            )}
-        </div>
+                {isTabLand && (
+                    <>
+                        <div className="excursion-filter__utilities">
+                            <Btn
+                                onClick={() => {
+                                    resetQuery();
+                                }}
+                            >
+                                Clear All
+                            </Btn>
+
+                            <Btn
+                                onClick={() => {
+                                    setIsFilterOpen(false);
+                                }}
+                            >
+                                Apply
+                            </Btn>
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 }
 
@@ -368,4 +500,7 @@ ExcursionFilter.propTypes = {
     setNbResults: PropTypes.func.isRequired,
     authStatus: PropTypes.bool.isRequired,
     sortField: PropTypes.string.isRequired,
+    isFilterOpen: PropTypes.bool.isRequired,
+    setIsFilterOpen: PropTypes.func.isRequired,
+    setIsFilterApplied: PropTypes.func.isRequired,
 };
