@@ -122,7 +122,7 @@
     &__copyright {
         border-top: 1px solid RGBA(var(--color-grey-dark));
         padding-top: 2rem;
-        margin-right: max(10rem, 10vw);
+        margin-right: #{"max(10rem, 10vw)"};
 
         text-align: center;
 

@@ -106,9 +106,10 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                         >
                             <HomeSvg
                                 style={{
-                                    height: "1.6rem",
-                                    width: "1.6rem",
+                                    height: "1.9rem",
+                                    width: "1.9rem",
                                     fill: "white",
+                                    paddingTop: "3px",
                                 }}
                             />
                         </Btn>
