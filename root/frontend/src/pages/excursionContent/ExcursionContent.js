@@ -14,7 +14,7 @@ import ExcursionMap from "./components/excursionMap/ExcursionMap";
 import ExcursionReview from "./components/excursionsReviews/ExcursionReviews";
 import ExcursionBooking from "./components/excursionBooking/ExcursionBooking";
 
-import MenuBtn from "./components/MenuBtn";
+import MenuBtn from "../../componants/menuBtn/MenuBtn";
 import Decoration from "./components/DecorationSection";
 
 // Fonts
@@ -333,6 +333,7 @@ export default function ExcursionContent(props) {
                                 </a>
                             ) : (
                                 <MenuBtn
+                                    page="excursion-content"
                                     isScrolled={isScrolled}
                                     userName={userName}
                                     userPhoto={userPhoto}

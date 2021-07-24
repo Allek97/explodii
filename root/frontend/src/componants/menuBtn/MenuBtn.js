@@ -3,7 +3,11 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
-import useOuterClick from "../../../componants/utils/UseOuterClick";
+import useOuterClick from "../utils/UseOuterClick";
+
+import { ReactComponent as AccountSvg } from "../../assets/svgs/switch_account.svg";
+import { ReactComponent as HomeSvg } from "../../assets/svgs/home.svg";
+import { ReactComponent as LogOutSvg } from "../../assets/svgs/log-out.svg";
 
 const photoStyle = {
     width: "3.8rem",
@@ -145,7 +149,7 @@ export const SideItem = styled.a`
 
     // On ajoute les svgs
 
-    &:after {
+    /* &:after {
         content: "";
 
         position: absolute;
@@ -157,7 +161,7 @@ export const SideItem = styled.a`
         height: 1.7rem;
         width: 1.7rem;
 
-        /* background-image: linear-gradient(76deg, #3be5dd, #05edfe); */
+
         background-image: linear-gradient(
             76deg,
             ${(props) => (props.isScrolled ? "#3be5dd" : "white")},
@@ -166,7 +170,7 @@ export const SideItem = styled.a`
 
         mask-image: url(${(props) => props.svg});
         mask-size: cover;
-        mask-position: center;
+        mask-position: center; */
     }
 `;
 
@@ -183,9 +187,12 @@ export const SideLink = styled.span`
     color: white;
 `;
 
-export default function MenuBtn(props) {
-    //props
-    const { isScrolled, userName, userPhoto } = props;
+export default function ExcursionMenuBtn({
+    page,
+    isScrolled,
+    userName,
+    userPhoto,
+}) {
     // Hooks
     const [isMenu, setMenu] = useState(false);
     // Refs
@@ -200,12 +207,24 @@ export default function MenuBtn(props) {
     // eslint-disable-next-line import/no-dynamic-require
     const userPicture = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
     // svgs
-    const arrowSvg = require("../../../assets/svgs/keyboard_arrow_down.svg")
-        .default;
-    const accountSvg = require("../../../assets/svgs/switch_account.svg")
-        .default;
-    const homeSvg = require("../../../assets/svgs/home.svg").default;
-    const logoutSvg = require("../../../assets/svgs/log-out.svg").default;
+    const arrowSvg =
+        require("../../assets/svgs/keyboard_arrow_down.svg").default;
+    const accountSvg = require("../../assets/svgs/switch_account.svg").default;
+    const homeSvg = require("../../assets/svgs/home.svg").default;
+    const logoutSvg = require("../../assets/svgs/log-out.svg").default;
+
+    const SvgStyle = {
+        position: "absolute",
+        top: "2.1rem",
+        left: "2rem",
+
+        display: "block",
+
+        height: "1.7rem",
+        width: "1.7rem",
+
+        fill: `${isScrolled ? "#3be5dd" : "white"}`,
+    };
 
     const handleLogOut = async (e) => {
         e.preventDefault();
@@ -248,16 +267,25 @@ export default function MenuBtn(props) {
                         isScrolled={isScrolled}
                         href="/account"
                     >
+                        <AccountSvg style={SvgStyle} />
                         <SideLink>Account</SideLink>
                     </SideItem>
-                    <SideItem svg={homeSvg} isScrolled={isScrolled} href="/">
-                        <SideLink>Homepage</SideLink>
-                    </SideItem>
+                    {page === "excursion-content" && (
+                        <SideItem
+                            svg={homeSvg}
+                            isScrolled={isScrolled}
+                            href="/"
+                        >
+                            <HomeSvg style={SvgStyle} />
+                            <SideLink>Homepage</SideLink>
+                        </SideItem>
+                    )}
                     <SideItem
                         svg={logoutSvg}
                         isScrolled={isScrolled}
                         onClick={handleLogOut}
                     >
+                        <LogOutSvg style={SvgStyle} />
                         <SideLink>Logout</SideLink>
                     </SideItem>
                 </SideNav>
@@ -266,8 +294,13 @@ export default function MenuBtn(props) {
     );
 }
 
-MenuBtn.propTypes = {
+ExcursionMenuBtn.propTypes = {
+    page: PropTypes.string,
     isScrolled: PropTypes.bool.isRequired,
     userName: PropTypes.string.isRequired,
     userPhoto: PropTypes.string.isRequired,
+};
+
+ExcursionMenuBtn.defaultProps = {
+    page: "excursion-content",
 };

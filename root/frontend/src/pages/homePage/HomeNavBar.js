@@ -1,8 +1,11 @@
+/* eslint-disable no-constant-condition */
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
+
+import MenuBtn from "../../componants/menuBtn/MenuBtn";
 
 import {
     LogoText,
@@ -47,7 +50,8 @@ const Container = styled.div`
 
     @media only screen and (max-width: 56.25em) {
         max-width: 60rem;
-        padding-right: 5rem;
+        /* padding-right: 11rem; */
+        /* margin: auto; */
     }
 
     .logo-box {
@@ -59,45 +63,60 @@ const Container = styled.div`
 `;
 
 export default function NavBar({ authStatus, userName, userPhoto }) {
-    const isSmallSmallPhone = useMediaQuery({
-        query: "(min-width: 37.5em)",
+    const isTabPort = useMediaQuery({
+        query: "(max-width: 56.25em)",
+    });
+    const isPhone = useMediaQuery({
+        query: "(max-width: 37.5em)",
+    });
+    const isSmallPhone = useMediaQuery({
+        query: "(max-width: 22.5em)",
     });
     return (
         <Container>
             <div className="logo-box">
-                <Logo fill={false} />
+                <Logo fill={false ? 1 : 0} />
 
-                {isSmallSmallPhone && (
-                    <LogoText fill={false}>explodii</LogoText>
+                {!isSmallPhone && (
+                    <LogoText fill={false ? 1 : 0}>explodii</LogoText>
                 )}
             </div>
 
-            {!authStatus ? (
-                <Btn href="/login">Log In</Btn>
-            ) : (
+            {!authStatus && (
+                <>
+                    <Btn href="/login">Log In</Btn>
+                    <Btn href="/signup">Sign Up</Btn>
+                </>
+            )}
+
+            {authStatus && !isTabPort && (
                 <BtnLO href="/" onClick={handleLogOut}>
                     Log Out
                 </BtnLO>
             )}
-            {!authStatus ? (
-                <Btn href="/signup">Sign Up</Btn>
-            ) : (
-                <ProfileBtn href="/account">
-                    {/* <div style={profileStyle(userPhoto)}>{}</div> */}
-                    <img
-                        src={userImg(userPhoto)}
-                        alt="profile"
-                        style={photoStyle}
+            {authStatus &&
+                (isTabPort ? (
+                    <MenuBtn
+                        isScrolled={false}
+                        userName={userName}
+                        userPhoto={userPhoto}
                     />
-                    <span
-                        style={{
-                            padding: "0 2rem",
-                            paddingLeft: "1.2rem",
-                            minWidth: "6rem",
-                        }}
-                    >{`${userName}`}</span>
-                </ProfileBtn>
-            )}
+                ) : (
+                    <ProfileBtn href="/account">
+                        <img
+                            src={userImg(userPhoto)}
+                            alt="profile"
+                            style={photoStyle}
+                        />
+                        <span
+                            style={{
+                                padding: "0 2rem",
+                                paddingLeft: "1.2rem",
+                                minWidth: "6rem",
+                            }}
+                        >{`${userName}`}</span>
+                    </ProfileBtn>
+                ))}
         </Container>
     );
 }

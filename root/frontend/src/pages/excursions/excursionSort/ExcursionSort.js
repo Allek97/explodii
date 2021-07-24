@@ -1,8 +1,11 @@
 /* eslint-disable global-require */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 
 import { SortBox, SortBtn, SortField } from "./ExcursionSortStyles";
+
+import useOuterClick from "../../../componants/utils/UseOuterClick";
 
 export default function ExcursionSort(props) {
     // props
@@ -13,6 +16,16 @@ export default function ExcursionSort(props) {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState(0);
     const [selectedName, setSelectedName] = useState("Featured");
+    const isSmallPhone = useMediaQuery({ query: "(max-width: 22em )" });
+
+    //close when click outside
+    const componentWrapper = useRef(null);
+
+    const closeComponent = () => {
+        setIsOpen(false);
+    };
+
+    useOuterClick(componentWrapper, closeComponent);
 
     // list of the fields to be sorted (see Tour Model in backend)
     const sortFields = [
@@ -31,8 +44,11 @@ export default function ExcursionSort(props) {
     }, [selected]);
 
     return (
-        <div style={{ position: "relative", display: "flex" }}>
-            <span>Sort by: </span>
+        <div
+            ref={componentWrapper}
+            style={{ position: "relative", display: "flex" }}
+        >
+            {!isSmallPhone && <span>Sort by: </span>}
             <SortBtn
                 svg={arrow}
                 isOpen={isOpen}

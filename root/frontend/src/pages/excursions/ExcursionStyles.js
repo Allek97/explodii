@@ -13,6 +13,11 @@ export const ExcursionInfoSort = styled.div`
     span:first-child {
         margin-right: auto;
     }
+
+    @media only screen and (max-width: 56.25em) {
+        max-width: 50rem;
+        margin: 0 auto 2rem;
+    }
 `;
 
 export const FilterBtn = styled.a`
@@ -56,5 +61,13 @@ export const FilterBtn = styled.a`
 
     &:not(:last-child) {
         margin-right: 2rem;
+    }
+
+    @media only screen and (max-width: 56.25em) {
+        &,
+    &:link,
+    &:visited {
+        border-radius: 3rem;
+        padding: 0.8rem 1rem ;
     }
 `;

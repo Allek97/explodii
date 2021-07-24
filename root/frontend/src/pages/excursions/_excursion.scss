@@ -16,6 +16,10 @@
         display: flex;
         flex-direction: column;
         flex: 1;
+
+        @include respond(tab-port) {
+            display: block;
+        }
     }
 
     @include respond(tab-land) {

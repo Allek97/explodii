@@ -11,6 +11,7 @@ import Loading from "../../componants/loading/PageLoading";
 import ExcursionFilter from "./excursionFilter/ExcursionFilter";
 import ExcursionSort from "./excursionSort/ExcursionSort";
 import TourBox from "./tourBox/TourBox";
+import ResponsiveTourBox from "./responsiveTourBox/ResponsiveTourBox";
 import Decoration from "./otherComponents/ExcursionDecoration";
 import Footer from "../../componants/footer/Footer";
 import NavBar from "./otherComponents/ExcursionNavBar";
@@ -34,6 +35,7 @@ export default function Excursions(props) {
     const [isFilterApplied, setIsFilterApplied] = useState(false);
     // variables
     const isTabLand = useMediaQuery({ query: "(max-width: 75em )" });
+    const isTabPort = useMediaQuery({ query: "(max-width: 56.25em )" });
 
     useEffect(() => {
         async function fetchApi() {
@@ -75,16 +77,6 @@ export default function Excursions(props) {
             {isApiConsumed && (
                 <>
                     <Loading loadingTime={500} />
-                    {/* {isTabLand && (
-                        <ExcursionFilter
-                            setExcursions={setExcursions}
-                            setNbResults={setNbResults}
-                            sortField={sortField}
-                            authStatus={authStatus}
-                            isFilterOpen={isFilterOpen}
-                            setIsFilterOpen={setIsFilterOpen}
-                        />
-                    )} */}
                     <div>
                         <div className="excursion">
                             <NavBar
@@ -116,7 +108,12 @@ export default function Excursions(props) {
                                     }
                                 >
                                     <ExcursionInfoSort>
-                                        <span>{nbResults} results</span>
+                                        <span>
+                                            {nbResults}{" "}
+                                            {nbResults > 1
+                                                ? `results`
+                                                : `result`}
+                                        </span>
                                         {isTabLand && (
                                             <FilterBtn
                                                 onClick={() => {
@@ -132,14 +129,27 @@ export default function Excursions(props) {
                                                         : null
                                                 }
                                             >
-                                                <BsFilterRight
-                                                    style={{
-                                                        width: "1.6rem",
-                                                        height: "1.6rem",
-                                                        marginRight: "4px",
-                                                    }}
-                                                />
-                                                <span>Filters</span>
+                                                {isTabPort ? (
+                                                    <FilterSvg
+                                                        style={{
+                                                            width: "1.6rem",
+                                                            height: "1.6rem",
+                                                            marginRight: "4px",
+                                                            margin: "0 auto",
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <BsFilterRight
+                                                        style={{
+                                                            width: "1.6rem",
+                                                            height: "1.6rem",
+                                                            marginRight: "7px",
+                                                        }}
+                                                    />
+                                                )}
+                                                {!isTabPort && (
+                                                    <span>Filters</span>
+                                                )}
                                             </FilterBtn>
                                         )}
                                         <ExcursionSort
@@ -149,20 +159,47 @@ export default function Excursions(props) {
                                     </ExcursionInfoSort>
                                     {excursions.map((el) => {
                                         return (
-                                            <TourBox
-                                                id={el.name}
-                                                key={el.name}
-                                                excursion={el}
-                                                animationLoad={animationLoad}
-                                            />
+                                            <div
+                                                key={el._id}
+                                                style={
+                                                    !isTabPort
+                                                        ? {
+                                                              display: "flex",
+                                                              flexDirection:
+                                                                  "column",
+                                                              flex: "1 1",
+                                                          }
+                                                        : null
+                                                }
+                                            >
+                                                {isTabPort ? (
+                                                    <ResponsiveTourBox
+                                                        id={el.name}
+                                                        key={el.name}
+                                                        excursion={el}
+                                                        animationLoad={
+                                                            animationLoad
+                                                        }
+                                                    />
+                                                ) : (
+                                                    <TourBox
+                                                        id={el._id}
+                                                        key={el._id}
+                                                        excursion={el}
+                                                        animationLoad={
+                                                            animationLoad
+                                                        }
+                                                    />
+                                                )}
+                                            </div>
                                         );
                                     })}
                                 </div>
                                 <Decoration />
                             </main>
                         </div>
-                        <Footer />
                     </div>
+                    <Footer />
                 </>
             )}
         </>

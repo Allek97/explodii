@@ -11,6 +11,10 @@ const Container = styled.div`
     width: 100%;
     /* transform: skewY(-10deg); */
     height: 35rem;
+
+    @media only screen and (max-width: 93.75em) {
+        display: none;
+    }
 `;
 
 const Deco = styled.span`
@@ -25,10 +29,6 @@ const Deco = styled.span`
     transform: skewY(-10deg);
 
     background-color: rgba(${(props) => props.decoColor}, 0.8);
-
-    @media only screen and (max-width: 93.75em) {
-        display: none;
-    }
 `;
 
 const Deco1 = styled(Deco)`

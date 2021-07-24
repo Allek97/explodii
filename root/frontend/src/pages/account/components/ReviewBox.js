@@ -83,7 +83,13 @@ ReviewBox.propTypes = {
             name: PropTypes.string.isRequired,
         }),
     }).isRequired,
-    setIsUpdateReviewOpen: PropTypes.func.isRequired,
-    setSelectedReview: PropTypes.func.isRequired,
-    setIsDeleteReviewOpen: PropTypes.func.isRequired,
+    setIsUpdateReviewOpen: PropTypes.func,
+    setSelectedReview: PropTypes.func,
+    setIsDeleteReviewOpen: PropTypes.func,
+};
+
+ReviewBox.defaultProps = {
+    setIsUpdateReviewOpen: () => {},
+    setSelectedReview: () => {},
+    setIsDeleteReviewOpen: () => {},
 };

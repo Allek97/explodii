@@ -1,12 +1,18 @@
-import React from "react";
+/* eslint-disable no-constant-condition */
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
+
+import MenuBtn from "../../../componants/menuBtn/MenuBtn";
+
+import { handleLogOut } from "../../../componants/utils/handleLogOut";
 
 import {
     LogoText,
     ProfileBtn,
     Btn,
+    BtnLO,
     Logo,
 } from "../../../globalStyles/NavBarStyles";
 
@@ -33,9 +39,11 @@ const Container = styled.div`
 
     margin: 0 auto;
 
+    @media only screen and (max-width: 75em) {
+        max-width: 100rem;
+    }
     @media only screen and (max-width: 56.25em) {
-        max-width: 60rem;
-        padding-right: 5rem;
+        max-width: 50rem;
     }
 
     .logo-box {
@@ -47,40 +55,69 @@ const Container = styled.div`
 `;
 
 export default function NavBar({ authStatus, userName, userPhoto }) {
-    const isSmallSmallPhone = useMediaQuery({
-        query: "(min-width: 37.5em)",
+    const isTabPort = useMediaQuery({
+        query: "(max-width: 56.25em)",
     });
+    const isTabLand = useMediaQuery({
+        query: "(max-width: 75em)",
+    });
+    const isSmallPhone = useMediaQuery({
+        query: "(min-width: 22.5em)",
+    });
+
+    const darkStyle = {
+        backgroundImage: `linear-gradient( 76deg, rgb(var(--color-main-1)), 
+        rgb(var(--color-main-2)) 50% )`,
+    };
+
     return (
         <Container>
             <div className="logo-box">
-                <Logo fill />
+                <Logo fill={true ? 1 : 0} style={darkStyle} />
 
-                {isSmallSmallPhone && <LogoText fill>explodii</LogoText>}
+                {isSmallPhone && (
+                    <LogoText fill={true ? 1 : 0} style={darkStyle}>
+                        explodii
+                    </LogoText>
+                )}
             </div>
+            {authStatus && isTabLand && !isTabPort && (
+                <BtnLO href="/" onClick={handleLogOut}>
+                    Log Out
+                </BtnLO>
+            )}
+            {!isTabPort && <Btn href="/">HomePage</Btn>}
 
-            <Btn href="/">HomePage</Btn>
-
-            {!authStatus ? (
+            {!authStatus && (
                 <>
                     <Btn href="/login">Log In</Btn>
                     <Btn href="/signup">Sign Up</Btn>
                 </>
-            ) : (
-                <ProfileBtn href="/account">
-                    <img
-                        src={userImg(userPhoto)}
-                        alt="profile"
-                        style={photoStyle}
-                    />
-                    <span
-                        style={{
-                            padding: "0 2rem",
-                            paddingLeft: "1.2rem",
-                            minWidth: "6rem",
-                        }}
-                    >{`${userName}`}</span>
-                </ProfileBtn>
             )}
+
+            {authStatus &&
+                (isTabPort ? (
+                    <MenuBtn
+                        isScrolled
+                        userName={userName}
+                        userPhoto={userPhoto}
+                    />
+                ) : (
+                    <ProfileBtn href="/account">
+                        <img
+                            src={userImg(userPhoto)}
+                            alt="profile"
+                            style={photoStyle}
+                        />
+                        <span
+                            style={{
+                                padding: "0 2rem",
+                                paddingLeft: "1.2rem",
+                                minWidth: "6rem",
+                            }}
+                        >{`${userName}`}</span>
+                    </ProfileBtn>
+                ))}
         </Container>
     );
 }
