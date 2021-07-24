@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { FaHiking } from "react-icons/fa";
+
 import useOuterClick from "../utils/UseOuterClick";
 
 import { ReactComponent as AccountSvg } from "../../assets/svgs/switch_account.svg";
@@ -146,32 +148,6 @@ export const SideItem = styled.a`
     &:active::before {
         background-color: rgb(var(--color-primary-dark));
     }
-
-    // On ajoute les svgs
-
-    /* &:after {
-        content: "";
-
-        position: absolute;
-        top: 2.1rem;
-        left: 2rem;
-
-        display: block;
-
-        height: 1.7rem;
-        width: 1.7rem;
-
-
-        background-image: linear-gradient(
-            76deg,
-            ${(props) => (props.isScrolled ? "#3be5dd" : "white")},
-            ${(props) => (props.isScrolled ? "#05edfe" : "white")}
-        );
-
-        mask-image: url(${(props) => props.svg});
-        mask-size: cover;
-        mask-position: center; */
-    }
 `;
 
 export const SideLink = styled.span`
@@ -209,9 +185,6 @@ export default function ExcursionMenuBtn({
     // svgs
     const arrowSvg =
         require("../../assets/svgs/keyboard_arrow_down.svg").default;
-    const accountSvg = require("../../assets/svgs/switch_account.svg").default;
-    const homeSvg = require("../../assets/svgs/home.svg").default;
-    const logoutSvg = require("../../assets/svgs/log-out.svg").default;
 
     const SvgStyle = {
         position: "absolute",
@@ -235,7 +208,8 @@ export default function ExcursionMenuBtn({
                     withCredentials: true,
                 }
             );
-            window.location.assign("/excursions");
+
+            window.location.assign("/");
         } catch (err) {
             console.log(err.response.data.message);
         }
@@ -262,29 +236,23 @@ export default function ExcursionMenuBtn({
             </ProfileBtn>
             {isMenu && (
                 <SideNav isScrolled={isScrolled}>
-                    <SideItem
-                        svg={accountSvg}
-                        isScrolled={isScrolled}
-                        href="/account"
-                    >
+                    <SideItem isScrolled={isScrolled} href="/account">
                         <AccountSvg style={SvgStyle} />
                         <SideLink>Account</SideLink>
                     </SideItem>
                     {page === "excursion-content" && (
-                        <SideItem
-                            svg={homeSvg}
-                            isScrolled={isScrolled}
-                            href="/"
-                        >
+                        <SideItem isScrolled={isScrolled} href="/">
                             <HomeSvg style={SvgStyle} />
                             <SideLink>Homepage</SideLink>
                         </SideItem>
                     )}
-                    <SideItem
-                        svg={logoutSvg}
-                        isScrolled={isScrolled}
-                        onClick={handleLogOut}
-                    >
+                    {page === "homepage" && (
+                        <SideItem isScrolled={isScrolled} href="/excursions">
+                            <FaHiking style={SvgStyle} />
+                            <SideLink>Excursions</SideLink>
+                        </SideItem>
+                    )}
+                    <SideItem isScrolled={isScrolled} onClick={handleLogOut}>
                         <LogOutSvg style={SvgStyle} />
                         <SideLink>Logout</SideLink>
                     </SideItem>

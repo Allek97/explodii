@@ -43,7 +43,6 @@ const Container = styled.div`
     z-index: 3;
     display: flex;
     align-items: center;
-    padding-top: 1rem;
     padding-right: 3rem;
     max-width: 140rem;
     margin: 0 auto;
@@ -66,12 +65,13 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
     const isTabPort = useMediaQuery({
         query: "(max-width: 56.25em)",
     });
-    const isPhone = useMediaQuery({
-        query: "(max-width: 37.5em)",
-    });
+
     const isSmallPhone = useMediaQuery({
-        query: "(max-width: 22.5em)",
+        query: "(max-width: 25em)",
     });
+
+    const logSignStyle = isSmallPhone ? { padding: "0.8rem 2.5rem" } : null;
+
     return (
         <Container>
             <div className="logo-box">
@@ -84,8 +84,12 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
 
             {!authStatus && (
                 <>
-                    <Btn href="/login">Log In</Btn>
-                    <Btn href="/signup">Sign Up</Btn>
+                    <Btn style={logSignStyle} href="/login">
+                        Log In
+                    </Btn>
+                    <Btn style={logSignStyle} href="/signup">
+                        Sign Up
+                    </Btn>
                 </>
             )}
 
@@ -97,6 +101,7 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
             {authStatus &&
                 (isTabPort ? (
                     <MenuBtn
+                        page="homepage"
                         isScrolled={false}
                         userName={userName}
                         userPhoto={userPhoto}

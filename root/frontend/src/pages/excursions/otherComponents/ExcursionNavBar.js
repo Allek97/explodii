@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
@@ -15,6 +15,7 @@ import {
     BtnLO,
     Logo,
 } from "../../../globalStyles/NavBarStyles";
+import { ReactComponent as HomeSvg } from "../../../assets/svgs/home.svg";
 
 const photoStyle = {
     width: "3.8rem",
@@ -58,11 +59,13 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
     const isTabPort = useMediaQuery({
         query: "(max-width: 56.25em)",
     });
+
     const isTabLand = useMediaQuery({
         query: "(max-width: 75em)",
     });
+
     const isSmallPhone = useMediaQuery({
-        query: "(min-width: 22.5em)",
+        query: "(max-width: 25em)",
     });
 
     const darkStyle = {
@@ -70,12 +73,14 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
         rgb(var(--color-main-2)) 50% )`,
     };
 
+    const logSignStyle = isSmallPhone ? { padding: "0.8rem 2rem" } : null;
+
     return (
         <Container>
             <div className="logo-box">
                 <Logo fill={true ? 1 : 0} style={darkStyle} />
 
-                {isSmallPhone && (
+                {!isTabPort && (
                     <LogoText fill={true ? 1 : 0} style={darkStyle}>
                         explodii
                     </LogoText>
@@ -90,8 +95,30 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
 
             {!authStatus && (
                 <>
-                    <Btn href="/login">Log In</Btn>
-                    <Btn href="/signup">Sign Up</Btn>
+                    {isTabPort && (
+                        <Btn
+                            href="/"
+                            style={{
+                                paddingLeft: "1rem",
+                                paddingRight: "1rem",
+                                borderRadius: "1rem",
+                            }}
+                        >
+                            <HomeSvg
+                                style={{
+                                    height: "1.6rem",
+                                    width: "1.6rem",
+                                    fill: "white",
+                                }}
+                            />
+                        </Btn>
+                    )}
+                    <Btn style={logSignStyle} href="/login">
+                        Log In
+                    </Btn>
+                    <Btn style={logSignStyle} href="/signup">
+                        Sign Up
+                    </Btn>
                 </>
             )}
 
