@@ -101,7 +101,7 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                             style={{
                                 paddingLeft: "1rem",
                                 paddingRight: "1rem",
-                                borderRadius: "1rem",
+                                borderRadius: "50%",
                             }}
                         >
                             <HomeSvg
