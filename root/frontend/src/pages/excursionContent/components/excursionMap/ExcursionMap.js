@@ -21,7 +21,7 @@ import styleGM from "./styleGM";
 const mapContainerStyle = {
     display: "block",
     width: "100%",
-    height: "40vw",
+    height: "80rem",
 };
 
 // const libraries = ["places"];

@@ -1,13 +1,14 @@
 /* eslint-disable global-require */
 import React from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 
-import { StyledReview, StyledStar, UtilSvg } from "../style/ReviewBoxStyle";
+import { StyledReview, StyledStar, UtilSvg } from "./ReviewBoxStyle";
 
-import { setStarRatingStyle } from "../../../componants/utils/StarFunctionStyle";
+import { setStarRatingStyle } from "../utils/StarFunctionStyle";
 
-import UpdateSvg from "../../../assets/svgs/chat.svg";
-import DeleteSvg from "../../../assets/svgs/bin2.svg";
+import UpdateSvg from "../../assets/svgs/chat.svg";
+import DeleteSvg from "../../assets/svgs/bin2.svg";
 
 export const ReviewBox = (props) => {
     // Props
@@ -24,12 +25,16 @@ export const ReviewBox = (props) => {
 
     //variables
     const userImage = `${process.env.REACT_APP_URL}/api/v1/users/images/${userPhoto}`;
-    const worldImage = require("../../../assets/img/users/world.jpg").default;
-    const quoteSvg = require("../../../assets/svgs/quotes.svg").default;
-    const starSvg = require("../../../assets/svgs/star-review.svg").default;
+    const worldImage = require("../../assets/img/users/world.jpg").default;
+    const quoteSvg = require("../../assets/svgs/quotes.svg").default;
+    const starSvg = require("../../assets/svgs/star-review.svg").default;
+
+    const excursionStyle = `
+    
+    `;
 
     return (
-        <StyledReview img={worldImage} svg={quoteSvg}>
+        <StyledReview img={worldImage} svg={quoteSvg} isExcursion={isExcursion}>
             <img src={userImage} alt="user" />
             <p>{review}</p>
             <p>{isExcursion ? userName : ExcursionName}</p>

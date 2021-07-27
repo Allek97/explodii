@@ -163,12 +163,7 @@ export const SideLink = styled.span`
     color: white;
 `;
 
-export default function ExcursionMenuBtn({
-    page,
-    isScrolled,
-    userName,
-    userPhoto,
-}) {
+export default function MenuBtn({ page, isScrolled, userName, userPhoto }) {
     // Hooks
     const [isMenu, setMenu] = useState(false);
     // Refs
@@ -214,6 +209,8 @@ export default function ExcursionMenuBtn({
             console.log(err.response.data.message);
         }
     };
+
+    console.log(isScrolled);
 
     return (
         <div style={{ position: "relative" }} ref={menuWrapperRef}>
@@ -262,13 +259,13 @@ export default function ExcursionMenuBtn({
     );
 }
 
-ExcursionMenuBtn.propTypes = {
+MenuBtn.propTypes = {
     page: PropTypes.string,
     isScrolled: PropTypes.bool.isRequired,
     userName: PropTypes.string.isRequired,
     userPhoto: PropTypes.string.isRequired,
 };
 
-ExcursionMenuBtn.defaultProps = {
+MenuBtn.defaultProps = {
     page: "excursion-content",
 };

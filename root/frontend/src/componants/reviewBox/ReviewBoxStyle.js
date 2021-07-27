@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 ////////////////////////////////////////////////
 // NOTE: Section Review
@@ -23,17 +23,35 @@ export const StyledReview = styled.div`
     flex-direction: column;
     align-items: center;
 
-    width: 50rem !important;
+    max-width: ${(props) =>
+        props.isExcursion ? "var(--excursion-review-box-width-1)" : "50rem"};
 
     padding: 3rem;
-    margin-right: 5rem;
+    margin-right: var(--excursion-review-box-margin);
     border-radius: 3px;
 
     box-shadow: 0px 0px 2rem rgb(0 0 0 / 15%);
 
     text-align: center;
 
+    @media only screen and (max-width: 56.25em) {
+        max-width: ${(props) =>
+            props.isExcursion
+                ? "var(--excursion-review-box-width-2)"
+                : "50rem"};
+    }
+    @media only screen and (max-width: 37.5em) {
+        max-width: ${(props) =>
+            props.isExcursion
+                ? "var(--excursion-review-box-width-3)"
+                : "50rem"};
+
+        margin-right: var(--excursion-review-box-margin-3);
+    }
+
     img {
+        position: relative;
+        z-index: 10;
         height: 8.5rem;
         width: 8.5rem;
 

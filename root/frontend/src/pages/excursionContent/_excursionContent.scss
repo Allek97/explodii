@@ -1,23 +1,94 @@
+@import "../../abstracts/_mixins";
+
 .excursion-information {
     position: relative;
+    // & > * {
+    //     padding: 22rem 2rem 15rem;
+    //     // padding-bottom: calc(1vw + var(--excursion-clip-height));
+    // }
 
-    z-index: 4;
+    article {
+        position: relative;
 
-    display: flex;
+        z-index: 4;
 
-    margin-top: calc(0px - var(--excursion-clip-height));
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 3rem;
 
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% calc(100% - (var(--excursion-clip-height))),
-        0 100%
-    );
+        max-width: 140rem;
 
-    & > * {
-        padding: 0 8vw;
-        padding-top: 14vw;
-        padding-bottom: calc(1vw + var(--excursion-clip-height));
+        margin: calc(0px - var(--excursion-clip-height)) auto 0;
+
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - (var(--excursion-clip-height))),
+            0 100%
+        );
+
+        padding: 22rem 5rem 15rem;
+
+        @include respond(tab-port) {
+            grid-template-rows: repeat(2, 1fr);
+            padding: 22rem 4rem 15rem;
+        }
+
+        @include respond(phone) {
+            padding-top: 18rem;
+        }
+    }
+
+    &__information {
+        grid-area: 1/1/2 / span 5;
+
+        display: flex;
+        flex-direction: column;
+
+        height: max-content;
+
+        @include respond(tab-port) {
+            grid-area: 1/1/2/-1;
+            // justify-self: center;
+
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        @include respond(phone) {
+            flex-direction: column;
+            justify-self: center;
+
+            // max-width: 30rem;
+        }
+    }
+
+    &__about {
+        position: relative;
+
+        grid-area: 1/7/2 / -1;
+
+        display: flex;
+        flex-direction: column;
+
+        flex: 0 0 30%;
+
+        font-size: 1.7rem;
+        font-weight: 300;
+
+        height: max-content;
+
+        @include respond(tab-port) {
+            grid-area: 2/1/3/-1;
+            justify-self: center;
+            // max-width: 40rem;
+        }
+
+        @include respond(phone) {
+            max-width: 31rem;
+            justify-self: center;
+            margin-top: -4rem;
+        }
     }
 }
 
@@ -38,14 +109,23 @@
     );
 
     filter: brightness(85%);
+
+    img {
+        height: 35vw;
+        width: calc((1 / 3) * 100%);
+        object-fit: cover;
+
+        @include respond(phone) {
+            height: 50vw;
+            width: calc((1 / 2) * 100%);
+        }
+    }
 }
 
 .excursion-map {
     position: relative;
 
     z-index: 4;
-
-    display: flex;
 
     margin-top: calc(0px - var(--excursion-clip-height));
 
@@ -55,12 +135,6 @@
         100% calc(100% - (var(--excursion-clip-height))),
         0 100%
     );
-
-    // background-color: RGBA(247, 241, 241);
-
-    // filter: brightness(85%);
-
-    // overflow: hidden;
 }
 
 .excursion-reviews {

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
-import { IoColorFilterOutline } from "react-icons/io5";
 import { BsFilterRight } from "react-icons/bs";
 
 import Loading from "../../componants/loading/PageLoading";

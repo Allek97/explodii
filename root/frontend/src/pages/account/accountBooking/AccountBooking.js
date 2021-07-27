@@ -200,9 +200,11 @@ export default function AccountBooking(props) {
                                         <li>{`Up to ${excursion.maxGroupSize} people`}</li>
                                         <li>{`${excursion.guides.length} tour guides`}</li>
                                         <li>{`Starting location: ${excursion.startLocation.description}`}</li>
-                                        <li>{`Purchased for: ${excursion.price.toFixed(
-                                            2
-                                        )}$CA`}</li>
+                                        {isBookings && (
+                                            <li>{`Purchased for: ${excursion.price.toFixed(
+                                                2
+                                            )}$CA`}</li>
+                                        )}
                                         {/* <li>{`Ratings: ${excursion.ratingsAverage}/5`}</li> */}
                                         {/* <li>{`Ratings:`}</li> */}
                                         <ul className="starbox">

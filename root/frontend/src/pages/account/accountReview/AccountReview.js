@@ -3,7 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { ReviewBox } from "../components/ReviewBox";
+import { ReviewBox } from "../../../componants/reviewBox/ReviewBox";
 import ReviewUpdate from "../components/ReviewUpdate";
 import { ReviewDelete } from "../components/ReviewDelete";
 import { SuccessReview } from "../style/ReviewWriteUpdateStyle";
