@@ -292,8 +292,8 @@
                 top: 10rem;
 
                 @include respond(tab-port) {
-                    left: 55%;
-                    top: 5rem;
+                    left: 47%;
+                    top: 6rem;
                 }
             }
 
@@ -303,7 +303,7 @@
                 z-index: 11;
 
                 @include respond(tab-port) {
-                    left: 30%;
+                    left: 25%;
                     top: 2rem;
                 }
             }
