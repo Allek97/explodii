@@ -194,11 +194,6 @@
 
     z-index: 1;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // height: 40vw;
-
     margin-top: calc(0px - var(--excursion-clip-height));
 
     clip-path: polygon(
@@ -207,6 +202,10 @@
         100% 100%,
         0 100%
     );
+
+    overflow: hidden;
+
+    padding: 20rem 4rem 15rem;
 
     // background-color: red;
 

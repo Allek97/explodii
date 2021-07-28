@@ -16,7 +16,8 @@ import ExcursionBooking from "./components/excursionBooking/ExcursionBooking";
 import NavBar from "./components/otherComponents/ExcursionContentNavBar";
 import Footer from "../../componants/footer/Footer";
 
-import Decoration from "./components/otherComponents/DecorationSection";
+import Decoration from "./components/otherComponents/InfoSectionDeco";
+import BookingDeco from "./components/otherComponents/BookingDeco";
 
 import {
     HeaderPage,
@@ -433,6 +434,7 @@ export default function ExcursionContent(props) {
                                     excursionDuration={excursion.duration}
                                     excursionPrice={excursion.price}
                                     excursionImages={excursion.images}
+                                    excursionCover={excursion.imageCover}
                                     excursionName={excursion.name}
                                     excursionDate={getNextDate(
                                         excursion.startDates
@@ -440,16 +442,8 @@ export default function ExcursionContent(props) {
                                     authStatus={authStatus}
                                     setPaymentStatus={setPaymentStatus}
                                 />
-                                <div
-                                    style={{
-                                        position: "absolute",
-                                        top: "45rem",
-                                        width: "100%",
-                                        height: "35rem",
-                                    }}
-                                >
-                                    <Decoration />
-                                </div>
+
+                                <BookingDeco />
                             </section>
                         </main>
                         <Footer />

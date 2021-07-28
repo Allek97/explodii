@@ -129,6 +129,7 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                         isScrolled
                         userName={userName}
                         userPhoto={userPhoto}
+                        page="excursion"
                     />
                 ) : (
                     <ProfileBtn href="/account">

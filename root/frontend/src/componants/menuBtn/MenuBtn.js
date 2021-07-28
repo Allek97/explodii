@@ -210,8 +210,6 @@ export default function MenuBtn({ page, isScrolled, userName, userPhoto }) {
         }
     };
 
-    console.log(isScrolled);
-
     return (
         <div style={{ position: "relative" }} ref={menuWrapperRef}>
             <ProfileBtn
@@ -237,18 +235,18 @@ export default function MenuBtn({ page, isScrolled, userName, userPhoto }) {
                         <AccountSvg style={SvgStyle} />
                         <SideLink>Account</SideLink>
                     </SideItem>
-                    {page === "excursion-content" && (
+                    {page === "excursion" ? (
                         <SideItem isScrolled={isScrolled} href="/">
                             <HomeSvg style={SvgStyle} />
                             <SideLink>Homepage</SideLink>
                         </SideItem>
-                    )}
-                    {page === "homepage" && (
+                    ) : (
                         <SideItem isScrolled={isScrolled} href="/excursions">
                             <FaHiking style={SvgStyle} />
                             <SideLink>Excursions</SideLink>
                         </SideItem>
                     )}
+
                     <SideItem isScrolled={isScrolled} onClick={handleLogOut}>
                         <LogOutSvg style={SvgStyle} />
                         <SideLink>Logout</SideLink>

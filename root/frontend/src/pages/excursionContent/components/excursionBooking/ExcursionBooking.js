@@ -3,64 +3,17 @@
 /* eslint-disable global-require */
 import React, { useState } from "react";
 
-import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+
+import { BookingBox, BookingBtn, BookingSvgStyle } from "./ExcursionStyle";
 
 import "./_excursionBooking.scss";
 import "../../../../componants/reusable/_composition.scss";
 
 // eslint-disable-next-line no-undef
 const stripe = Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
-
-const BookingBox = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin-top: 25rem;
-    margin-bottom: 10rem;
-    padding: 5rem 1rem;
-    border-radius: 2rem;
-
-    box-shadow: var(--shadow-dark);
-    /* box-shadow: 0px 0px 2rem rgb(0 0 0 / 15%); */
-
-    background-image: white;
-`;
-
-const BookingBtn = styled.a`
-    margin: 8rem 0 0 0 !important;
-    font-size: 2rem !important;
-    padding: 1.8rem 4rem !important;
-    border-radius: 1rem;
-    background-image: linear-gradient(
-        76deg,
-        rgba(var(--color-primary-dark), 70%),
-        rgb(var(--color-primary-dark))
-    );
-    box-shadow: var(--shadow-dark);
-    &:hover {
-        transform: scale(1.05);
-    }
-`;
-
-const BookingSvgStyle = styled.div`
-    position: absolute;
-    bottom: -4rem;
-    right: -7rem;
-
-    height: 15rem;
-    width: 23rem;
-    padding: 1rem;
-
-    box-shadow: var(--shadow-dark);
-    border-radius: 3rem;
-
-    background-image: url(${(props) => props.svg});
-    background-size: cover;
-`;
 
 export default function ExcursionBooking(props) {
     // props
@@ -69,29 +22,35 @@ export default function ExcursionBooking(props) {
         excursionDuration,
         excursionPrice,
         excursionImages,
+        excursionCover,
         authStatus,
         setPaymentStatus,
     } = props;
 
     // Hooks
     const [inProcess, setInProcess] = useState(false);
+    const isSmallPhone = useMediaQuery({ query: "(max-width: 29em)" });
 
     // variables
+    const compressedCover = `${excursionCover.split(".")[0]}-900x600.jpg`;
+    const cover =
+        require(`../../../../assets/img/tours/${compressedCover}`).default;
+
     const compressedNat1 = `${excursionImages[0].split(".")[0]}-450x300.jpg`;
-    const Nat1 =
+    const nat1 =
         require(`../../../../assets/img/tours/${compressedNat1}`).default;
 
     const compressedNat2 = `${excursionImages[1].split(".")[0]}-450x300.jpg`;
-    const Nat2 =
+    const nat2 =
         require(`../../../../assets/img/tours/${compressedNat2}`).default;
 
     const compressedNat3 = `${excursionImages[2].split(".")[0]}-450x300.jpg`;
-    const Nat3 =
+    const nat3 =
         require(`../../../../assets/img/tours/${compressedNat3}`).default;
 
-    const bookingSvg1 =
+    const bookingSvg1 = require(`../../../../assets/svgs/dreamer.svg`).default;
+    const bookingSvg2 =
         require(`../../../../assets/svgs/booking-travel.svg`).default;
-    const bookingSvg2 = require(`../../../../assets/svgs/dreamer.svg`).default;
 
     const handleBookingCheckout = async () => {
         try {
@@ -131,16 +90,7 @@ export default function ExcursionBooking(props) {
             >
                 WHAT ARE YOU WAITING FOR?
             </h1>
-            <p
-                style={{
-                    width: "70%",
-                    margin: "2rem 0",
-                    textAlign: "center",
-                    fontSize: "1.7rem",
-                    fontFamily: "Poppins",
-                    color: "rgb(41, 43, 46)",
-                }}
-            >
+            <p className="booking-info">
                 <span
                     style={{
                         color: "rgb(var(--color-blue-special))",
@@ -160,25 +110,32 @@ export default function ExcursionBooking(props) {
                     ${excursionPrice}.
                 </span>{" "}
             </p>
-            <div
-                className="composition-excursion"
-                style={{ height: "40rem", width: "50rem" }}
-            >
-                <img
-                    src={Nat1}
-                    className="composition-excursion__photo composition-excursion__photo--1"
-                    alt="nat-1"
-                />
-                <img
-                    src={Nat2}
-                    className="composition-excursion__photo composition-excursion__photo--2"
-                    alt="nat-2"
-                />
-                <img
-                    src={Nat3}
-                    className="composition-excursion__photo composition-excursion__photo--3"
-                    alt="nat-3"
-                />
+            <div className="composition-excursion">
+                {!isSmallPhone ? (
+                    <>
+                        <img
+                            src={nat1}
+                            className="composition-excursion__photo composition-excursion__photo--1"
+                            alt="nat-1"
+                        />
+                        <img
+                            src={nat2}
+                            className="composition-excursion__photo composition-excursion__photo--2"
+                            alt="nat-2"
+                        />
+                        <img
+                            src={nat3}
+                            className="composition-excursion__photo composition-excursion__photo--3"
+                            alt="nat-3"
+                        />
+                    </>
+                ) : (
+                    <img
+                        src={cover}
+                        className="composition-excursion__photo composition-excursion__photo--cover"
+                        alt="nat-1"
+                    />
+                )}
             </div>
             {authStatus ? (
                 <BookingBtn
@@ -192,8 +149,8 @@ export default function ExcursionBooking(props) {
                     Log In To Book This Excursion →
                 </BookingBtn>
             )}
-            <BookingSvgStyle svg={bookingSvg1} />
-            <BookingSvgStyle svg={bookingSvg2} style={{ left: "-7rem" }} />
+            <BookingSvgStyle svg={bookingSvg1} isSvg1 />
+            <BookingSvgStyle svg={bookingSvg2} isSvg1={false} />
         </BookingBox>
     );
 }
@@ -202,6 +159,7 @@ ExcursionBooking.propTypes = {
     excursionId: PropTypes.string.isRequired,
     excursionDuration: PropTypes.number.isRequired,
     excursionPrice: PropTypes.number.isRequired,
+    excursionCover: PropTypes.string.isRequired,
     excursionImages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 
     authStatus: PropTypes.bool.isRequired,
