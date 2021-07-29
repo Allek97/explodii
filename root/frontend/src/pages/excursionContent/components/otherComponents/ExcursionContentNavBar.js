@@ -133,9 +133,7 @@ export default function ExcursionContentNavBar({
                     )}
                 </div>
 
-                {authStatus && !isSmallPhone && (
-                    <Btn href="/homepage">Homepage</Btn>
-                )}
+                {authStatus && !isSmallPhone && <Btn href="/">Homepage</Btn>}
                 {authStatus && isSmallPhone && (
                     <Btn
                         href="/"
@@ -167,7 +165,7 @@ export default function ExcursionContentNavBar({
 
                 {!authStatus && !isTabLand && (
                     <>
-                        <Btn href="/homepage">Homepage</Btn>
+                        <Btn href="/">Homepage</Btn>
                         <Btn href="/excursions">Excursions</Btn>
                         <Btn href="/login">Log In</Btn>
                         <Btn href="/signup">Sign Up</Btn>

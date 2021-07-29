@@ -38,7 +38,7 @@ export default function Footer() {
                         </a>
                     </div>
                     <div className="footer__copyright">
-                        &copy; 2021 by{" "}
+                        &copy; {new Date().getFullYear()} by{" "}
                         <a
                             href="/"
                             className="footer__btn"

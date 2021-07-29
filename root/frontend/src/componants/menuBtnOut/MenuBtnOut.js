@@ -220,14 +220,18 @@ const MenuBtnOut = ({ page, isScrolled }) => {
                 />
                 <div>
                     <List isOpen={isOpen}>
+                        {page !== "login" && (
+                            <li>
+                                <SideLink href="/login">Log In</SideLink>
+                            </li>
+                        )}
+                        {page !== "signup" && (
+                            <li>
+                                <SideLink href="/signup">Sign Up</SideLink>
+                            </li>
+                        )}
                         <li>
-                            <SideLink href="/login">Log In</SideLink>
-                        </li>
-                        <li>
-                            <SideLink href="/signup">Sign Up</SideLink>
-                        </li>
-                        <li>
-                            <SideLink href="/homepage">Homepage</SideLink>
+                            <SideLink href="/">Homepage</SideLink>
                         </li>
                         <li>
                             <SideLink href="/excursions">Excursions</SideLink>

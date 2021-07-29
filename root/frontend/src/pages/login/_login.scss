@@ -1,55 +1,69 @@
 @import "../../base/animations";
+@import "../../abstracts/mixins";
 
 .login {
-    height: 100vh;
+    min-height: 100vh;
     background-image: linear-gradient(
-        to right bottom,
-        RGBA(var(--color-primary-light)),
-        RGBA(var(--color-primary-dark))
+        76deg,
+        RGBA(var(--color-main-2)),
+        RGBA(var(--color-primary-dark)) 55%,
+        white 55%
     );
     // filter: blur(8px);
     transition: filter 1s linear;
+
+    @include respond(tab-port) {
+        background-image: none;
+    }
 }
 
-.navBar {
-    &--login {
-        padding: 0 14%;
-    }
-    &__logo,
-    &__logo-text {
-        &--login {
-            background-image: linear-gradient(to bottom right, white, white);
-        }
+.login-section {
+    min-height: 70vh;
+    padding-bottom: 1rem;
+
+    @include respond(tab-port) {
+        min-height: 50vh;
     }
 }
 
 .loginBox {
-    display: flex;
-    justify-content: space-between;
-    align-self: center;
-    justify-self: center;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    // gap: 5rem;
 
-    padding: 17.7rem 13rem 3.3rem 9.5rem;
-    width: 106rem;
+    grid-template-columns: repeat(2, 1fr);
 
-    margin: 0 auto;
-    margin-top: 10rem;
+    justify-items: center;
+
+    padding: 17.7rem 0 3.3rem;
+    max-width: 105rem;
+    // max-height: 80%;
+
+    margin: 10rem auto;
+    width: 90vw;
+
+    box-shadow: var(--shadow-dark);
 
     border-radius: 10px;
 
     background: #fff;
     overflow: hidden;
 
+    @include respond(tab-port) {
+        grid-template-columns: repeat(1, 1fr);
+        max-width: 50rem;
+        width: 85vw;
+
+        padding: 5rem 0;
+    }
+
     &__illustration {
-        transition: all 0.5s;
+        display: block;
+        margin-left: 5rem;
 
-        height: 32rem;
-        width: 45rem;
-        background-image: url(../../assets/svgs/login.svg);
-        background-size: cover;
-
-        &:hover {
-            transform: scale(1.1);
+        @include respond(tab-port) {
+            display: none;
         }
     }
 }
@@ -75,6 +89,14 @@
         font-size: 3rem;
         text-transform: none;
         padding-bottom: 5.4rem;
+
+        @include respond(tab-land) {
+            background-image: linear-gradient(
+                to bottom right,
+                RGBA(var(--color-main-1)),
+                RGBA(var(--color-main-2))
+            );
+        }
     }
 
     &__label {
@@ -86,30 +108,30 @@
         transition: all 0.3s;
 
         width: 30rem;
-        padding: 1.5rem 2rem;
+        padding: 1.25rem 2rem;
         padding-left: 5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
 
-        background: #e6e6e6;
+        background: white;
 
-        border-radius: 2px;
-        border: none;
         border-bottom: 3px solid transparent;
-        border-radius: 8px;
+        border-radius: 5px;
+        border: 1px solid #8080803d;
 
         font-size: 1.5rem;
         font-family: "Lato", sans-serif;
-        color: RGBA(var(--color-grey-dark));
+        color: RGBA(63, 63, 63);
         font-weight: 600;
 
         &:focus {
             // TODO: Make it better
             // animation: inputEffect 0.3s cubic-bezier(0.27, 0.93, 0.1, 0.89) 1;
             outline: none;
+            box-shadow: none;
             // box-shadow: var(--shadow-dark);
 
             border-bottom: 3px solid RGBA(var(--color-primary-light));
-            animation: inputEffect 0.5s ease-out 1;
+            animation: inputEffect 0.4s ease-in-out 1 forwards;
         }
 
         &:focus ~ span {
@@ -164,7 +186,7 @@
 
     &__signup {
         a {
-            padding-top: 10rem;
+            margin-top: 10rem;
             &::after {
                 content: "\2192";
             }
@@ -179,11 +201,11 @@
         &:link,
         &:visited {
             position: relative;
-            padding: 1.5rem 0;
+            padding: 1.3rem 0;
             // width: 20rem;
             margin-top: 3rem;
             border: none;
-            border-radius: 2.5rem;
+            border-radius: 5px;
 
             display: inline-block;
 
@@ -336,4 +358,20 @@
     }
 
     // animation: loginStatusEffect 1s ease-in 1;
+}
+
+// NOTE: tilted background image
+
+.tilt {
+    transition: all 0.5s;
+
+    height: 32rem;
+    width: 45rem;
+
+    background-image: url(../../assets/svgs/login.svg);
+    background-size: cover;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }

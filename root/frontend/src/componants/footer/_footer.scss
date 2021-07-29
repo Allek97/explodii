@@ -25,23 +25,12 @@
         height: 15rem;
         width: 15rem;
 
-        // background-image: linear-gradient(
-        //     to bottom left,
-        //     RGBA(var(--color-primary-light)) 10%,
-        //     RGBA(var(--color-primary-dark)) 90%
-        // );
         background-color: white;
         mask-image: url("../../assets/img/home/mountain.png");
         mask-size: cover;
     }
 
     &__logo-heading {
-        // background-image: linear-gradient(
-        //     to bottom left,
-        //     RGBA(var(--color-primary-light)),
-        //     RGBA(var(--color-primary-light))
-        // );
-
         margin-top: -2rem;
 
         background-color: white;
@@ -109,6 +98,8 @@
 
             text-decoration: none;
             text-transform: uppercase;
+
+            cursor: pointer;
         }
 
         &:hover,
