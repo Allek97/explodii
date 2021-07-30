@@ -1,4 +1,5 @@
 @import "../../base/_animations.scss";
+@import "../../abstracts/mixins";
 
 @font-face {
     font-family: Manrope;
@@ -6,95 +7,93 @@
 }
 
 .signup {
-    height: 100vh;
-    // background-image: url("../../assets/img/home/signup.png");
     background-size: cover;
 }
 
-// Navigation Bar, styling
+.signup-heading {
+    max-width: 120rem;
+    width: 90vw;
+    margin: 2rem auto 10rem;
 
-.navBar {
-    &--signup {
-        padding: 0 14%;
+    background-image: linear-gradient(
+        to bottom right,
+        RGBA(var(--color-primary-light)),
+        RGBA(var(--color-primary-dark))
+    );
+    background-clip: text;
+    color: transparent;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 4.8rem;
+    font-weight: 700;
+    text-align: center;
+
+    @include respond(tab-port) {
+        max-width: 55rem;
     }
 }
 
-.signup-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.signup-main {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
 
-    padding: 0 28.5rem;
+    max-width: 130rem;
+    width: 92vw;
 
-    &__heading {
-        width: 90%;
-        padding: 2rem;
+    margin: 0 auto 10rem;
 
-        background-image: linear-gradient(
-            to bottom right,
-            RGBA(var(--color-primary-light)),
-            RGBA(var(--color-primary-dark))
-        );
-        background-clip: text;
-        color: transparent;
-
-        font-family: "Manrope", sans-serif;
-        font-size: 4.8rem;
-        font-weight: 700;
-        text-align: center;
-    }
-
-    &__text {
-        width: 70%;
-        padding: 2rem;
-
-        background-image: linear-gradient(
-            to bottom right,
-            RGBA(var(--color-primary-light)),
-            RGBA(var(--color-primary-dark))
-        );
-        background-clip: text;
-        color: transparent;
-
-        font-family: "Manrope", sans-serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        text-align: center;
+    @include respond(tab-port) {
+        display: block;
+        width: 88vw;
     }
 }
 
-.signupBox {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.signup-illustration {
+    grid-area: 1/11/2/-1;
 
-    // width: 50%;
-    padding: 0 14%;
-    margin-top: 7rem;
+    display: block;
 
-    &__illustration {
-        height: 50rem;
-        width: 70rem;
+    width: 100%;
 
-        background-image: url("../../assets/svgs/travellers.svg");
-        background-size: cover;
+    justify-self: center;
+
+    background-image: url("../../assets/svgs/exploring.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @media only screen and (max-width: 64em) {
+        width: 92%;
+        justify-self: end;
+    }
+    @include respond(tab-port) {
+        display: none;
     }
 }
 
 // FORM
 
 .signupForm {
+    grid-area: 1/1/2 / span 9;
+
     position: relative;
+
+    min-width: 49rem;
 
     padding: 4rem;
     padding-top: 3rem;
-    width: min-content;
 
     border-radius: 3rem;
 
     background-color: #ffffff;
 
     box-shadow: 0 2rem 6rem RGBA(0, 0, 0, 0.151);
+
+    @include respond(tab-port) {
+        margin: 0 auto;
+        max-width: 55rem;
+        min-width: 0;
+    }
 
     &__heading {
         background-image: linear-gradient(
@@ -124,6 +123,11 @@
 
         background-image: url("../../assets/svgs/camping.svg");
         background-size: cover;
+
+        @include respond(phone) {
+            height: 12rem;
+            width: 19rem;
+        }
     }
 
     &__name-email {
@@ -131,24 +135,33 @@
         grid-template-areas:
             "name email"
             "input-name input-email";
+        grid-template-columns: 35% 60%;
+        justify-content: space-between;
+
+        @include respond(phone) {
+            grid-template-areas:
+                "name"
+                "input-name"
+                "email"
+                "input-email";
+            grid-template-columns: 100%;
+        }
     }
 
     &__input {
         display: block;
-        transition: all 0.3s;
+        transition: all 0.2s;
 
-        width: 54rem;
-        padding: 1.5rem 2rem;
+        width: 100%;
+        padding: 1.25rem 2rem;
         margin-bottom: 2rem;
 
         // background-color: #eceff1a4;
         background-color: #e5e5e56b;
 
-        border-radius: 2px;
-        border: 1px solid #cbd6e2;
         border: none;
         border-bottom: 3px solid transparent;
-        border-radius: 8px;
+        border-radius: 5px;
 
         font-size: 1.7rem;
         font-family: "Lato", sans-serif;
@@ -172,12 +185,9 @@
         }
 
         &--1 {
-            width: 22rem;
-            margin-right: 2rem;
             grid-area: input-name;
         }
         &--2 {
-            width: 30rem;
             grid-area: input-email;
         }
     }
@@ -189,7 +199,6 @@
 
     &__label {
         position: relative;
-        display: flex;
     }
 
     &__label-text {
@@ -350,10 +359,10 @@
 .signupForm {
     &__btn {
         border: none;
-        padding: 1.8rem 3rem;
+        padding: 1.5rem 2rem;
         width: 20rem;
         margin-top: 3rem;
-        border-radius: 8px;
+        border-radius: 5px;
         font-size: 1.3rem;
         &:focus {
             box-shadow: 1px 1px 32px 0 RGBA(41 99 221 / 50%);

@@ -10,9 +10,9 @@ import "../../base/_animations.scss";
 
 // Components
 import Loading from "../../componants/loading/PageLoading";
-import LoginNavBar from "./LoginNavBar";
+import LoginNavBar from "./otherComponents/LoginNavBar";
 import Footer from "../../componants/footer/Footer";
-import LoginDeco from "./LoginDeco";
+import LoginDeco from "./otherComponents/LoginDeco";
 
 // Animations
 const loginMsgAnimation = {

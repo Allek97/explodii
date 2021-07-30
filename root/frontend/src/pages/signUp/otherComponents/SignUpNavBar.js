@@ -3,20 +3,20 @@ import React from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 
-import MenuBtnOut from "../../componants/menuBtnOut/MenuBtnOut";
-import { LogoText, Btn, Logo } from "../../globalStyles/NavBarStyles";
+import MenuBtnOut from "../../../componants/menuBtnOut/MenuBtnOut";
+import { LogoText, Btn, Logo } from "../../../globalStyles/NavBarStyles";
 
 const Container = styled.div`
     position: relative;
     z-index: 3;
     display: flex;
     align-items: center;
-    max-width: 105rem;
-    width: 90vw;
+    max-width: 130rem;
+    width: 92vw;
     margin: 0 auto;
 
     @media only screen and (max-width: 56.25em) {
-        max-width: 48rem;
+        max-width: 55rem;
         width: 85vw;
     }
 
@@ -49,9 +49,9 @@ export default function NavBar() {
     return (
         <Container>
             <div className="logo-box">
-                <Logo fill={false ? 1 : 0} style={darkStyle} />
+                <Logo fill={true ? 1 : 0} style={darkStyle} />
 
-                <LogoText fill={false ? 1 : 0} style={darkStyle}>
+                <LogoText fill={true ? 1 : 0} style={darkStyle}>
                     explodii
                 </LogoText>
             </div>

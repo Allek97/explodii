@@ -7,6 +7,9 @@ import "../../componants/reusable/_navBar.scss";
 // Components
 import Loading from "../../componants/loading/PageLoading";
 import SmallLoading from "../../componants/loading/SmallLoading";
+import Footer from "../../componants/footer/Footer";
+import SuccessSignUp from "./otherComponents/SuccessSignUp";
+import NavBar from "./otherComponents/SignUpNavBar";
 
 // Stylying and animations
 const signupMsgAnimation = {
@@ -99,78 +102,24 @@ export default function SignUp() {
     return (
         <>
             <Loading />
-            {signupStatus && (
-                <div className="success-signup" style={signupMsgAnimation}>
-                    <div className="success-signup__bg" />
-                    <div style={{ paddingBottom: "4rem" }}>
-                        <h1
-                            style={{
-                                fontSize: "3.5rem",
-                                fontWeight: "bolder",
-                                textAlign: "center",
-                                paddingTop: "5rem",
-                            }}
-                        >
-                            Welcome to Explodii
-                        </h1>
-                        <p
-                            style={{
-                                fontSize: "1.7rem",
-                                fontWeight: "bold",
-                                textAlign: "center",
-                                padding: "2rem",
-                                paddingTop: "1.5rem",
-                            }}
-                        >
-                            Congratulation for taking your first steps towards
-                            experiencing adventures all over the world!
-                        </p>
-                        <p
-                            style={{
-                                fontSize: "1.7rem",
-                                fontWeight: "bold",
-                                textAlign: "center",
-                                padding: "3rem",
-                                paddingTop: "0rem",
-                            }}
-                        >
-                            An email has been sent to you with all the details !
-                        </p>
-                        <a href="/" className="success-signup__btn">
-                            Continue
-                        </a>
-                    </div>
-                </div>
-            )}
-            <div
-                className="signup"
-                style={
-                    signupStatus
-                        ? { filter: "blur(8px)", pointerEvents: "none" }
-                        : null
-                }
-            >
-                {/* <span className="signup__abstract">{}</span> */}
-                <div className="navBar navBar--signup">
-                    <div className="navBar__logo-box">
-                        <div className="navBar__logo">{}</div>
-                        <div className="navBar__logo-text">explodii</div>
-                    </div>
-                    <a href="/" className="navBar__btn">
-                        Homepage
-                    </a>
-                    <a href="/signup" className="navBar__btn">
-                        Our excursions
-                    </a>
-                </div>
-                <div className="signup-info">
-                    <div className="signup-info__heading">
-                        Join us and experience wonderful adventures all over the
-                        world by signing up below
-                    </div>
-                </div>
-
-                <div className="signupBox">
+            {signupStatus && <SuccessSignUp />}
+            <div className="signup">
+                <NavBar />
+                <h1 className="signup-heading">
+                    Join us and experience wonderful adventures all over the
+                    world by signing up below
+                </h1>
+                <article
+                    className="signup-main"
+                    style={
+                        signupStatus
+                            ? {
+                                  filter: "grayscale(100%)",
+                                  pointerEvents: "none",
+                              }
+                            : null
+                    }
+                >
                     <form onSubmit={handleSubmit} className="signupForm">
                         <h2 className="signupForm__heading">Sign Up</h2>
                         <div className="signupForm__illustration">{}</div>
@@ -282,8 +231,10 @@ export default function SignUp() {
                             </div>
                         )}
                     </form>
-                    <div className="signupBox__illustration">{}</div>
-                </div>
+
+                    <div className="signup-illustration">{}</div>
+                </article>
+                <Footer />
             </div>
         </>
     );
