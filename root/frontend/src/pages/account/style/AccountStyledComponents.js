@@ -20,7 +20,7 @@ export const SideNav = styled.ul`
     display: flex;
     flex-direction: column;
 
-    margin-top: 8rem;
+    margin-top: 6rem;
 
     cursor: pointer;
 `;

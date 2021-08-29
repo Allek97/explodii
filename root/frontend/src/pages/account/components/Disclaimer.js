@@ -17,7 +17,6 @@ export const Disclaimer = ({ isBookings, isBookingsEmpty }) => {
         require("../../../assets/img/home/transition.png").default;
 
     function disclaimerContent() {
-        console.log(isBookingsEmpty);
         if (isBookings) {
             if (isBookingsEmpty) {
                 return `It looks like you didn't booked any excursions in our service ! 

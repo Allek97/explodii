@@ -43,7 +43,7 @@ const Container = styled.div`
     z-index: 3;
     display: flex;
     align-items: center;
-    padding-right: 3rem;
+    /* padding-right: 3rem; */
     max-width: 140rem;
     margin: 0 auto;
 

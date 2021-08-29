@@ -25,6 +25,7 @@ import PaymentSuccessBox from "./components/PaymentSuccessBox";
 import AccountSettings from "./AccountSettings";
 import AccountBooking from "./accountBooking/AccountBooking";
 import AccountReview from "./accountReview/AccountReview";
+import Footer from "../../componants/footer/Footer";
 
 // svgs for sideNav
 // TRICK: You can use variables in styled components, add default to img/svgs for it to work
@@ -133,7 +134,7 @@ export default function Account(props) {
                 className="account"
                 style={
                     orderStatus
-                        ? { filter: "blur(2rem)", pointerEvents: "none" }
+                        ? { filter: "grayscale(100%)", pointerEvents: "none" }
                         : null
                 }
             >
@@ -153,6 +154,7 @@ export default function Account(props) {
                         Our excursions
                     </a>
                 </div>
+
                 <div className="dashboard">
                     <nav className="dashboard__view">
                         <div className="profile">
@@ -287,6 +289,7 @@ export default function Account(props) {
                         <AccountReview userId={userId} userName={userName} />
                     )}
                 </div>
+                <Footer />
             </div>
         </>
     );

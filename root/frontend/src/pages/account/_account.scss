@@ -1,7 +1,7 @@
 .account {
     // justify-content: center;
 
-    height: 100vh;
+    height: 100%;
 
     background-image: linear-gradient(
             76deg,
@@ -10,7 +10,7 @@
         ),
         url(https://explodii.s3.us-east-2.amazonaws.com/img/tours/tour-3-cover.jpg);
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    // background-attachment: fixed;
     background-position: center;
     background-size: cover;
 }
@@ -18,17 +18,16 @@
 .dashboard {
     display: flex;
 
-    // height: 80.2rem;
-    // height: 87.5rem;
     height: 80.5rem;
-    // height: 75.5rem;
+
+    // max-width: 150rem;
+    // width: 90vw;
+
     width: 150rem;
-    // width: 173rem;
 
     box-shadow: var(--shadow-dark);
 
-    margin: 0 auto;
-    margin-top: 6rem;
+    margin: 6rem auto 10rem;
     background-color: white;
 
     &__view {
@@ -65,9 +64,6 @@
 // Profile
 .profile {
     position: relative;
-
-    display: grid;
-    flex-direction: column;
 
     cursor: default;
 
@@ -107,9 +103,10 @@
         content: "";
         display: block;
 
-        position: absolute;
-        bottom: -2.5rem;
-        left: 12rem;
+        // position: absolute;
+        // bottom: -2.5rem;
+        // left: 12rem;
+        margin: 1rem auto 0;
 
         height: 2rem;
         width: 2rem;

@@ -67,7 +67,7 @@ export default function NavBar() {
                 </>
             )}
 
-            {isTabPort && <MenuBtnOut page="login" isScrolled />}
+            {isTabPort && <MenuBtnOut page="signup" isScrolled />}
         </Container>
     );
 }

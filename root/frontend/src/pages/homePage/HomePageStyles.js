@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-//TODO: CREATE GLOBAL NAVBAR
+//TODO: CREATE GLOBAL NAVBARb
 export const HeroSection = styled.section`
     /* height: 100%; */
     display: grid;

@@ -100,26 +100,26 @@ export default function SignUp() {
     };
 
     return (
-        <>
+        <div style={{ position: "relative" }}>
             <Loading />
             {signupStatus && <SuccessSignUp />}
-            <div className="signup">
+            <div
+                className="signup"
+                style={
+                    signupStatus
+                        ? {
+                              filter: "blur(8px)",
+                              pointerEvents: "none",
+                          }
+                        : null
+                }
+            >
                 <NavBar />
                 <h1 className="signup-heading">
                     Join us and experience wonderful adventures all over the
                     world by signing up below
                 </h1>
-                <article
-                    className="signup-main"
-                    style={
-                        signupStatus
-                            ? {
-                                  filter: "grayscale(100%)",
-                                  pointerEvents: "none",
-                              }
-                            : null
-                    }
-                >
+                <article className="signup-main">
                     <form onSubmit={handleSubmit} className="signupForm">
                         <h2 className="signupForm__heading">Sign Up</h2>
                         <div className="signupForm__illustration">{}</div>
@@ -182,7 +182,7 @@ export default function SignUp() {
                                 }}
                             />
                             {passwordError !== "" && passwordError && (
-                                <span className="signupForm__error">
+                                <span className="signupForm__error signupForm__error--password">
                                     {passwordError}
                                 </span>
                             )}
@@ -207,7 +207,7 @@ export default function SignUp() {
                             />
                             {passworConfirmError !== "" &&
                                 passworConfirmError && (
-                                    <span className="signupForm__error">
+                                    <span className="signupForm__error signupForm__error--password">
                                         {passworConfirmError}
                                     </span>
                                 )}
@@ -236,6 +236,6 @@ export default function SignUp() {
                 </article>
                 <Footer />
             </div>
-        </>
+        </div>
     );
 }

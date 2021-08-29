@@ -330,6 +330,12 @@
 
     font-size: 5rem;
 
+    @media only screen and (max-width: 29em) {
+        width: 35rem;
+        padding: 0 0rem;
+        text-align: center;
+    }
+
     &::before {
         content: "";
 
@@ -355,6 +361,12 @@
         mask-size: cover;
 
         animation: loginLogoEffect 0.9s cubic-bezier(0.64, 0.01, 1, 0.03) 1;
+
+        @media only screen and (max-width: 29em) {
+            height: 13rem;
+            width: 13rem;
+            left: 11.5rem;
+        }
     }
 
     // animation: loginStatusEffect 1s ease-in 1;

@@ -7,9 +7,9 @@ const Container = styled.div`
     position: relative;
 
     position: absolute;
-    top: 50%;
+    top: 15%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     z-index: 2;
 
     display: flex;
@@ -115,7 +115,7 @@ const SuccessSignUp = () => {
                     experiencing adventures all over the world!
                 </p>
                 <p> An email has been sent to you with all the details !</p>
-                <SuccessBtn>Continue</SuccessBtn>
+                <SuccessBtn href="/">Continue</SuccessBtn>
             </SuccessInfo>
         </Container>
     );

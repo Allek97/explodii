@@ -131,6 +131,8 @@
     }
 
     &__name-email {
+        position: relative;
+
         display: grid;
         grid-template-areas:
             "name email"
@@ -245,16 +247,22 @@
 .signupForm {
     &__error {
         position: relative;
-
         position: absolute;
         bottom: -0.5rem;
         left: 2.5rem;
+
+        width: max-content;
 
         animation: errorHandlingAnimation 0.3s linear 1;
 
         font-size: 1.22rem;
         font-weight: bolder;
         color: #e34850;
+
+        &--password {
+            bottom: -7.5rem !important;
+            left: 2.5rem !important;
+        }
 
         &::before {
             content: "";
@@ -361,7 +369,7 @@
         border: none;
         padding: 1.5rem 2rem;
         width: 20rem;
-        margin-top: 3rem;
+        margin-top: 4rem;
         border-radius: 5px;
         font-size: 1.3rem;
         &:focus {
