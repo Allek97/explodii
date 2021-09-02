@@ -66,6 +66,7 @@ export const StyledReview = styled.div`
         font-size: 1.4rem;
         font-weight: 400;
         color: rgba(var(--color-primary-dark), 0.65);
+        word-break: break-all;
     }
     p:nth-of-type(2) {
         font-size: 1.8rem;

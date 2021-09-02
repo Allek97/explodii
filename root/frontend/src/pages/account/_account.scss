@@ -3,12 +3,19 @@
 
     height: 100%;
 
+    // background-image: linear-gradient(
+    //         76deg,
+    //         RGBA(var(--color-main-1), 0.5),
+    //         RGBA(var(--color-main-2), 0.5)
+    //     ),
+    //     url(https://explodii.s3.us-east-2.amazonaws.com/img/tours/tour-3-cover.jpg);
     background-image: linear-gradient(
-            76deg,
-            RGBA(var(--color-main-1), 0.5),
-            RGBA(var(--color-main-2), 0.5)
-        ),
-        url(https://explodii.s3.us-east-2.amazonaws.com/img/tours/tour-3-cover.jpg);
+        288deg,
+        RGBA(var(--color-main-2)),
+        RGBA(var(--color-primary-dark)) 55%,
+        white 55%
+    );
+
     background-repeat: no-repeat;
     // background-attachment: fixed;
     background-position: center;
@@ -25,7 +32,7 @@
 
     width: 150rem;
 
-    box-shadow: var(--shadow-dark);
+    box-shadow: var(--shadow-light);
 
     margin: 6rem auto 10rem;
     background-color: white;
@@ -128,12 +135,17 @@
 
 .navBar {
     &--account {
-        padding: 0 14%;
+        max-width: 150rem;
+        margin: 0 auto;
     }
     &__logo,
     &__logo-text {
         &--account {
-            background-image: linear-gradient(to bottom right, white, white);
+            background-image: linear-gradient(
+                76deg,
+                RGBA(var(--color-main-1)),
+                RGBA(var(--color-main-1))
+            );
         }
     }
 }
