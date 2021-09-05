@@ -188,6 +188,7 @@ export default function ReviewUpdate(props) {
                                 setReviewSize(e.target.value.length);
                                 setReview(e.target.value);
                             }}
+                            spellCheck="false"
                         />
                     </div>
 

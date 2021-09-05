@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import transitionImg from "../../../assets/img/home/transition.png";
 import warningSvg from "../../../assets/svgs/warning.svg";
@@ -44,7 +45,7 @@ export const ExcursionBg = styled.div`
     background-position: center;
 `;
 
-export const ConfirmationBtn = styled.a`
+export const ConfirmationBtn = styled(Link)`
     &,
     &:link,
     &:visited {

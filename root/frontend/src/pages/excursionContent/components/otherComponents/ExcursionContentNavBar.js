@@ -133,10 +133,10 @@ export default function ExcursionContentNavBar({
                     )}
                 </div>
 
-                {authStatus && !isSmallPhone && <Btn href="/">Homepage</Btn>}
+                {authStatus && !isSmallPhone && <Btn to="/">Homepage</Btn>}
                 {authStatus && isSmallPhone && (
                     <Btn
-                        href="/"
+                        to="/"
                         style={{
                             paddingLeft: "1rem",
                             paddingRight: "1rem",
@@ -165,10 +165,10 @@ export default function ExcursionContentNavBar({
 
                 {!authStatus && !isTabLand && (
                     <>
-                        <Btn href="/">Homepage</Btn>
-                        <Btn href="/excursions">Excursions</Btn>
-                        <Btn href="/login">Log In</Btn>
-                        <Btn href="/signup">Sign Up</Btn>
+                        <Btn to="/">Homepage</Btn>
+                        <Btn to="/excursions">Excursions</Btn>
+                        <Btn to="/login">Log In</Btn>
+                        <Btn to="/signup">Sign Up</Btn>
                     </>
                 )}
 

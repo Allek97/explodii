@@ -47,6 +47,7 @@ export default function reservation() {
                         placeholder="Full name"
                         id="full-name"
                         required
+                        spellCheck="false"
                     />
                     <p className="form__label-text">Full name</p>
                 </label>
@@ -58,6 +59,7 @@ export default function reservation() {
                         placeholder="Email address"
                         id="email-address"
                         required
+                        spellCheck="false"
                     />
                     <p className="form__label-text">Email</p>
                 </label>
@@ -132,6 +134,7 @@ function Search() {
                 disabled={!ready}
                 placeholder="Address"
                 required
+                spellCheck="false"
             />
             <p className="form__label-text">Address</p>
 

@@ -145,7 +145,7 @@ export default function ExcursionBooking(props) {
                     {inProcess ? `Processing...` : `Book Excursion Now →`}
                 </BookingBtn>
             ) : (
-                <BookingBtn href="/login" className="navBar__btn">
+                <BookingBtn to="/login" className="navBar__btn">
                     Log In To Book This Excursion →
                 </BookingBtn>
             )}

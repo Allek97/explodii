@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import travelImg from "../../../assets/img/home/travel-equipment-900x711.jpg";
@@ -57,7 +58,7 @@ const SuccessInfo = styled.div`
     }
 `;
 
-const SuccessBtn = styled.a`
+const SuccessBtn = styled(Link)`
     &,
     &:link,
     &:visited {
@@ -115,7 +116,7 @@ const SuccessSignUp = () => {
                     experiencing adventures all over the world!
                 </p>
                 <p> An email has been sent to you with all the details !</p>
-                <SuccessBtn href="/">Continue</SuccessBtn>
+                <SuccessBtn to="/">Continue</SuccessBtn>
             </SuccessInfo>
         </Container>
     );

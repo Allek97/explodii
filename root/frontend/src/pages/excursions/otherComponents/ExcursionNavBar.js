@@ -87,17 +87,17 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                 )}
             </div>
             {authStatus && isTabLand && !isTabPort && (
-                <BtnLO href="/" onClick={handleLogOut}>
+                <BtnLO to="/" onClick={handleLogOut}>
                     Log Out
                 </BtnLO>
             )}
-            {!isTabPort && <Btn href="/">HomePage</Btn>}
+            {!isTabPort && <Btn to="/">HomePage</Btn>}
 
             {!authStatus && (
                 <>
                     {isTabPort && (
                         <Btn
-                            href="/"
+                            to="/"
                             style={{
                                 paddingLeft: "1rem",
                                 paddingRight: "1rem",
@@ -114,10 +114,10 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                             />
                         </Btn>
                     )}
-                    <Btn style={logSignStyle} href="/login">
+                    <Btn style={logSignStyle} to="/login">
                         Log In
                     </Btn>
-                    <Btn style={logSignStyle} href="/signup">
+                    <Btn style={logSignStyle} to="/signup">
                         Sign Up
                     </Btn>
                 </>
@@ -132,7 +132,7 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                         page="excursion"
                     />
                 ) : (
-                    <ProfileBtn href="/account">
+                    <ProfileBtn to="/account">
                         <img
                             src={userImg(userPhoto)}
                             alt="profile"

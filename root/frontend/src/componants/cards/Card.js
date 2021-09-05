@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // import styled from "styled-components";
 
 import "./_cards.scss";
@@ -123,12 +124,12 @@ export default function PopCards() {
                                     <p className="cardbox__price-only">Only</p>
                                     <p className="cardbox__price-value">{`$${excursion.price}`}</p>
                                 </div>
-                                <a
-                                    href={`/excursions/${excursion.slug}`}
+                                <Link
+                                    to={`/excursions/${excursion.slug}`}
                                     className="cardbox__btn btn btn--explo btn--blue btn--animated"
                                 >
                                     Book now!
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

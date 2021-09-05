@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 // NOTE: Variables/Animations
@@ -248,7 +249,7 @@ export const SuccessSaveDiv = styled.div`
 `;
 
 // NOTE: Section Account Booking
-export const BookBtn = styled.a`
+export const BookBtn = styled(Link)`
     &,
     &:link,
     &:visited {

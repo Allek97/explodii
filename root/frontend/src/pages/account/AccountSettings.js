@@ -44,8 +44,8 @@ export default function AccountSettings(props) {
 
             const body = new FormData();
 
-            const photoFile = document.getElementById("profileForm-photo")
-                .files[0];
+            const photoFile =
+                document.getElementById("profileForm-photo").files[0];
 
             body.append("photo", photoFile);
             body.append("name", newUserName);
@@ -173,6 +173,7 @@ export default function AccountSettings(props) {
                             onChange={(e) => {
                                 setNewUserName(e.target.value);
                             }}
+                            spellCheck="false"
                         />
                     </label>
 
@@ -191,6 +192,7 @@ export default function AccountSettings(props) {
                             onChange={(e) => {
                                 setNewUserEmail(e.target.value);
                             }}
+                            spellCheck="false"
                         />
                         {emailErr !== "" && emailErr && (
                             <span className="profileForm__error">
@@ -244,6 +246,7 @@ export default function AccountSettings(props) {
                             id="profileForm-password"
                             placeholder="••••••••••••"
                             required
+                            spellCheck="false"
                         />
                         {currentPWErr !== "" && currentPWErr && (
                             <span className="profileForm__error">
@@ -263,6 +266,7 @@ export default function AccountSettings(props) {
                             placeholder="8+ Characters, 1 Capital letter, 1 Number"
                             id="profileForm-newPassword"
                             required
+                            spellCheck="false"
                         />
                         {passwordError !== "" && passwordError && (
                             <span className="profileForm__error">
@@ -283,6 +287,7 @@ export default function AccountSettings(props) {
                             id="profileForm-confirm-newPassword"
                             placeholder="••••••••••••"
                             required
+                            spellCheck="false"
                         />
                         {passworConfirmError !== "" && passworConfirmError && (
                             <span className="profileForm__error">

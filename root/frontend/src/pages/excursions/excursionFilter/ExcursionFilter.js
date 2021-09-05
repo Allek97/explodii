@@ -444,7 +444,7 @@ export default function ExcursionFilter(props) {
                     {authStatus && !isTabLand && (
                         <div style={{ padding: "0 2.5rem 2.5rem 2.5rem" }}>
                             <BtnLO
-                                href="/"
+                                to="/"
                                 onClick={handleLogOut}
                                 style={{
                                     backgroundColor:

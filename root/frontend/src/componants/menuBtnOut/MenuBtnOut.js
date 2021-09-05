@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { IoClose } from "react-icons/io5";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import {
     FaTwitterSquare,
@@ -74,7 +75,7 @@ const List = styled.ul`
         `}
 `;
 
-const SideLink = styled.a`
+const SideLink = styled(Link)`
     &,
     &:link,
     &:visited {
@@ -222,19 +223,19 @@ const MenuBtnOut = ({ page, isScrolled }) => {
                     <List isOpen={isOpen}>
                         {page !== "login" && (
                             <li>
-                                <SideLink href="/login">Log In</SideLink>
+                                <SideLink to="/login">Log In</SideLink>
                             </li>
                         )}
                         {page !== "signup" && (
                             <li>
-                                <SideLink href="/signup">Sign Up</SideLink>
+                                <SideLink to="/signup">Sign Up</SideLink>
                             </li>
                         )}
                         <li>
-                            <SideLink href="/">Homepage</SideLink>
+                            <SideLink to="/">Homepage</SideLink>
                         </li>
                         <li>
-                            <SideLink href="/excursions">Excursions</SideLink>
+                            <SideLink to="/excursions">Excursions</SideLink>
                         </li>
                     </List>
 

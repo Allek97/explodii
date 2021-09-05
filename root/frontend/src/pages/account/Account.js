@@ -3,7 +3,7 @@
 /* eslint-disable global-require */
 
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -147,12 +147,12 @@ export default function Account(props) {
                             explodii
                         </div>
                     </div>
-                    <a href="/" className="navBar__btn">
+                    <Link to="/" className="navBar__btn">
                         Homepage
-                    </a>
-                    <a href="/excursions" className="navBar__btn">
+                    </Link>
+                    <Link to="/excursions" className="navBar__btn">
                         Our excursions
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="dashboard">

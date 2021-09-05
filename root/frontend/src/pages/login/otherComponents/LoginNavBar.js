@@ -58,10 +58,10 @@ export default function NavBar() {
 
             {!isTabPort && (
                 <>
-                    <Btn style={logSignStyle} href="/">
+                    <Btn style={logSignStyle} to="/">
                         Homepage
                     </Btn>
-                    <Btn style={logSignStyle} href="/excursions">
+                    <Btn style={logSignStyle} to="/excursions">
                         Our Excursions
                     </Btn>
                 </>

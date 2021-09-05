@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 
 const tourAnimation = keyframes`
@@ -213,7 +214,7 @@ export const WithSvg = styled.span`
     }
 `;
 
-export const DetailBtn = styled.a`
+export const DetailBtn = styled(Link)`
     &,
     &:link,
     &:visited {

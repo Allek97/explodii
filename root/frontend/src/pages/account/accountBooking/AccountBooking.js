@@ -271,7 +271,7 @@ export default function AccountBooking(props) {
                                                 <p className="bookings__price-value">{`$${excursion.price}`}</p>
                                             </div>
                                             <BookBtn
-                                                href={`/excursions/${excursion.slug}`}
+                                                to={`/excursions/${excursion.slug}`}
                                             >
                                                 Book now!
                                             </BookBtn>

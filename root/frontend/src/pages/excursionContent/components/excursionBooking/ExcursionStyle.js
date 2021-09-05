@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export const BookingBox = styled.div`
@@ -20,7 +21,7 @@ export const BookingBox = styled.div`
     margin: 0 auto;
 `;
 
-export const BookingBtn = styled.a`
+export const BookingBtn = styled(Link)`
     margin: 8rem 0 0 0 !important;
     font-size: 2rem !important;
     padding: 1.8rem 4rem !important;

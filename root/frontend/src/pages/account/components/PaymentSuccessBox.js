@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -66,6 +66,8 @@ export default function PaymentSuccessBox(props) {
     const { setOrderStatus, orderExcursion, orderPrice, orderImageCover } =
         props;
 
+    const [isBoxOpen, setIsBoxOpen] = useState(true);
+
     const compressedOrderImageCover = `${
         orderImageCover.split(".")[0]
     }-900x600.jpg`;
@@ -73,58 +75,68 @@ export default function PaymentSuccessBox(props) {
     const excursionImg =
         require(`../../../assets/img/tours/${compressedOrderImageCover}`).default;
     return (
-        <SuccessBox>
-            {/* <img
+        <>
+            {isBoxOpen && (
+                <SuccessBox>
+                    {/* <img
                 src={excursionImg}
                 alt="excursion"
                 style={{ height: "30rem" }}
             /> */}
-            <SuccessSvg svg={CheckSvg} />
+                    <SuccessSvg svg={CheckSvg} />
 
-            <h1
-                style={{
-                    fontSize: "2.5rem",
-                    fontWeight: "bolder",
-                    textAlign: "center",
-                    color: "RGBA(var(--color-green-special))",
-                }}
-            >
-                Booking Successfully Placed
-            </h1>
-            <p
-                style={{
-                    fontSize: "1.7rem",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    paddingTop: "1.5rem",
-                }}
-            >
-                Congratulation ! You booked{" "}
-                <span style={{ color: "#1a5ef3" }}>{orderExcursion}</span>{" "}
-                excursion for the price of {orderPrice}$CA.
-            </p>
-            <p
-                style={{
-                    fontSize: "1.7rem",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    paddingTop: "1.5rem",
-                }}
-            >
-                You can see additional informations about your purchase on the
-                My Bookings section of your account !
-            </p>
+                    <h1
+                        style={{
+                            fontSize: "2.5rem",
+                            fontWeight: "bolder",
+                            textAlign: "center",
+                            color: "RGBA(var(--color-green-special))",
+                        }}
+                    >
+                        Booking Successfully Placed
+                    </h1>
+                    <p
+                        style={{
+                            fontSize: "1.7rem",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            paddingTop: "1.5rem",
+                        }}
+                    >
+                        Congratulation ! You booked{" "}
+                        <span style={{ color: "#1a5ef3" }}>
+                            {orderExcursion}
+                        </span>{" "}
+                        excursion for the price of {orderPrice}$CA.
+                    </p>
+                    <p
+                        style={{
+                            fontSize: "1.7rem",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            paddingTop: "1.5rem",
+                        }}
+                    >
+                        You can see additional informations about your purchase
+                        on the My Bookings section of your account !
+                    </p>
 
-            <ConfirmationBtn
-                href="/account"
-                style={{
-                    fontSize: "1.45rem",
-                    fontWeight: "700",
-                }}
-            >
-                Continue
-            </ConfirmationBtn>
-        </SuccessBox>
+                    <ConfirmationBtn
+                        to="/account"
+                        style={{
+                            fontSize: "1.45rem",
+                            fontWeight: "700",
+                        }}
+                        onClick={() => {
+                            setOrderStatus(false);
+                            setIsBoxOpen(false);
+                        }}
+                    >
+                        Continue
+                    </ConfirmationBtn>
+                </SuccessBox>
+            )}
+        </>
     );
 }
 

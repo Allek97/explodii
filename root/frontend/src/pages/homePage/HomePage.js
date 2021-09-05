@@ -3,6 +3,7 @@
 import React from "react";
 // import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 // Componants
 import PopCards from "../../componants/cards/Card";
@@ -56,9 +57,9 @@ export default function HomePage(props) {
 
                         <RotatingText />
 
-                        <a href="/excursions" className="header__btn">
+                        <Link to="/excursions" className="header__btn">
                             See our excursions
-                        </a>
+                        </Link>
                     </article>
 
                     <HeroSvg className="header__bgimg" />
@@ -199,12 +200,12 @@ export default function HomePage(props) {
                         Our most popular excursions
                     </h2>
                     <PopCards />
-                    <a
-                        href="/excursions"
+                    <Link
+                        to="/excursions"
                         className="excursion-btn btn btn--explo btn--blue btn--animated"
                     >
                         Discover our excursions
-                    </a>
+                    </Link>
                 </section>
 
                 <section className="section-reviews">

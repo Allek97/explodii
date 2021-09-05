@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { FaHiking } from "react-icons/fa";
 
 import useOuterClick from "../utils/UseOuterClick";
@@ -16,7 +17,7 @@ const photoStyle = {
     borderRadius: "18px",
 };
 
-export const ProfileBtn = styled.a`
+export const ProfileBtn = styled(Link)`
     &,
     &:link,
     &:visited {
@@ -109,7 +110,7 @@ export const SideNav = styled.ul`
     cursor: pointer;
 `;
 
-export const SideItem = styled.a`
+export const SideItem = styled(Link)`
     &,
     &:link,
     &:visited {
@@ -231,17 +232,17 @@ export default function MenuBtn({ page, isScrolled, userName, userPhoto }) {
             </ProfileBtn>
             {isMenu && (
                 <SideNav isScrolled={isScrolled}>
-                    <SideItem isScrolled={isScrolled} href="/account">
+                    <SideItem isScrolled={isScrolled} to="/account">
                         <AccountSvg style={SvgStyle} />
                         <SideLink>Account</SideLink>
                     </SideItem>
                     {page === "excursion" ? (
-                        <SideItem isScrolled={isScrolled} href="/">
+                        <SideItem isScrolled={isScrolled} to="/">
                             <HomeSvg style={SvgStyle} />
                             <SideLink>Homepage</SideLink>
                         </SideItem>
                     ) : (
-                        <SideItem isScrolled={isScrolled} href="/excursions">
+                        <SideItem isScrolled={isScrolled} to="/excursions">
                             <FaHiking style={SvgStyle} />
                             <SideLink>Excursions</SideLink>
                         </SideItem>

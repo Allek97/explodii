@@ -1,10 +1,12 @@
 // NOTE: NavBar has global styles cause it will be reused in all pages
 
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import svgLogOut from "../assets/svgs/log-out.svg";
 import logo from "../assets/img/home/mountain.png";
 
-export const ProfileBtn = styled.a`
+export const ProfileBtn = styled(Link)`
     &,
     &:link,
     &:visited {
@@ -74,7 +76,7 @@ export const LogoText = styled.h1`
     color: transparent;
 `;
 
-export const Btn = styled.a`
+export const Btn = styled(Link)`
     &,
     &:link,
     &:visited {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import "./_signUp.scss";
 import "../../componants/reusable/_navBar.scss";
@@ -135,6 +136,7 @@ export default function SignUp() {
                                     type="text"
                                     className="signupForm__input signupForm__input--1"
                                     placeholder="Ilias Allek"
+                                    spellCheck="false"
                                     id="full-name"
                                     required
                                     onChange={(e) => {
@@ -156,6 +158,7 @@ export default function SignUp() {
                                     className="signupForm__input signupForm__input--2"
                                     placeholder="jhon@example.com"
                                     id="email-address"
+                                    spellCheck="false"
                                     required
                                     onChange={(e) => {
                                         setEmail(e.target.value);
@@ -175,6 +178,7 @@ export default function SignUp() {
                                 className="signupForm__input"
                                 placeholder="8+ Characters, 1 Capital letter, 1 Number"
                                 id="password"
+                                spellCheck="false"
                                 required
                                 minLength="8"
                                 onChange={(e) => {
@@ -199,6 +203,7 @@ export default function SignUp() {
                                 type="password"
                                 className="signupForm__input"
                                 placeholder="••••••••••••"
+                                spellCheck="false"
                                 id="confirm-password"
                                 required
                                 onChange={(e) => {
@@ -217,7 +222,7 @@ export default function SignUp() {
                         </button>
                         <div className="signupForm__login">
                             <p>Already have an account?</p>
-                            <a href="/login">Sign In</a>
+                            <Link to="/login">Sign In</Link>
                         </div>
                         {isLoading && (
                             <div

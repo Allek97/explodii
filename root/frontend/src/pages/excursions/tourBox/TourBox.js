@@ -3,6 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useMediaQuery } from "react-responsive";
+import { Link } from "react-router-dom";
 
 import {
     DetailBtn,
@@ -104,14 +105,14 @@ const TourBox = (props) => {
 
                     <p>
                         {shortDescription}...
-                        <a
-                            href={`/excursions/${slug}`}
+                        <Link
+                            to={`/excursions/${slug}`}
                             style={{
                                 color: "rgb(var(--color-blue-special))",
                             }}
                         >
                             More
-                        </a>
+                        </Link>
                     </p>
                 </div>
                 <div className="tourbox-complement">
@@ -136,7 +137,7 @@ const TourBox = (props) => {
                     <span>${roundedPrice}</span>
                     <span>CAD</span>
                 </div>
-                <DetailBtn href={`/excursions/${slug}`}>Details</DetailBtn>
+                <DetailBtn to={`/excursions/${slug}`}>Details</DetailBtn>
             </div>
         </Tour>
     );

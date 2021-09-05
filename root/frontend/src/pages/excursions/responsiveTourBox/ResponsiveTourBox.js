@@ -2,6 +2,7 @@
 /* eslint-disable import/no-dynamic-require */
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import { WithSvg } from "../tourBox/TourBoxStyles";
 
@@ -100,12 +101,12 @@ const ResponsiveTourBox = ({ excursion }) => {
                             2
                         )}CAD`}</p>
                     </div>
-                    <a
-                        href={`/excursions/${slug}`}
+                    <Link
+                        to={`/excursions/${slug}`}
                         className="resp-tourBox__btn"
                     >
                         Datails
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

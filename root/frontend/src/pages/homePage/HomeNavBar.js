@@ -84,17 +84,17 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
 
             {!authStatus && (
                 <>
-                    <Btn style={logSignStyle} href="/login">
+                    <Btn style={logSignStyle} to="/login">
                         Log In
                     </Btn>
-                    <Btn style={logSignStyle} href="/signup">
+                    <Btn style={logSignStyle} to="/signup">
                         Sign Up
                     </Btn>
                 </>
             )}
 
             {authStatus && !isTabPort && (
-                <BtnLO href="/" onClick={handleLogOut}>
+                <BtnLO to="/" onClick={handleLogOut}>
                     Log Out
                 </BtnLO>
             )}
@@ -107,7 +107,7 @@ export default function NavBar({ authStatus, userName, userPhoto }) {
                         userPhoto={userPhoto}
                     />
                 ) : (
-                    <ProfileBtn href="/account">
+                    <ProfileBtn to="/account">
                         <img
                             src={userImg(userPhoto)}
                             alt="profile"
