@@ -70,7 +70,7 @@ export default function HomePage(props) {
 
             <main>
                 <section className="section-about">
-                    <h2 className=" heading-primary heading-about">
+                    <h2 className="heading-primary heading-about">
                         Profound experiences are awaiting you
                         {/* , reconnect with
                         nature */}

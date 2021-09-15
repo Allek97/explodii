@@ -1,14 +1,6 @@
 @import "../../abstracts/variables";
 @import "../../abstracts/mixins";
 
-@font-face {
-    font-family: Merriweather;
-    src: url("../../assets/fonts/Merriweather-Regular.ttf");
-
-    /* other formats include: 'woff2', 'truetype, 'opentype',
-                              'embedded-opentype', and 'svg' */
-}
-
 .reviews-container {
     display: flex;
     align-items: center;
@@ -123,9 +115,8 @@
     &__name {
         margin-bottom: 1.5rem;
 
-        font-family: "Merriweather", serif;
-        font-size: 2rem;
-        font-weight: 600;
+        font-size: 2.2rem;
+
         color: $color-grey-dark-3;
     }
 

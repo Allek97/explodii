@@ -1,3 +1,13 @@
+@font-face {
+    font-family: ManropeBold;
+    src: url("../assets/fonts/Manrope-ExtraBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
 .heading-primary {
     // background-image: linear-gradient(to right, #e0b011, #9e7c0c);
     background-image: linear-gradient(to right, #445eb6, #09084b);
@@ -5,11 +15,11 @@
     color: transparent;
 
     // color: #e0b011;
-    font-family: "Merriweather", serif;
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-family: ManropeBold;
+    font-size: 4rem;
+    // font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 5px;
+    letter-spacing: 1px;
     text-align: center;
 
     transition: all 0.2s;

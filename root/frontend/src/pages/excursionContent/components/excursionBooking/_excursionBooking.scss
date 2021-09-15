@@ -1,11 +1,22 @@
 @import "../../../../abstracts/_mixins";
 
+@font-face {
+    font-family: Poppins;
+    src: url("../../../../assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
 .booking-info {
     width: 70%;
     margin: 2rem 0;
     text-align: center;
     font-size: 1.7rem;
     font-family: Poppins;
+
     color: rgb(41, 43, 46);
 }
 
