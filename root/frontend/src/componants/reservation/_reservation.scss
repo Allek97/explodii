@@ -142,7 +142,11 @@
 
         font-size: 2.7rem !important;
         letter-spacing: 4px !important;
+        text-align: start !important;
 
+        @include respond(tab-port) {
+            text-align: center !important;
+        }
         @include respond(phone) {
             font-size: 2.2rem !important;
         }
