@@ -1,9 +1,12 @@
+// NOTE Link : https://github.com/leemunroe/responsive-html-email-template
+
 const nodemailer = require("nodemailer");
 const expressHbs = require("nodemailer-express-handlebars");
 const fs = require("fs");
 const path = require("path");
 const htmlToText = require("html-to-text");
 const hb = require("handlebars");
+const pug = require("pug");
 // const pug = require("pug");
 
 // require("express-handlebars").create({
@@ -44,57 +47,22 @@ module.exports = class Email {
 
     // Send the actual email
     async send(fileName, content) {
-        // NOTE: Regler ce probleme avec nodemailer-express
-        // eslint-disable-next-line global-require
-        // require("express-handlebars").create({
-        //     layoutsDir: path.join(__dirname, "views/hbs"),
-        //     defaultLayout: "main",
-        // });
-        // transport.use(
-        //     "compile",
-        //     expressHbs({
-        //         viewPath: `views/hbs`,
-        //         extName: ".hbs",
-        //     })
-        // );
-        // transport.use("compile", expressHbs());
-        // const compiledTemplate = hb.compile(templateContent.toString());
-
-        const hbsLink = `views/hbs/${fileName}.hbs`;
-        const source = fs.readFileSync(hbsLink, "utf-8").toString();
-
-        const templateContent = hb.compile(source);
-
-        // On va remplacer les variables dans les hbs files
-        const replacements = {
-            FirstName: this.firstName,
-            CompanyName: "Explodii",
-            Link: `${process.env.CLIENT_URL}/`,
-            ContactEmail: process.env.EMAIL_FROM,
-        };
-
-        const htmlToSend = templateContent(replacements);
+        // 1) Render HTML based on a pug template
+        const html = pug.renderFile(
+            `${__dirname}/../views/email/${fileName}.pug`,
+            {
+                firstName: this.firstName,
+                url: this.url,
+                content,
+            }
+        );
 
         const mailOptions = {
             from: this.from,
             to: this.to,
             subject: content,
-            html: htmlToSend,
-            // text: htmlToText.fromString(templateContent), // NOTE: Only in dev mode
-            attachments: [
-                {
-                    filename: "mountain.png",
-                    path:
-                        "https://explodii.s3.us-east-2.amazonaws.com/mountain.png",
-                    cid: "mountain",
-                },
-                {
-                    filename: "tour-3-2-600x400.jpg",
-                    path:
-                        "https://explodii.s3.us-east-2.amazonaws.com/tour-3-2-600x400.jpg",
-                    cid: "tour-3-2-600x400",
-                },
-            ],
+            html,
+            text: htmlToText.fromString(html),
         };
 
         // transport.use("compile", expressHbs(mailOptions));
@@ -116,3 +84,65 @@ module.exports = class Email {
         );
     }
 };
+
+// BUG : HBS is too heavy and doesn't fit the regulation of most emails
+
+// Send the actual email
+// async send(fileName, content) {
+//     // NOTE: Regler ce probleme avec nodemailer-express
+//     // eslint-disable-next-line global-require
+//     // require("express-handlebars").create({
+//     //     layoutsDir: path.join(__dirname, "views/hbs"),
+//     //     defaultLayout: "main",
+//     // });
+//     // transport.use(
+//     //     "compile",
+//     //     expressHbs({
+//     //         viewPath: `views/hbs`,
+//     //         extName: ".hbs",
+//     //     })
+//     // );
+//     // transport.use("compile", expressHbs());
+//     // const compiledTemplate = hb.compile(templateContent.toString());
+
+//     const hbsLink = `views/hbs/${fileName}.hbs`;
+//     const source = fs.readFileSync(hbsLink, "utf-8").toString();
+
+//     const templateContent = hb.compile(source);
+
+//     // On va remplacer les variables dans les hbs files
+//     const replacements = {
+//         FirstName: this.firstName,
+//         CompanyName: "Explodii",
+//         Link: `${process.env.CLIENT_URL}/`,
+//         ContactEmail: process.env.EMAIL_FROM,
+//     };
+
+//     const htmlToSend = templateContent(replacements);
+
+//     const mailOptions = {
+//         from: this.from,
+//         to: this.to,
+//         subject: content,
+//         html: htmlToSend,
+//         // text: htmlToText.fromString(templateContent), // NOTE: Only in dev mode
+//         attachments: [
+//             {
+//                 filename: "mountain.png",
+//                 path:
+//                     "https://explodii.s3.us-east-2.amazonaws.com/mountain.png",
+//                 cid: "mountain",
+//             },
+//             {
+//                 filename: "tour-3-2-600x400.jpg",
+//                 path:
+//                     "https://explodii.s3.us-east-2.amazonaws.com/tour-3-2-600x400.jpg",
+//                 cid: "tour-3-2-600x400",
+//             },
+//         ],
+//     };
+
+//     // transport.use("compile", expressHbs(mailOptions));
+
+//     await this.transport().sendMail(mailOptions);
+// }

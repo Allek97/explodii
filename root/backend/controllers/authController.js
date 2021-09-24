@@ -51,7 +51,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     // TODO: Change it in production
 
     // const url = `${req.protocol}://${req.get("host")}/me`;
-    const url = `${req.protocol}://${req.get("host")}`;
+    const url = `${process.env.CLIENT_URL}/account`;
 
     await new Email(newUser, url).sendRegistration();
 
@@ -265,10 +265,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     // 3) Send it to user's email
     try {
-        const resetURL = `${req.protocol}://${req.get(
-            "host"
-        )}/api/v1/users/resetPassword/${resetToken}`;
-        await new Email(user, resetURL).sendPasswordReset();
+        const resetURL = `${process.env.CLIENT_URL}/resetPassword/${resetToken}`;
+        await new Email(user, resetURL).sendPasswordResetRequest();
 
         res.status(200).json({
             status: "success",
