@@ -4,7 +4,7 @@
 </p>
 <h3 align="center">Explodii</h3> 
 <div align="center" >
-    <a href="https://stockersa.netlify.app" rel="noopener" align="center"> https://explodii.netlify.app
+    <a href="https://explodii.netlify.app" rel="noopener" align="center"> https://explodii.netlify.app
     
 </div>
 <br>
@@ -52,7 +52,8 @@ Finally, explodii is a responsive app. Some components are uniquely designed acc
 -   [AWS S3](https://www.netlify.com/) - I used AWS S3 to store images.
 -   [JSON Web Tokens](https://www.netlify.com/) - I secured this application using JSON Web Tokens.
 -   [AWS S3](https://www.netlify.com/) - I used Postman to test the RESTful API I built.
--   [Heroku](https://www.heroku.com/) - I deployed the react app on the Netlify cloud and the server on Heroku.
+-   [Netlify](https://www.netlify.com/) - I deployed the react app on the Netlify cloud.
+-   [Heroku](https://www.heroku.com/) - I deployed the backend server on Heroku.
 
 ## 🧐 For more details <a name = "tech_stack"></a>
 
