@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://explodii.netlify.app/" rel="noopener" target="_blank">
- <img src="https://personal-website-me.s3.amazonaws.com/explodii-responsive.png" alt="Project thumbnail"></a>
+ <img src="https://personal-website-me.s3.amazonaws.com/explodii-responsive-resized.png" alt="Project thumbnail"></a>
 </p>
 <h3 align="center">Explodii</h3> 
 <div align="center" >
