@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://stockersa.netlify.app/" rel="noopener" target="_blank">
+  <a href="https://explodii.netlify.app/" rel="noopener" target="_blank">
  <img src="https://personal-website-me.s3.amazonaws.com/explodii-responsive.png" alt="Project thumbnail"></a>
 </p>
-<h3 align="center">Explodii</h3>
+<h3 align="center">Explodii</h3> 
 <div align="center" >
-    <a href="https://stockersa.netlify.app" rel="noopener" align="center"> https://stockersa.netlify.app
+    <a href="https://stockersa.netlify.app" rel="noopener" align="center"> https://explodii.netlify.app
     
 </div>
 <br>
@@ -31,13 +31,14 @@ For the purposes of this app I did build a Stateless RESTful API that handles fo
 
 The features in Explodii :
 
-Explodii offers multiple excursions with unique theme for all budgets. The user can sort and filter them according to her/his preferences.
-The user can book the excursion of his choice, the payments will be handled using Stripe.
-Users can create their own account using an email and a password, the passwords are crypted with bcrypt before they are stored in the DB.
-When the user successfully logs in, a json web token with an expiration is issued for him to access protected routes. It's stored in a cookie.
-Users can update their account information (name, email, password, profile picture).
-Users have access to their bookings in the account section.
-Users can write reviews about their experiences with their excursion(s). They can modify and delete reviews as they see fit.
+-   Explodii offers multiple excursions with unique theme for all budgets. The user can sort and filter them according to her/his preferences.
+-   The user can book the excursion of his choice, the payments will be handled using Stripe.
+-   Users can create their own account using an email and a password, the passwords are crypted with bcrypt before they are stored in the DB.
+-   When the user successfully logs in, a json web token with an expiration is issued for him to access protected routes. It's stored in a cookie.
+-   Users can update their account information (name, email, password, profile picture).
+-   Users have access to their bookings in the account section.
+-   Users can write reviews about their experiences with their excursion(s). They can modify and delete reviews as they see fit.
+
 For each excursion you can track all the locations you will visit in a map built using google map API.
 
 Finally, explodii is a responsive app. Some components are uniquely designed according to the device screen size, please try the app on all devices.
